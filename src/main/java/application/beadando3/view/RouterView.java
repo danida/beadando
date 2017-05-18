@@ -1,8 +1,9 @@
 package application.beadando3.view;
 
 import application.beadando3.Main;
+import application.beadando3.DAO.RouterModelDAO;
 import application.beadando3.model.RouterModel;
-import application.beadando3.model.RouterModelDAO;
+import application.beadando3.services.implementations.RouterModelServiceImplementation;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -84,7 +85,6 @@ public class RouterView {
     @FXML
     private void initialize() {
     	RouterModelDAO rm = new RouterModelDAO();
-    	rm.init();
     	routerTable.setItems(FXCollections.observableList(rm.findAll()));
         name.setCellValueFactory(cellData -> cellData.getValue().getRouterNameProperty());
         man_ip.setCellValueFactory(cellData -> cellData.getValue().getMan_IPProperty());
@@ -96,7 +96,6 @@ public class RouterView {
     @FXML
     private void handleDeleteRouter() {
     	RouterModelDAO rm = new RouterModelDAO();
-    	rm.init();
         int selectedIndex = routerTable.getSelectionModel().getSelectedIndex();
         RouterModel routermodel= routerTable.getItems().get(selectedIndex);
     	rm.remove(routermodel);
@@ -108,9 +107,9 @@ public class RouterView {
     	RouterModel tempRouter = new RouterModel(null, "routerName", "routerPlatform", "routerSerial", "2016-07-02 23:12:11.1","ConfiguredBy", "confReg", "iOS", "man_IP", "bootstrap");
             boolean okClicked = mainApp.showRouterNewDialog(tempRouter);
             if ( routerName.getText()!= null && routerPlatform.getText() != null && routerSerial.getText() != null) {
-            	RouterModelDAO rm = new RouterModelDAO();
-            	rm.create(tempRouter);
-            	routerTable.setItems(FXCollections.observableList(rm.findAll()));
+            	RouterModelServiceImplementation rm = new RouterModelServiceImplementation();
+            	rm.save(tempRouter);
+            	routerTable.setItems(FXCollections.observableList(rm.getAll()));
             }
 
         

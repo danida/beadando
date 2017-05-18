@@ -3,6 +3,7 @@ package application.beadando3;
 
 import java.io.IOException;
 
+import application.beadando3.model.DatabaseConnection;
 import application.beadando3.model.RouterModel;
 import application.beadando3.view.DashboardView;
 import application.beadando3.view.InterfacesView;
@@ -38,6 +39,12 @@ import javafx.stage.Stage;
 	        this.primaryStage.setTitle("Beadando");
 	        initRootLayout();
 	    }
+		@Override
+		public void stop(){
+			DatabaseConnection dc = new DatabaseConnection();
+			dc.closeConnection();
+			
+		}
 
 	    /**
 	     * Initializes the root layout.
@@ -84,12 +91,10 @@ import javafx.stage.Stage;
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);
 
-	            // Set the person into the controller.
 	            RouterEditDialogView controller = loader.getController();
 	            controller.setDialogStage(dialogStage);
 	            controller.setRouter(router);
 
-	            // Show the dialog and wait until the user closes it
 	            dialogStage.showAndWait();
 
 	            return controller.isOkClicked();
@@ -139,7 +144,7 @@ import javafx.stage.Stage;
 	            dialogStage.setScene(scene);
 
 	            searchResultView controller = loader.getController();
-	            //controller.setDialogStage(dialogStage);
+	            controller.setDialogStage(dialogStage);
 
 	            // Show the dialog and wait until the user closes it
 	            dialogStage.showAndWait();
@@ -156,20 +161,17 @@ import javafx.stage.Stage;
 	            loader.setLocation(Main.class.getResource("/view/interfaces.fxml"));
 	            AnchorPane page = (AnchorPane) loader.load();
 
-	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
-	            dialogStage.setTitle("Add/Edit Router");
+	            dialogStage.setTitle("Interfaces of Router");
 	            dialogStage.initModality(Modality.WINDOW_MODAL);
 	            dialogStage.initOwner(primaryStage);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);
 
-	            // Set the person into the controller.
 	            InterfacesView controller = loader.getController();
 	            controller.setDialogStage(dialogStage);
 	            controller.setRouter(selectedRouter);
-
-	            // Show the dialog and wait until the user closes it
+	            controller.setData();
 	            dialogStage.showAndWait();
 
 	            return controller.isOkClicked();

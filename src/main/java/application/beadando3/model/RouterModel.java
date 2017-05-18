@@ -26,7 +26,8 @@ import javafx.beans.property.StringProperty;
 	@NamedQuery(name = "RouterModel.findAll", query = "SELECT r FROM RouterModel r"),
 	@NamedQuery(name = "RouterModel.count", query = "SELECT count(r.id) FROM RouterModel r"),
 	@NamedQuery(name = "RouterModel.platforms", query = "Select distinct (r.Platform) FROM RouterModel r"),
-	@NamedQuery(name = "RouterModel.routersnumberByPlatform", query = "select count(r.id) from RouterModel r where r.Platform = :platform")
+	@NamedQuery(name = "RouterModel.routersnumberByPlatform", query = "select count(r.id) from RouterModel r where r.Platform = :platform"),
+	@NamedQuery(name = "RouterModel.getRouterModelbyId", query = "SELECT r FROM RouterModel r where id = :id")
 })
 	
 	

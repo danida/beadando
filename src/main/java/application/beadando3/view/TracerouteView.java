@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import application.beadando3.DAO.TracerouteModelDAO;
 import application.beadando3.model.TracerouteModel;
-import application.beadando3.model.TracerouteModelDAO;
 import helper.Traceroute;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -75,14 +75,12 @@ public class TracerouteView {
 	@FXML
 	public void handleSaving(){
 		TracerouteModelDAO trd = new TracerouteModelDAO();
-		trd.init();
 		TracerouteModel trm = new TracerouteModel();
 		trm.setId(null);
 		trm.setExecution_date("2017-12-01");
 		trm.setOutput(output.getText());
 		trm.setDestination(destinationIP.getText());
 		trd.create(trm);
-		trd.closeEm();
 		
 	}
 

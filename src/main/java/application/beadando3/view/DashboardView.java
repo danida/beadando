@@ -4,8 +4,9 @@ package application.beadando3.view;
 import java.awt.List;
 
 import application.beadando3.Main;
+import application.beadando3.services.implementations.RouterModelServiceImplementation;
 import application.beadando3.model.RouterModel;
-import application.beadando3.model.RouterModelDAO;
+import application.beadando3.services.implementations.RouterModelServiceImplementation;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -73,7 +74,7 @@ public class DashboardView {
 
 	@FXML
 	public void initialize(){
-		RouterModelDAO dm = new RouterModelDAO();
+		RouterModelServiceImplementation dm = new RouterModelServiceImplementation();
 		sum.setText(dm.count());
 		platforms.addAll(dm.getPlatforms());
 		xAxis.setCategories(platforms);
@@ -90,10 +91,10 @@ public class DashboardView {
 	}
 	 public void setRouterData(ObservableList<String> platforms) {
 	        String[] platformCounter = new String[platforms.size()];
-			RouterModelDAO dm = new RouterModelDAO();
+			RouterModelServiceImplementation dm = new RouterModelServiceImplementation();
 			int i = 0;
 	        for (String s:platforms){
-	        	platformCounter[i++] =dm.getnumberByPlatform(s);
+	        	platformCounter[i++] =dm.getNumberbyPlatform(s);
 	        	
 	        }
 

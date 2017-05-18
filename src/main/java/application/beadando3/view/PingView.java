@@ -4,11 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import application.beadando3.services.implementations.PingModelServiceImplementation;
+import application.beadando3.DAO.RouterModelDAO;
+import application.beadando3.DAO.TracerouteModelDAO;
 import application.beadando3.model.PingModel;
-import application.beadando3.model.PingModelDAO;
-import application.beadando3.model.RouterModelDAO;
 import application.beadando3.model.TracerouteModel;
-import application.beadando3.model.TracerouteModelDAO;
 import helper.Ping;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -27,8 +27,7 @@ public class PingView  {
 	@FXML
 	void initialize() {
 		ping = new Ping();
-		PingModelDAO pm = new PingModelDAO();
-    	pm.init();
+		PingModelServiceImplementation pm = new PingModelServiceImplementation();
 		output.setText("");
 	}
 
@@ -62,13 +61,13 @@ public class PingView  {
 	}
 	@FXML
 	public void handleSaving(){
-		PingModelDAO pd = new PingModelDAO();
+		PingModelServiceImplementation pd = new PingModelServiceImplementation();
 		PingModel pm = new PingModel();
 		pm.setDestination(destinationIP.getText());
 		pm.setOutput(output.getText());
 		pm.setId(null);
 		pm.setExecution_date("2017-07-12 23:12:11.1");
-		pd.create(pm);
+		pd.save(pm);
 		
 	}
 	

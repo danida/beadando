@@ -1,7 +1,7 @@
 package application.beadando3.view;
 
+import application.beadando3.DAO.RouterModelDAO;
 import application.beadando3.model.RouterModel;
-import application.beadando3.model.RouterModelDAO;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;

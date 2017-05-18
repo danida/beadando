@@ -17,7 +17,8 @@ import javafx.beans.property.SimpleStringProperty;
 @NamedQueries({
 	@NamedQuery(name = "InterfacesModel.findAll", query = "Select i from InterfacesModel i"),
 	@NamedQuery(name = "InterfacesModel.count", query = "Select count(i.id) From InterfacesModel i"),
-	@NamedQuery(name = "InterfacesModel.getByRouterId", query = "Select i from InterfacesModel i  where i.router_id= :router_id")
+	@NamedQuery(name = "InterfacesModel.getByRouterId", query = "Select i from InterfacesModel i  where i.router_id= :router_id"),
+	@NamedQuery(name = "InterfacesModel.getInterfacesbyId", query = "Select i from InterfacesModel i where i.id = :interfaces_id")
 })
 
 

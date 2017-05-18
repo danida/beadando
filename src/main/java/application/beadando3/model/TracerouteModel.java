@@ -9,12 +9,18 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @javax.persistence.Entity
-@Table(name="ping")
-
+@Table(name="traceroute")
+@NamedQueries({
+	@NamedQuery (name  = "TracerouteModel.getbyId", query="select t from TracerouteModel t where id = :id" ),
+	@NamedQuery (name  = "TracerouteModel.findAll", query="select t from TracerouteModel t" ),
+	@NamedQuery (name  ="TracerouteModel.count", query="select count(t.id) from TracerouteModel t" )
+})
 public class TracerouteModel {
 	@javax.persistence.Id
 	@GeneratedValue

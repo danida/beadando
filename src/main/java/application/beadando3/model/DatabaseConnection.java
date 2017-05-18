@@ -1,40 +1,32 @@
 package application.beadando3.model;
 
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class DatabaseConnection {
 
-	 private static DatabaseConnection manager = new DatabaseConnection();
-	 
-	  private static Connection singleConnection;
+	private final String PUN = "Router";
+	private static EntityManagerFactory emf;
+	private static DatabaseConnection instance = new DatabaseConnection();
+	public DatabaseConnection() {
+	}
+	public static DatabaseConnection getInstance() {
+		return instance;
+	};
+	public EntityManagerFactory getEmf() {
+		if (emf == null){
+			emf = Persistence.createEntityManagerFactory(PUN);
+			System.out.println("fut");
+		}
+		return emf;
+	}
 	
-	  
-	  private DatabaseConnection() {
-	      
-	            singleConnection = createConnection();
-	            
-	        
-	      
-	    }
-	  private Connection createConnection() {
-	        Connection Conn = null;
-	      
-	        try {
-	            Conn = DriverManager.getConnection("jdbc:oracle:thin:system/asdQWE123@localhost:1521:XE");
-	        }
-	        catch (SQLException e) {
-	        	e.printStackTrace();
-	        }
-	        return Conn;
-	    }
-	    public static Connection getConnection() {
-	        return manager.createConnection();
-	    }
-
-	    public static Connection singleConnection() {
-	        return singleConnection;
-	    }
+	public void closeConnection(){
+		if (emf.isOpen()){emf.close();}
+	}
+	
+	
+	
+	
+	
 }

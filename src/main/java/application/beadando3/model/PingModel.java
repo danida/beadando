@@ -4,6 +4,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -14,6 +16,11 @@ import java.util.Date;
 
 @javax.persistence.Entity
 @Table(name="ping")
+@NamedQueries({
+		@NamedQuery (name  = "PingModel.getbyId", query="select p from PingModel p where id = :id" ),
+		@NamedQuery (name  = "PingModel.findAll", query="select p from PingModel p" ),
+		@NamedQuery (name  ="PingModel.count", query="select count(p.id) from PingModel p" )
+})
 public class PingModel {
 	@javax.persistence.Id
 	@GeneratedValue
