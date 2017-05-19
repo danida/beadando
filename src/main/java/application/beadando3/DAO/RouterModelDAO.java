@@ -28,6 +28,15 @@ public class RouterModelDAO implements DAOInterface<RouterModel> {
 
 	private EntityManagerFactory emf = DatabaseConnection.getInstance().getEmf();
 
+	
+	public EntityManagerFactory getEmf() {
+		return emf;
+	}
+
+	public void setEmf(EntityManagerFactory emf) {
+		this.emf = emf;
+	}
+
 	public RouterModelDAO() {
 
 	}
@@ -73,7 +82,6 @@ public class RouterModelDAO implements DAOInterface<RouterModel> {
 	}
 
 	@Override
-	@Transactional
 	public void edit(RouterModel e) {
 		entityManager = emf.createEntityManager();
 

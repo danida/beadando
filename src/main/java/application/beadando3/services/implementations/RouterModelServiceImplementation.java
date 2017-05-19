@@ -8,16 +8,20 @@ import application.beadando3.DAO.RouterModelDAO;
 import application.beadando3.model.RouterModel;
 
 public class RouterModelServiceImplementation implements ServicesInterface<RouterModel> {
-	RouterModelDAO dao = new RouterModelDAO();
+	private RouterModelDAO dao = new RouterModelDAO();
 
 	@Override
 	public void save(RouterModel e) {
 		if (validateRouterModel(e)){
 			dao.create(e);
 		}
+		
+		else if (checkDuplicatesRouterModel(e)){
+			throw new IllegalArgumentException("Ez az interface már létezik!");
+		}
 		else {
 			throw new IllegalArgumentException("Valamelyik mező üres!");
-		}		
+		}
 	}
 
 	@Override
@@ -25,9 +29,7 @@ public class RouterModelServiceImplementation implements ServicesInterface<Route
 		if (!validateRouterModel(e)){
 			throw new IllegalArgumentException("Valamelyik mező üres!");			
 		}
-		else if (checkDuplicatesRouterModel(e)){
-			throw new IllegalArgumentException("Ez az interface már létezik!");
-		}
+		
 		else {
 			dao.edit(e);
 		}		
@@ -82,5 +84,14 @@ public class RouterModelServiceImplementation implements ServicesInterface<Route
 		
 		return valid;
 	}
+
+	public RouterModelDAO getDao() {
+		return dao;
+	}
+
+	public void setDao(RouterModelDAO dao) {
+		this.dao = dao;
+	}
+	
 
 }

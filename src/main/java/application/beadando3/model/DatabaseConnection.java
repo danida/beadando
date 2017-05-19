@@ -16,7 +16,6 @@ public class DatabaseConnection {
 	public EntityManagerFactory getEmf() {
 		if (emf == null){
 			emf = Persistence.createEntityManagerFactory(PUN);
-			System.out.println("fut");
 		}
 		return emf;
 	}
