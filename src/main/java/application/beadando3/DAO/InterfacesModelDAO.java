@@ -1,17 +1,9 @@
 package application.beadando3.DAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 
 import Interfaces.DAOInterface;
 import application.beadando3.model.DatabaseConnection;

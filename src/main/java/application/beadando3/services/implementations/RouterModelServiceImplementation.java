@@ -17,7 +17,7 @@ public class RouterModelServiceImplementation implements ServicesInterface<Route
 		}
 		
 		else if (checkDuplicatesRouterModel(e)){
-			throw new IllegalArgumentException("Ez az interface már létezik!");
+			throw new IllegalArgumentException("Ez a router már létezik!");
 		}
 		else {
 			throw new IllegalArgumentException("Valamelyik mező üres!");
@@ -29,6 +29,9 @@ public class RouterModelServiceImplementation implements ServicesInterface<Route
 		if (!validateRouterModel(e)){
 			throw new IllegalArgumentException("Valamelyik mező üres!");			
 		}
+		else if (!checkDuplicatesRouterModel(e)){
+			throw new IllegalArgumentException("Ez a router nem létezik!");
+		}
 		
 		else {
 			dao.edit(e);
@@ -38,7 +41,7 @@ public class RouterModelServiceImplementation implements ServicesInterface<Route
 	@Override
 	public void delete(RouterModel e) {
 		if (!checkDuplicatesRouterModel(e)){
-			throw new IllegalArgumentException("Ez az interface nem létezik!");
+			throw new IllegalArgumentException("Ez a router nem létezik!");
 		}
 		else{
 			dao.remove(e);
