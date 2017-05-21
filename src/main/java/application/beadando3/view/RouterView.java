@@ -1,5 +1,7 @@
 package application.beadando3.view;
 
+import java.time.LocalDateTime;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +61,7 @@ public class RouterView {
         	routerPlatform.setText(router.getPlatform());
         	routerSerial.setText(router.getSerial_number());
         	configuredBy.setText(router.getWho_Configured());
-        	configured.setText(router.getWhen_configured().toLocaleString());
+        	configured.setText(router.getWhen_configured().toString());
         	confReg.setText(router.getConfig_register());
         	IOS.setText(router.getIOS());
         	man_IP.setText(router.getMan_IP());
@@ -120,7 +122,7 @@ public class RouterView {
 
     @FXML
     private void handleNewRouter() {
-    	RouterModel tempRouter = new RouterModel(null, "routerName", "routerPlatform", "routerSerial", "2016-07-02 23:12:11.1","ConfiguredBy", "confReg", "iOS", "man_IP", "bootstrap");
+    	RouterModel tempRouter = new RouterModel(null, "routerName", "routerPlatform", "routerSerial",  LocalDateTime.of(2016, 12, 22, 11, 10),"ConfiguredBy", "confReg", "iOS", "man_IP", "bootstrap");
             boolean okClicked = mainApp.showRouterNewDialog(tempRouter);
             if ( routerName.getText()!= null && routerPlatform.getText() != null && routerSerial.getText() != null) {
             	RouterModelServiceImplementation rm = new RouterModelServiceImplementation();

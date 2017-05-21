@@ -1,5 +1,7 @@
 package application.beadando3.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -11,35 +13,26 @@ import javax.persistence.Table;
 
 import javafx.beans.property.SimpleStringProperty;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 @javax.persistence.Entity
-@Table(name="ping")
-@NamedQueries({
-		@NamedQuery (name  = "PingModel.getbyid", query="select p from PingModel p where id = :id" ),
-		@NamedQuery (name  = "PingModel.findAll", query="select p from PingModel p" ),
-		@NamedQuery (name  ="PingModel.count", query="select count(p.id) from PingModel p" )
-})
+@Table(name = "ping")
+@NamedQueries({ @NamedQuery(name = "PingModel.getbyid", query = "select p from PingModel p where id = :id"),
+		@NamedQuery(name = "PingModel.findAll", query = "select p from PingModel p"),
+		@NamedQuery(name = "PingModel.count", query = "select count(p.id) from PingModel p") })
 public class PingModel {
 	@javax.persistence.Id
-	@GeneratedValue
-	(strategy=GenerationType.AUTO, generator="ping_seq_gen") 
-	@SequenceGenerator(name="ping_seq_gen", sequenceName="ping_SEQ")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "ping_seq_gen")
+	@SequenceGenerator(name = "ping_seq_gen", sequenceName = "ping_SEQ")
 
 	private Integer id;
-	private Date execution_date;
+	private LocalDateTime execution_date;
 	private String output;
 	private String destination;
-	
+
 	@Column
 	@Basic
 	public Integer getId() {
 		return id;
 	}
-
 
 	public void setId(Integer id) {
 		this.id = id;
@@ -47,29 +40,16 @@ public class PingModel {
 
 	@Column
 	@Basic
-	public Date getExecution_date() {
+	public LocalDateTime getExecution_date() {
 		return execution_date;
 	}
 
+	public void setExecution_date(LocalDateTime now) {
 
-	public void setExecution_date(String execution_date) {
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S");
-	    Date date;
-		try {
-			date = format.parse(execution_date);
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-	    try {
-			date = format.parse(execution_date);
-			this.execution_date = new java.sql.Date(date.getTime());
+		this.execution_date = now;
 
-			} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	}
+	}
 
-	
 	@Column
 	@Basic
 
@@ -77,58 +57,38 @@ public class PingModel {
 		return destination;
 	}
 
-
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
+
 	@Column
 	@Basic
 	public String getOutput() {
 		return output;
 	}
 
-
 	public void setOutput(String output) {
 		this.output = output;
 	}
 
 	public PingModel() {
-	
+
 	}
 
-
-	public PingModel(Integer id, String execution_date, String output, String destination) {
+	public PingModel(Integer id, LocalDateTime execution_date, String output, String destination) {
 		super();
 		this.id = id;
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S");
-	    Date date;
-		try {
-			date = format.parse(execution_date);
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-	    try {
-			date = format.parse(execution_date);
-			this.execution_date = new java.sql.Date(date.getTime());
-
-			} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.execution_date = execution_date;
 		this.output = output;
 		this.destination = destination;
 	}
-	public SimpleStringProperty getDestinationProperty(){
+
+	public SimpleStringProperty getDestinationProperty() {
 		return new SimpleStringProperty(this.destination);
-}
+	}
 
-	
-	public SimpleStringProperty getExecution_DateProperty(){
+	public SimpleStringProperty getExecution_DateProperty() {
 		return new SimpleStringProperty(execution_date.toString());
-}
-	
-	
+	}
 
-
-	
 }

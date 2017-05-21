@@ -70,6 +70,29 @@ public class Traceroute implements Runnable {
 				e.printStackTrace();
 			}
 		}
+		else if (OSname.indexOf("nix") >= 0 || OSname.indexOf("nux") >= 0 || OSname.indexOf("aix") > 0 ){
+			String command = "traceroute " + destinationIP;
+
+			try {
+				Process p = Runtime.getRuntime().exec(command);
+				p.getOutputStream();
+				BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+				String line;
+				while ((line = r.readLine()) != null) {
+						o += line + "\n";
+						this.tracerouteview.setOutput(o);
+						Thread.sleep(1000);
+
+
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 	}
 
 }

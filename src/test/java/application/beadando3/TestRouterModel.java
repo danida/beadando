@@ -5,6 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,9 +34,9 @@ public class TestRouterModel {
 	@Before
 	public void setUp() {
 		service = new RouterModelServiceImplementation();
-		router1 = new RouterModel(1, "R10", "1841", "FCZ123456", "2017-09-12 23:12:11.0", "danida", "0x2142",
+		router1 = new RouterModel(1, "R10", "1841", "FCZ123456", LocalDateTime.now(), "danida", "0x2142",
 				"blabla.bin", "10.10.10.1", "12.2.32.");
-		router2 = new RouterModel(null, "R20", "1941", "FCZ123453", "2017-09-12 22:11:11.0", "danida", "0x2142",
+		router2 = new RouterModel(null, "R20", "1941", "FCZ123453", LocalDateTime.now(), "danida", "0x2142",
 				"blabla.bin", "10.10.10.2", "12.2.32.");
 		service.setDao(dao);
 

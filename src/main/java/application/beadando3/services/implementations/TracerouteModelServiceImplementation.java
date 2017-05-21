@@ -1,14 +1,14 @@
 package application.beadando3.services.implementations;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import Interfaces.ServicesInterface;
-import application.beadando3.Main;
 import application.beadando3.DAO.TracerouteModelDAO;
-import application.beadando3.model.PingModel;
 import application.beadando3.model.TracerouteModel;
 
 public class TracerouteModelServiceImplementation implements ServicesInterface<TracerouteModel> {
@@ -17,6 +17,7 @@ public class TracerouteModelServiceImplementation implements ServicesInterface<T
 
 	@Override
 		public void save(TracerouteModel e) {
+		
 			if (validateTracerouteModel(e)){
 				logger.info("Saving traceroutemodel");
 				dao.create(e);

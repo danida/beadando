@@ -1,9 +1,6 @@
 package application.beadando3.model;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -32,13 +29,13 @@ public class TracerouteModel {
 	
 	
 	private Integer id;
-	private Date execution_date;
+	private LocalDateTime execution_date;
 	private String output;
 	private String destination;
 	
 	
 	
-	public TracerouteModel(Date execution_date, String output, String destination) {
+	public TracerouteModel(LocalDateTime execution_date, String output, String destination) {
 		super();
 		this.execution_date = execution_date;
 		this.output = output;
@@ -60,27 +57,17 @@ public class TracerouteModel {
 
 	@Column
 	@Basic
-	public Date getExecution_date() {
+	public LocalDateTime getExecution_date() {
 		return execution_date;
 	}
 
 
-	public void setExecution_date(String execution_date) {
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S");
-	    Date date;
-		try {
-			date = format.parse(execution_date);
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-	    try {
-			date = format.parse(execution_date);
-			this.execution_date = new java.sql.Date(date.getTime());
+	public void setExecution_date(LocalDateTime execution_date) {
+		
+			this.execution_date = execution_date;
 
-			} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	}
+			} 
+		
 
 	@Column
 	@Basic

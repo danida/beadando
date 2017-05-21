@@ -3,10 +3,7 @@ package application.beadando3.view;
 
 import application.beadando3.services.implementations.PingModelServiceImplementation;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,10 +96,9 @@ public class PingView  {
 		PingModel pm = new PingModel();
 		pm.setDestination(destinationIP.getText());
 		pm.setOutput(output.getText());
-		pm.setId(null);
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss.S");
 		LocalDateTime now = LocalDateTime.now();
-		pm.setExecution_date(dtf.format(now));
+		pm.setExecution_date(now);
+		pm.setId(null);
 		pd.save(pm);
     	pingTable.setItems(FXCollections.observableList(pd.getAll()));
 		

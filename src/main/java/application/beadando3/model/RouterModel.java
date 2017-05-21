@@ -1,10 +1,7 @@
 package application.beadando3.model;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Locale;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,8 +12,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -45,7 +40,7 @@ public class RouterModel {
 	private String  Name;
 	private String  Platform;
 	private String  Serial_number;
-	private Date  When_configured;
+	private LocalDateTime  When_configured;
 	private String  Who_configured;
 	private String  Config_register;
 	private String  IOS;
@@ -60,27 +55,18 @@ public class RouterModel {
 
 
 
-	public RouterModel(Integer id, String name, String platform, String serial_number, String when,
+	public RouterModel(Integer id, String name, String platform, String serial_number, LocalDateTime when,
 			String who_configured, String config_register, String iOS, String man_IP, String bootstrap_version) {
 		this.id = id;
 		Name = name;
 		Platform = platform;
 		Serial_number = serial_number;
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S");
-	    Date date;
-		try {
-			date = format.parse(when);
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-	    try {
-			date = format.parse(when);
-			When_configured = new java.sql.Date(date.getTime());
+	   
+		
+			When_configured = when;
 
-			} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			
+		
 		Who_configured = who_configured;
 		Config_register = config_register;
 		IOS = iOS;
@@ -158,7 +144,7 @@ public class RouterModel {
 
 
 
-	public Date getWhen_configured() {
+	public LocalDateTime getWhen_configured() {
 		return When_configured;
 	}
 
@@ -166,7 +152,7 @@ public class RouterModel {
 
 
 
-	public void setWhen_onfigured(Date configuredBy) {
+	public void setWhen_configured(LocalDateTime configuredBy) {
 		this.When_configured = configuredBy;
 	}
 

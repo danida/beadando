@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import Interfaces.ServicesInterface;
-import application.beadando3.Main;
 import application.beadando3.DAO.PingModelDAO;
 import application.beadando3.model.PingModel;
 
@@ -16,7 +15,9 @@ public class PingModelServiceImplementation implements ServicesInterface<PingMod
 
 	@Override
 	public void save(PingModel e) {
+		
 
+		
 		if (validatePingModel(e)){
 			logger.info("Saving pingmodel");
 

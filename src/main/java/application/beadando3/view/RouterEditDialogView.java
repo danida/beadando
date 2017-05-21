@@ -1,5 +1,7 @@
 package application.beadando3.view;
 
+import java.time.LocalDateTime;
+
 import application.beadando3.model.RouterModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -110,6 +112,7 @@ public class RouterEditDialogView {
             router.setIOS(IOS.getText());
             router.setMan_IP(man_IP.getText());
             router.setBootstrap(bootstrap.getText());
+            router.setWhen_configured(LocalDateTime.now());
             okClicked = true;
             dialogStage.close();
         }
