@@ -2,17 +2,23 @@ package application.beadando3.services.implementations;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import Interfaces.ServicesInterface;
+import application.beadando3.Main;
 import application.beadando3.DAO.TracerouteModelDAO;
 import application.beadando3.model.PingModel;
 import application.beadando3.model.TracerouteModel;
 
 public class TracerouteModelServiceImplementation implements ServicesInterface<TracerouteModel> {
 	TracerouteModelDAO dao = new TracerouteModelDAO();
-	
+    private final static Logger logger = LoggerFactory.getLogger(TracerouteModelServiceImplementation.class);
+
 	@Override
 		public void save(TracerouteModel e) {
 			if (validateTracerouteModel(e)){
+				logger.info("Saving traceroutemodel");
 				dao.create(e);
 			}
 			else {
@@ -24,6 +30,7 @@ public class TracerouteModelServiceImplementation implements ServicesInterface<T
 
 	@Override
 	public void update(TracerouteModel e) {
+
 		if (!validateTracerouteModel(e)){
 			throw new IllegalArgumentException("Valamelyik mező üres!");			
 		}
@@ -31,6 +38,8 @@ public class TracerouteModelServiceImplementation implements ServicesInterface<T
 			throw new IllegalArgumentException("Ez az interface már létezik!");
 		}
 		else {
+			logger.info("Editing traceroutemodel");
+
 			dao.edit(e);
 		}		
 	}
@@ -41,6 +50,7 @@ public class TracerouteModelServiceImplementation implements ServicesInterface<T
 			throw new IllegalArgumentException("Ez az interface nem létezik!");
 		}
 		else{
+			logger.info("Deleting traceroutemodel");
 			dao.remove(e);
 			
 		}				

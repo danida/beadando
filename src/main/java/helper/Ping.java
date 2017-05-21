@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 public class Ping implements Runnable {
 
 	private String OSname = System.getProperty("os.name").toLowerCase();
-	
 
 	private String o = "";
 	private String destinationIP;
@@ -23,6 +22,7 @@ public class Ping implements Runnable {
 	public void setPingView(PingView pingView) {
 		this.pingView = pingView;
 	}
+
 	public String getDestinationIP() {
 		return destinationIP;
 	}
@@ -39,7 +39,7 @@ public class Ping implements Runnable {
 		this.o = o;
 	}
 
-	public Ping(String destinationIP,PingView pingview) {
+	public Ping(String destinationIP, PingView pingview) {
 		super();
 		this.destinationIP = destinationIP;
 		this.pingView = pingview;
@@ -51,7 +51,7 @@ public class Ping implements Runnable {
 
 	@Override
 	public void run() {
-		
+
 		if (OSname.contains("windows")) {
 			String command = "ping -n 10 " + destinationIP;
 			try {
@@ -73,7 +73,7 @@ public class Ping implements Runnable {
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} 
+			}
 		}
 	}
 

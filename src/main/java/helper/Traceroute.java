@@ -7,14 +7,13 @@ import java.io.InputStreamReader;
 import application.beadando3.view.PingView;
 import application.beadando3.view.TracerouteView;
 
-public class Traceroute implements Runnable{
-	
+public class Traceroute implements Runnable {
+
 	private String OSname = System.getProperty("os.name").toLowerCase();
 	private TracerouteView tracerouteview;
 	private String destinationIP;
 	private String o = "";
 
-	
 	public String getO() {
 		return o;
 	}
@@ -47,29 +46,30 @@ public class Traceroute implements Runnable{
 		this.tracerouteview = tracerouterview;
 	}
 
-	
-	
 	@Override
 	public void run() {
-		 String ret= "";
-		    if (OSname.contains("windows")){
-		        String command = "tracert -d " + destinationIP;
-		        try {
-		            Process p = Runtime.getRuntime().exec(command);
-		            p.getOutputStream();
-		            BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		        String line;
-		        while (true) {
-		            line = r.readLine();
-		            if (line != null) {  o += line + "\n";	
-		            this.tracerouteview.setOutput(o);
-		            }
-		           
-		        }
-		        } catch (IOException ex) {
-		        	ex.printStackTrace();
-		        }
-		    }		
+		String ret = "";
+		if (OSname.contains("windows")) {
+			String command = "tracert -d " + destinationIP;
+			try {
+				Process p = Runtime.getRuntime().exec(command);
+				p.getOutputStream();
+				BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+				String line;
+				while ((line = r.readLine()) != null) {
+						o += line + "\n";
+						this.tracerouteview.setOutput(o);
+						Thread.sleep(1000);
+
+
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

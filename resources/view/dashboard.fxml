@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.beadando3.view.DashboardView">
    <children>
-      <BarChart fx:id="bc" layoutX="526.0" layoutY="243.0" prefHeight="349.0" prefWidth="484.0" title="Platforms number" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="14.0">
+      <BarChart fx:id="bc" layoutX="22.0" layoutY="237.0" prefHeight="349.0" prefWidth="484.0" title="Platforms number" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="518.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -19,8 +19,6 @@
       </BarChart>
       <Label layoutX="14.0" layoutY="23.0" text="Number of routers:" />
       <Label fx:id="sum" layoutX="229.0" layoutY="23.0" text="Label" />
-      <Label layoutX="14.0" layoutY="58.0" text="Reachable routers:" />
-      <Label layoutX="229.0" layoutY="58.0" text="Label" />
-      <Button layoutX="426.0" layoutY="53.0" mnemonicParsing="false" onAction="#handleSearchRouter" text="Button" />
+      <Button layoutX="413.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleSearchRouter" text="Search" />
    </children>
 </AnchorPane>

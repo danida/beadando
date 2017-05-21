@@ -1,23 +1,29 @@
 package application.beadando3.model;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class DatabaseConnection {
 
-	private final String PUN = "Router";
-	private static EntityManagerFactory emf;
-	private static DatabaseConnection instance = new DatabaseConnection();
+	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("Router");
+	private static EntityManager em;
 	public DatabaseConnection() {
 	}
-	public static DatabaseConnection getInstance() {
-		return instance;
-	};
-	public EntityManagerFactory getEmf() {
+	public static EntityManagerFactory getInstance() {
 		if (emf == null){
-			emf = Persistence.createEntityManagerFactory(PUN);
+			emf = Persistence.createEntityManagerFactory("Router");
 		}
 		return emf;
+	};
+	public static EntityManager getEm() {
+		if (emf == null){
+			emf = Persistence.createEntityManagerFactory("Router");
+		}
+		if (em == null  ){
+			  em = emf.createEntityManager();
+		}
+		return em;
 	}
 	
 	public void closeConnection(){

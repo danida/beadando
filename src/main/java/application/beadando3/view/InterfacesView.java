@@ -28,7 +28,7 @@ public class InterfacesView {
 	@FXML
 	private StringProperty IP;
 	@FXML
-	private  TextField namefield = new TextField();
+	private  TextField namef = new TextField();
 	@FXML
 	private TextField ipfield= new TextField();
 	@FXML
@@ -41,16 +41,20 @@ public class InterfacesView {
 
 	@FXML
 	private void initialize() {
-		namefield.setVisible(false);
+		namef.setVisible(false);
 		ipfield.setVisible(false);
 		macfield.setVisible(false);
 	}
 
 	public void setData() {
 		InterfacesModelServiceImplementation rm = new InterfacesModelServiceImplementation();
+
 		if (rm.getInterfacebyRouterModel(router.getId()) != null) {
+
 			InterfacesTable.setItems(FXCollections.observableList(rm.getInterfacebyRouterModel(router.getId())));
+
 			name.setCellValueFactory(cellData -> cellData.getValue().getInterface_nameProperty());
+
 			mac.setCellValueFactory(cellData -> cellData.getValue().getMACProperty());
 			ip_address.setCellValueFactory(cellData -> cellData.getValue().getIPProperty());
 		}
@@ -58,19 +62,17 @@ public class InterfacesView {
 
 	@FXML
 	public void disableFields() {
-		System.out.println("dsiable");
-		namefield.setText("");
+		namef.setText("");
 		ipfield.setText("");
 		macfield.setText("");
-		namefield.setVisible(false);
+		namef.setVisible(false);
 		ipfield.setVisible(false);
 		macfield.setVisible(false);
 	}
 
 	@FXML
 	public void enableFields() {
-		System.out.println("asdasd");
-		namefield.setVisible(true);
+		namef.setVisible(true);
 		ipfield.setVisible(true);
 		macfield.setVisible(true);
 	}
@@ -79,12 +81,13 @@ public class InterfacesView {
 	public void handleOK() {
 		InterfacesModelServiceImplementation rm = new InterfacesModelServiceImplementation();
 		if (this.newinterface == true) {
-			InterfacesModel im = new InterfacesModel(null, router.getId(), namefield.getText(), macfield.getText(),
+			InterfacesModel im = new InterfacesModel(null, router.getId(), namef.getText(), macfield.getText(),
 					ipfield.getText());
 			rm.save(im);
+			this.newinterface = false;
 		} else {
 			InterfacesModel e = InterfacesTable.getSelectionModel().getSelectedItem();
-			e.setInterface_name(namefield.getText());
+			e.setInterface_name(namef.getText());
 			e.setIP(ipfield.getText());
 			e.setMAC(macfield.getText());
 			rm.update(e);
@@ -113,6 +116,15 @@ public class InterfacesView {
 		
 		newinterface = true;
 		enableFields();
+	}
+	@FXML
+	public void editInterface() {
+		InterfacesModel e = InterfacesTable.getSelectionModel().getSelectedItem();
+		this.newinterface = false;
+		enableFields();
+		namef.setText(e.getInterface_name());
+		ipfield.setText(e.getIP());
+		macfield.setText(e.getMAC());
 	}
 
 	public RouterModel getRouter() {
@@ -156,11 +168,11 @@ public class InterfacesView {
 	}
 
 	public TextField getNamefield() {
-		return namefield;
+		return namef;
 	}
 
 	public void setNamefield(TextField namefield) {
-		this.namefield = namefield;
+		this.namef = namefield;
 	}
 
 	public TextField getMacfield() {

@@ -9,6 +9,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,7 +19,7 @@ import java.util.Date;
 @javax.persistence.Entity
 @Table(name="ping")
 @NamedQueries({
-		@NamedQuery (name  = "PingModel.getbyId", query="select p from PingModel p where id = :id" ),
+		@NamedQuery (name  = "PingModel.getbyid", query="select p from PingModel p where id = :id" ),
 		@NamedQuery (name  = "PingModel.findAll", query="select p from PingModel p" ),
 		@NamedQuery (name  ="PingModel.count", query="select count(p.id) from PingModel p" )
 })
@@ -116,6 +118,17 @@ public class PingModel {
 		this.output = output;
 		this.destination = destination;
 	}
+	public SimpleStringProperty getDestinationProperty(){
+		return new SimpleStringProperty(this.destination);
+}
+
+	
+	public SimpleStringProperty getExecution_DateProperty(){
+		return new SimpleStringProperty(execution_date.toString());
+}
+	
+	
+
 
 	
 }

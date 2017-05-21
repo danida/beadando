@@ -1,0 +1,4 @@
+ # exclude everything except src, .settings, resources
+
+/testDB
+/target

@@ -24,11 +24,9 @@ import application.beadando3.model.RouterModel;
 
 public class RouterModelDAO implements DAOInterface<RouterModel> {
 
-	private static EntityManager entityManager;
+	private  EntityManager entityManager = DatabaseConnection.getEm();
+	private EntityManagerFactory emf = DatabaseConnection.getInstance();
 
-	private EntityManagerFactory emf = DatabaseConnection.getInstance().getEmf();
-
-	
 	public EntityManagerFactory getEmf() {
 		return emf;
 	}
@@ -41,17 +39,14 @@ public class RouterModelDAO implements DAOInterface<RouterModel> {
 
 	}
 
-	public List<RouterModel> getRouterbyWho_configured(String username) {
 
-		List<RouterModel> ret = new ArrayList<>();
-
-		return ret;
-
-	}
 
 	public List<RouterModel> getRouterbyPlatform(String parameter) {
 		List<RouterModel> ret = new ArrayList<>();
+		entityManager = emf.createEntityManager();
 
+		ret = entityManager.createNamedQuery("RouterModel.getRouterByPlatform").setParameter("platform", parameter).getResultList();
+		entityManager.close();
 		return ret;
 
 	}
@@ -59,21 +54,30 @@ public class RouterModelDAO implements DAOInterface<RouterModel> {
 	public List<RouterModel> getRouterbyIOS(String parameter) {
 
 		List<RouterModel> ret = new ArrayList<>();
+		entityManager = emf.createEntityManager();
 
+		ret = entityManager.createNamedQuery("RouterModel.getRouterbyIOS").setParameter("IOS", parameter)
+				.getResultList();
+		entityManager.close();
 		return ret;
 
 	}
 
 	public List<RouterModel> getRouterbyName(String parameter) {
 		List<RouterModel> ret = new ArrayList<>();
+		entityManager = emf.createEntityManager();
 
+		ret = entityManager.createNamedQuery("RouterModel.getRouterbyName").setParameter("name", parameter)
+				.getResultList();
+		entityManager.close();
 		return ret;
 
 	}
 
 	@Override
 	public void create(RouterModel e) {
-		entityManager =emf.createEntityManager();
+
+		entityManager = emf.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.persist(e);
 		entityManager.getTransaction().commit();
@@ -83,6 +87,7 @@ public class RouterModelDAO implements DAOInterface<RouterModel> {
 
 	@Override
 	public void edit(RouterModel e) {
+
 		entityManager = emf.createEntityManager();
 
 		entityManager.getTransaction().begin();
@@ -117,7 +122,7 @@ public class RouterModelDAO implements DAOInterface<RouterModel> {
 
 	@Override
 	public String count() {
-		entityManager =emf.createEntityManager();
+		entityManager = emf.createEntityManager();
 
 		String ret = entityManager.createNamedQuery("RouterModel.count").getResultList().get(0).toString();
 		entityManager.close();

@@ -1,5 +1,8 @@
 package application.beadando3.view;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import application.beadando3.Main;
 import application.beadando3.DAO.RouterModelDAO;
 import application.beadando3.model.RouterModel;
@@ -41,6 +44,7 @@ public class RouterView {
 
     // Reference to the main application.
     public static Main mainApp;
+    private final static Logger logger = LoggerFactory.getLogger(RouterView.class);
 
     /**
      * The constructor.
@@ -84,8 +88,8 @@ public class RouterView {
      */
     @FXML
     private void initialize() {
-    	RouterModelDAO rm = new RouterModelDAO();
-    	routerTable.setItems(FXCollections.observableList(rm.findAll()));
+    	RouterModelServiceImplementation rm = new RouterModelServiceImplementation();
+    	routerTable.setItems(FXCollections.observableList(rm.getAll()));
         name.setCellValueFactory(cellData -> cellData.getValue().getRouterNameProperty());
         man_ip.setCellValueFactory(cellData -> cellData.getValue().getMan_IPProperty());
         showRouterDetails(null);
@@ -95,11 +99,23 @@ public class RouterView {
     }
     @FXML
     private void handleDeleteRouter() {
-    	RouterModelDAO rm = new RouterModelDAO();
+    	try{
+    	RouterModelServiceImplementation rm = new RouterModelServiceImplementation();
         int selectedIndex = routerTable.getSelectionModel().getSelectedIndex();
         RouterModel routermodel= routerTable.getItems().get(selectedIndex);
-    	rm.remove(routermodel);
-    	routerTable.setItems(FXCollections.observableList(rm.findAll()));
+    	rm.delete(routermodel);
+    	routerTable.setItems(FXCollections.observableList(rm.getAll()));
+    	}
+    	 catch (ArrayIndexOutOfBoundsException e){
+          	logger.error("User trying to delete router without selecting it");
+          	Alert alert = new Alert(AlertType.WARNING);
+              alert.initOwner(mainApp.getPrimaryStage());
+              alert.setTitle("No Selection");
+              alert.setHeaderText("No router record Selected");
+              alert.setContentText("Please select a router result from the table.");
+
+              alert.showAndWait();
+          }
     }
 
     @FXML
@@ -139,7 +155,6 @@ public class RouterView {
             alert.setTitle("No Selection");
             alert.setHeaderText("No Router Selected");
             alert.setContentText("Please select a router in the table.");
-
             alert.showAndWait();
         }
     }

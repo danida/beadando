@@ -14,6 +14,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import javafx.beans.property.SimpleStringProperty;
+
 @javax.persistence.Entity
 @Table(name="traceroute")
 @NamedQueries({
@@ -46,6 +48,7 @@ public class TracerouteModel {
 
 	@Column
 	@Basic
+	
 	public Integer getId() {
 		return id;
 	}
@@ -105,6 +108,13 @@ public class TracerouteModel {
 	public TracerouteModel() {
 	
 	}
+	public SimpleStringProperty getDestinationProperty(){
+		return new SimpleStringProperty(this.destination);
+}
 
+	
+	public SimpleStringProperty getExecution_DateProperty(){
+		return new SimpleStringProperty(execution_date.toString());
+}
 
 }

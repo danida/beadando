@@ -7,19 +7,22 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import Interfaces.DAOInterface;
+import application.beadando3.Main;
 import application.beadando3.model.DatabaseConnection;
 import application.beadando3.model.PingModel;
 
 public class PingModelDAO implements DAOInterface<PingModel> {
 
-	private static EntityManager entityManager;
-	private EntityManagerFactory emf = DatabaseConnection.getInstance().getEmf();
-
-
+	private  EntityManager entityManager = DatabaseConnection.getEm();
+	private EntityManagerFactory emf = DatabaseConnection.getInstance();
 	
 
 	public void create(PingModel e) {
+
 		entityManager =emf.createEntityManager();
 
 		entityManager.getTransaction().begin();
@@ -31,6 +34,7 @@ public class PingModelDAO implements DAOInterface<PingModel> {
 
 	@Override
 	public void edit(PingModel e) {
+
 		entityManager =emf.createEntityManager();
 
 		entityManager.getTransaction().begin();
@@ -45,6 +49,7 @@ public class PingModelDAO implements DAOInterface<PingModel> {
 
 	@Override
 	public void remove(PingModel e) {
+
 		entityManager =emf.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.remove(entityManager.merge(e));
@@ -59,6 +64,7 @@ public class PingModelDAO implements DAOInterface<PingModel> {
 
 	@Override
 	public <T> List<T> findAll() {
+
 		entityManager =emf.createEntityManager();
 		List<T>ret =entityManager.createNamedQuery("PingModel.findAll").getResultList();
 		entityManager.close();
@@ -71,6 +77,7 @@ public class PingModelDAO implements DAOInterface<PingModel> {
 		return null;
 	}
 	public List<PingModel> getPingModelbyId(int id){
+
 		entityManager =emf.createEntityManager();
 		List<PingModel >ret =  entityManager.createNamedQuery("PingModel.getbyid").setParameter("id", id).getResultList();
 		entityManager.close();

@@ -7,8 +7,10 @@ import application.beadando3.model.DatabaseConnection;
 import application.beadando3.model.RouterModel;
 import application.beadando3.view.DashboardView;
 import application.beadando3.view.InterfacesView;
+import application.beadando3.view.PingView;
 import application.beadando3.view.RouterEditDialogView;
 import application.beadando3.view.RouterView;
+import application.beadando3.view.TracerouteView;
 import application.beadando3.view.searchResultView;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -21,6 +23,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 
 	public class Main extends Application {
@@ -28,22 +33,25 @@ import javafx.stage.Stage;
 	    private Stage primaryStage;
 	    private BorderPane rootLayout;
 	    private ObservableList<RouterModel> routerData = FXCollections.observableArrayList();
+	    private final static Logger logger = LoggerFactory.getLogger(Main.class);
 
+	    
 	    public Main() {
 	    	
 		}
 
 		@Override
 	    public void start(Stage primaryStage) {
+			logger.info("Starting application");
 	        this.primaryStage = primaryStage;
 	        this.primaryStage.setTitle("Beadando");
 	        initRootLayout();
 	    }
 		@Override
 		public void stop(){
+			logger.info("Closing database session");
 			DatabaseConnection dc = new DatabaseConnection();
 			dc.closeConnection();
-			
 		}
 
 	    /**
@@ -51,7 +59,7 @@ import javafx.stage.Stage;
 	     */
 	    public void initRootLayout() {
 	        try {
-	            // Load root layout from fxml file.
+				logger.info("Loading rootview");
 	            FXMLLoader loader = new FXMLLoader();
 	            loader.setLocation(Main.class.getResource("/view/rootView.fxml"));
 	            rootLayout = (BorderPane) loader.load();
@@ -61,7 +69,8 @@ import javafx.stage.Stage;
 	            primaryStage.show();
 	        	RouterView.mainApp = this;
 	        	DashboardView.mainApp = this;
-
+	        	PingView.mainApp = this;
+	        	TracerouteView.mainApp = this;
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
@@ -79,6 +88,8 @@ import javafx.stage.Stage;
 	    
 	    public boolean showRouterEditDialog(RouterModel router) {
 	        try {
+				logger.info("Showing router edit dialog");
+
 	            FXMLLoader loader = new FXMLLoader();
 	            loader.setLocation(Main.class.getResource("/view/editrouterdialog.fxml"));
 	            AnchorPane page = (AnchorPane) loader.load();
@@ -105,7 +116,9 @@ import javafx.stage.Stage;
 	    }
 	    public boolean showRouterNewDialog(RouterModel router) {
 	        try {
-	            FXMLLoader loader = new FXMLLoader();
+				logger.info("Showing new router dialog");
+
+	        	FXMLLoader loader = new FXMLLoader();
 	            loader.setLocation(Main.class.getResource("/view/newrouter.fxml"));
 	            AnchorPane page = (AnchorPane) loader.load();
 
@@ -131,6 +144,8 @@ import javafx.stage.Stage;
 	
 	    public boolean showRouterSearchDialog() {
 	        try {
+				logger.info("Showing search router dialog");
+	        	
 	            FXMLLoader loader = new FXMLLoader();
 	            loader.setLocation(Main.class.getResource("/view/searchresult.fxml"));
 	            AnchorPane page = (AnchorPane) loader.load();
@@ -157,6 +172,8 @@ import javafx.stage.Stage;
 	    }
 	    public boolean showInterfacesSearchDialog(RouterModel selectedRouter) {
 	    	try{
+				logger.info("Showing the interfaces of router dialog");
+
 	    	 FXMLLoader loader = new FXMLLoader();
 	            loader.setLocation(Main.class.getResource("/view/interfaces.fxml"));
 	            AnchorPane page = (AnchorPane) loader.load();
@@ -167,11 +184,12 @@ import javafx.stage.Stage;
 	            dialogStage.initOwner(primaryStage);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);
-
 	            InterfacesView controller = loader.getController();
 	            controller.setDialogStage(dialogStage);
 	            controller.setRouter(selectedRouter);
+
 	            controller.setData();
+
 	            dialogStage.showAndWait();
 
 	            return controller.isOkClicked();
