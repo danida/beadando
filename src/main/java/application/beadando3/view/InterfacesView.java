@@ -28,11 +28,11 @@ public class InterfacesView {
 	@FXML
 	private StringProperty IP;
 	@FXML
-	private  TextField namef = new TextField();
+	private TextField namef = new TextField();
 	@FXML
-	private TextField ipfield= new TextField();
+	private TextField ipfield = new TextField();
 	@FXML
-	private TextField macfield= new TextField();
+	private TextField macfield = new TextField();
 	boolean newinterface;
 
 	private Stage dialogStage;
@@ -54,7 +54,6 @@ public class InterfacesView {
 			InterfacesTable.setItems(FXCollections.observableList(rm.getInterfacebyRouterModel(router.getId())));
 
 			name.setCellValueFactory(cellData -> cellData.getValue().getInterface_nameProperty());
-
 			mac.setCellValueFactory(cellData -> cellData.getValue().getMACProperty());
 			ip_address.setCellValueFactory(cellData -> cellData.getValue().getIPProperty());
 		}
@@ -113,10 +112,11 @@ public class InterfacesView {
 
 	@FXML
 	public void addNewInterface() {
-		
+
 		newinterface = true;
 		enableFields();
 	}
+
 	@FXML
 	public void editInterface() {
 		InterfacesModel e = InterfacesTable.getSelectionModel().getSelectedItem();

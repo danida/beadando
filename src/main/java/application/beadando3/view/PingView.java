@@ -36,7 +36,6 @@ public class PingView  {
     private TableColumn<PingModel, String> executiondate;
 
 
-	private Stage dialogStage;
 	private Ping ping;
     private final static Logger logger = LoggerFactory.getLogger(PingView.class);
     public static Main mainApp;
@@ -86,9 +85,7 @@ public class PingView  {
 
 	}
 
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
-	}
+	
 
 	@FXML
 	public void handleSaving(){

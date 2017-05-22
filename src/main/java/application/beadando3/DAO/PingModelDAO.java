@@ -73,8 +73,10 @@ public class PingModelDAO implements DAOInterface<PingModel> {
 
 	@Override
 	public String count() {
-		// TODO Auto-generated method stub
-		return null;
+		entityManager =emf.createEntityManager();
+		String ret =entityManager.createNamedQuery("PingModel.count").getResultList().get(0).toString();
+		entityManager.close();
+		return ret;
 	}
 	public List<PingModel> getPingModelbyId(int id){
 

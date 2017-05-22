@@ -18,7 +18,9 @@
         </yAxis>
       </BarChart>
       <Label layoutX="14.0" layoutY="23.0" text="Number of routers:" />
-      <Label fx:id="sum" layoutX="229.0" layoutY="23.0" text="Label" />
+      <Label fx:id="sumOfRouters" layoutX="229.0" layoutY="23.0" text="Label" />
       <Button layoutX="413.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleSearchRouter" text="Search" />
+      <Label layoutX="14.0" layoutY="58.0" text="Number of users:" />
+      <Label fx:id="sumOfUsers" layoutX="229.0" layoutY="58.0" text="Label" />
    </children>
 </AnchorPane>

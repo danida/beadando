@@ -4,6 +4,7 @@ package application.beadando3.view;
 import java.awt.List;
 
 import application.beadando3.Main;
+import application.beadando3.services.implementations.LoginModelServicesImplementation;
 import application.beadando3.services.implementations.RouterModelServiceImplementation;
 import application.beadando3.model.RouterModel;
 import application.beadando3.services.implementations.RouterModelServiceImplementation;
@@ -20,7 +21,9 @@ import javafx.fxml.FXML;
 
 public class DashboardView {
 	@FXML
-	private Label sum;
+	private Label sumOfRouters;
+	@FXML
+	private Label sumOfUsers;
 	@FXML
 	private IntegerProperty reachable= new SimpleIntegerProperty(0);
 	
@@ -75,7 +78,9 @@ public class DashboardView {
 	@FXML
 	public void initialize(){
 		RouterModelServiceImplementation dm = new RouterModelServiceImplementation();
-		sum.setText(dm.count());
+		LoginModelServicesImplementation lm = new LoginModelServicesImplementation();
+		sumOfRouters.setText(dm.count());
+		sumOfUsers.setText(lm.count());
 		platforms.addAll(dm.getPlatforms());
 		xAxis.setCategories(platforms);
 		setRouterData(platforms);
@@ -100,7 +105,6 @@ public class DashboardView {
 
 	        XYChart.Series<String, Integer> series = new XYChart.Series<>();
 
-	        // Create a XYChart.Data object for each month. Add it to the series.
 	        for (i = 0; i < platformCounter.length; i++) {
 	            series.getData().add(new XYChart.Data<>(platforms.get(i), new Integer(platformCounter[i])));
 	        }

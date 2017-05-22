@@ -4,14 +4,18 @@ package application.beadando3;
 import java.io.IOException;
 
 import application.beadando3.model.DatabaseConnection;
+import application.beadando3.model.LoginModel;
 import application.beadando3.model.RouterModel;
+import application.beadando3.view.AdminsView;
 import application.beadando3.view.DashboardView;
 import application.beadando3.view.InterfacesView;
+import application.beadando3.view.LoginView;
 import application.beadando3.view.PingView;
+import application.beadando3.view.RootView;
 import application.beadando3.view.RouterEditDialogView;
 import application.beadando3.view.RouterView;
 import application.beadando3.view.TracerouteView;
-import application.beadando3.view.searchResultView;
+import application.beadando3.view.SearchResultView;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,9 +36,10 @@ import org.slf4j.LoggerFactory;
 
 	    private Stage primaryStage;
 	    private BorderPane rootLayout;
+	    private AnchorPane loginLayout;
 	    private ObservableList<RouterModel> routerData = FXCollections.observableArrayList();
 	    private final static Logger logger = LoggerFactory.getLogger(Main.class);
-
+	    private static LoginModel user; 
 	    
 	    public Main() {
 	    	
@@ -45,7 +50,8 @@ import org.slf4j.LoggerFactory;
 			logger.info("Starting application");
 	        this.primaryStage = primaryStage;
 	        this.primaryStage.setTitle("Beadando");
-	        initRootLayout();
+	        if (initLoginLayout()){
+	        initRootLayout();}
 	    }
 		@Override
 		public void stop(){
@@ -63,8 +69,11 @@ import org.slf4j.LoggerFactory;
 	            FXMLLoader loader = new FXMLLoader();
 	            loader.setLocation(Main.class.getResource("/view/rootView.fxml"));
 	            rootLayout = (BorderPane) loader.load();
+	            
 	            // Show the scene containing the root layout.
 	            Scene scene = new Scene(rootLayout);
+	        	RootView controller = loader.getController();
+	        	
 	            primaryStage.setScene(scene);
 	            primaryStage.show();
 	        	RouterView.mainApp = this;
@@ -76,7 +85,34 @@ import org.slf4j.LoggerFactory;
 	        }
 	    }
 
+	    public Boolean initLoginLayout() {
+	    	
+	        try {
+				logger.info("Loading loginview");
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(Main.class.getResource("/view/login.fxml"));
+	            loginLayout = (AnchorPane) loader.load();
+	            // Show the scene containing the root layout.
+	            Stage dialogStage = new Stage();
 
+	            dialogStage.initModality(Modality.WINDOW_MODAL);
+	            dialogStage.initOwner(primaryStage);
+	            Scene scene = new Scene(loginLayout);
+	            dialogStage.setScene(scene);
+	        	LoginView.setMainApp(this);
+	        	LoginView controller = loader.getController();
+	            controller.setDialogStage(dialogStage);
+
+	            dialogStage.showAndWait();
+
+	        	
+	            return controller.isOkClicked();
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        return false;
+	    }
 
 	    /**
 	     * Returns the main stage.
@@ -114,6 +150,7 @@ import org.slf4j.LoggerFactory;
 	            return false;
 	        }
 	    }
+	   
 	    public boolean showRouterNewDialog(RouterModel router) {
 	        try {
 				logger.info("Showing new router dialog");
@@ -158,7 +195,7 @@ import org.slf4j.LoggerFactory;
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);
 
-	            searchResultView controller = loader.getController();
+	            SearchResultView controller = loader.getController();
 	            controller.setDialogStage(dialogStage);
 
 	            // Show the dialog and wait until the user closes it
@@ -209,6 +246,17 @@ import org.slf4j.LoggerFactory;
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+	public static LoginModel getUser() {
+		return user;
+	}
+
+	public static void setUser(LoginModel user) {
+		Main.user = user;
+	}
+
+	
+	
 
 	
 }

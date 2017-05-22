@@ -7,43 +7,31 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.beadando3.view.RootView">
 	<top>
-		<MenuBar BorderPane.alignment="CENTER">
-			<menus>
-				<Menu mnemonicParsing="false" text="File">
-					<items>
-						<MenuItem mnemonicParsing="false" text="Close" />
-					</items>
-				</Menu>
-				<Menu mnemonicParsing="false" text="Edit">
-					<items>
-						<MenuItem mnemonicParsing="false" text="Delete" />
-					</items>
-				</Menu>
-				<Menu mnemonicParsing="false" text="Help">
-					<items>
-						<MenuItem mnemonicParsing="false" text="About" />
-					</items>
-				</Menu>
-			</menus>
-		</MenuBar>
+		
 	</top>
 	<center>
-		<TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+		<TabPane fx:id="tabpane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
 			<tabs>
-				<Tab text="Router">
+				<Tab fx:id="admintab" text="Admin">
 					<content>
-					   <fx:include fx:id="router" source="router.fxml" />
+						<fx:include fx:id="admin" source="admin.fxml" />
 
 					</content>
 				</Tab>
-				<Tab text="Dashboard">
+				<Tab fx:id="routertab" text="Router">
+					<content>
+						<fx:include fx:id="router" source="router.fxml" />
+
+					</content>
+				</Tab>
+				<Tab fx:id="dashboardtab" text="Dashboard">
 					<content>
 						<fx:include fx:id="dashboard" source="dashboard.fxml" />
 					</content>
 				</Tab>
-				<Tab text="Pathtest">
+				<Tab fx:id="pathtesttab" text="Pathtest">
 					<content>
 						<fx:include fx:id="pathtest" source="pathtest.fxml" />
 					</content>

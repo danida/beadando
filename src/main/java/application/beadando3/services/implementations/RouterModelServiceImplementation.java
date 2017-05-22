@@ -39,7 +39,7 @@ public class RouterModelServiceImplementation implements ServicesInterface<Route
 			throw new IllegalArgumentException("Ez a router nem létezik!");
 		}
 		
-		else {
+		else  {
 			logger.info("Editing routermodel");
 			dao.edit(e);
 		}		
@@ -91,8 +91,11 @@ public class RouterModelServiceImplementation implements ServicesInterface<Route
 	public boolean validateRouterModel(RouterModel RouterModel){
 		boolean valid = true;
 		if ( RouterModel.getBootstrap_version()== null || RouterModel.getConfig_register() == null || RouterModel.getIOS()==null || RouterModel.getMan_IP()==null || RouterModel.getName()==null || RouterModel.getPlatform()==null || RouterModel.getSerial_number()==null || RouterModel.getWhen_configured()==null || RouterModel.getWho_Configured()==null  ) {
-        	valid = false;
+			valid = false;
         }
+		if (RouterModel.getMan_IP().trim().isEmpty() || RouterModel.getName().trim().isEmpty() || RouterModel.getPlatform().trim().isEmpty()){
+			valid = false;
+		}
 		return valid;
 	}
 	public boolean checkDuplicatesRouterModel(RouterModel RouterModel){

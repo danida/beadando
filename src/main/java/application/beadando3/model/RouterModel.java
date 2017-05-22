@@ -7,8 +7,10 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.JoinTable;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -87,6 +89,8 @@ public class RouterModel {
 
 @Column
 @Basic
+@OneToMany
+@JoinTable(name="Interfaces")
 	public Integer getId() {
 		return id;
 	}
