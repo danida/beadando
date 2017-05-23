@@ -37,7 +37,7 @@ public class LoginView {
 		LoginModel ret;
 	    if ((ret =lms.tryToAuthenticate(lm))==null){
 	    message.setVisible(true);
-	    message.setTextFill(Color.web("#0076a3"));
+	    message.setTextFill(Color.web("#7776a3"));
 	    message.setText("Incorrect password/username!");
 	    }
 	    else {

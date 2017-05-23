@@ -22,9 +22,10 @@ import javafx.beans.property.SimpleStringProperty;
 })
 public class TracerouteModel {
 	@javax.persistence.Id
+	@SequenceGenerator(name="traceroute_seq_gen", sequenceName="traceroute_SEQ")
+
 	@GeneratedValue
 	(strategy=GenerationType.AUTO, generator="traceroute_seq_gen") 
-	@SequenceGenerator(name="traceroute_seq_gen", sequenceName="traceroute_SEQ")
 
 	
 	

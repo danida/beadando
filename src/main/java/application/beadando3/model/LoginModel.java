@@ -5,34 +5,41 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
+
 @Table(name = "Login")
 @NamedQueries({ @NamedQuery(name = "LoginModel.getbyid", query = "select l from LoginModel l where id = :id"),
 		@NamedQuery(name = "LoginModel.findAll", query = "select l from LoginModel l"),
 		@NamedQuery(name = "LoginModel.count", query = "select count(l.id) from LoginModel l"),
 		@NamedQuery(name = "LoginModel.getUserByUsername", query = "select l from LoginModel l where username = :username"),
-		@NamedQuery(name = "LoginModel.getPasswordByUsername", query = "select l.password from LoginModel l where username = :username")
+		@NamedQuery(name = "LoginModel.getPasswordByUsername", query = "select l.password from LoginModel l where username = :username"),
+		@NamedQuery(name = "LoginModel.getAllIsAdmins", query = "select l from LoginModel l where isadmin = :isadmin")
+
 })
 
 public class LoginModel {
-	@javax.persistence.Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	@SequenceGenerator(name = "user_seq_gen", sequenceName = "user_SEQ", allocationSize=1,initialValue=1)
+
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "user_seq_gen")
+
 	@Column
-	int id;
-	@Column(name="username")
+	Integer id;
+	@Column(name = "username")
 	@Basic
 	String user;
-	@Column(name="userpassword")
+	@Column(name = "userpassword")
 	@Basic
 	String password;
 	@Column
 	@Basic
-	Boolean isAdmin;
-	
+	Integer isAdmin;
 
 	public LoginModel() {
 		super();
@@ -42,7 +49,14 @@ public class LoginModel {
 		super();
 		this.user = user;
 		this.password = password;
-		
+
+	}
+
+	public LoginModel(Integer id, String user, String password, Integer isAdmin) {
+		this.id = id;
+		this.user = user;
+		this.password = password;
+		this.isAdmin = isAdmin;
 	}
 
 	public String getUser() {
@@ -61,20 +75,25 @@ public class LoginModel {
 		this.password = password;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Boolean getIsAdmin() {
+	public Integer getIsAdmin() {
 		return isAdmin;
 	}
 
-	public void setIsAdmin(Boolean isAdmin) {
+	public void setIsAdmin(Integer isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+	@Override
+	public String toString() {
+		return "user: " + user + ", isAdmin=" + isAdmin;
 	}
 
 }

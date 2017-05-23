@@ -17,15 +17,13 @@ public class RootView {
 	@FXML 
 	Tab pathtesttab;
 	
+	
 	private static Main mainApp;
 	
-	
-
-
 
 	@FXML
 	public void initialize(){
-		if (!Main.getUser().getIsAdmin()){
+		if (Main.getUser().getIsAdmin()==0){
 			tabpane.getTabs().remove(admintab);
 		}
 		

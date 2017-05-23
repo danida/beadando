@@ -15,6 +15,7 @@ import application.beadando3.view.RootView;
 import application.beadando3.view.RouterEditDialogView;
 import application.beadando3.view.RouterView;
 import application.beadando3.view.TracerouteView;
+import helper.DatabaseDummyData;
 import application.beadando3.view.SearchResultView;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -50,6 +51,7 @@ import org.slf4j.LoggerFactory;
 			logger.info("Starting application");
 	        this.primaryStage = primaryStage;
 	        this.primaryStage.setTitle("Beadando");
+	        DatabaseDummyData.init();
 	        if (initLoginLayout()){
 	        initRootLayout();}
 	    }

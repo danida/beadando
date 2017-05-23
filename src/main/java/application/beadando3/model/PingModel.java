@@ -20,8 +20,9 @@ import javafx.beans.property.SimpleStringProperty;
 		@NamedQuery(name = "PingModel.count", query = "select count(p.id) from PingModel p") })
 public class PingModel {
 	@javax.persistence.Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "ping_seq_gen")
 	@SequenceGenerator(name = "ping_seq_gen", sequenceName = "ping_SEQ")
+
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "ping_seq_gen")
 
 	private Integer id;
 	private LocalDateTime execution_date;

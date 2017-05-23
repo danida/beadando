@@ -40,8 +40,6 @@ public class RouterView {
 	private Label IOS;
 	@FXML
 	private Label man_IP;
-	@FXML
-	private Label bootstrap;
 
 	// Reference to the main application.
 	public static Main mainApp;
@@ -61,7 +59,6 @@ public class RouterView {
 			IOS.setText(router.getIOS());
 			man_IP.setText(router.getMan_IP());
 			routerName.setText(router.getName());
-			bootstrap.setText(router.getBootstrap_version());
 
 		} else {
 			// Person is null, remove all the text.
@@ -73,7 +70,6 @@ public class RouterView {
 			confReg.setText("");
 			IOS.setText("");
 			man_IP.setText("");
-			bootstrap.setText("");
 		}
 	}
 
@@ -118,21 +114,22 @@ public class RouterView {
 		RouterModel tempRouter = new RouterModel(null, "routerName", "routerPlatform", "routerSerial",
 				LocalDateTime.of(2016, 12, 22, 11, 10), "ConfiguredBy", "confReg", "iOS", "man_IP", "bootstrap");
 		boolean okClicked = mainApp.showRouterNewDialog(tempRouter);
-		try {
+		if (okClicked) {
+			try {
 
-			RouterModelServiceImplementation rm = new RouterModelServiceImplementation();
-			rm.save(tempRouter);
-			routerTable.setItems(FXCollections.observableList(rm.getAll()));
-		} catch (Exception ex) {
-			logger.error("User trying to save a new router without selecting filling the fields");
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.initOwner(mainApp.getPrimaryStage());
-			alert.setTitle("Invalid Arguments");
-			alert.setHeaderText("There are empty fields");
-			alert.setContentText("Please fill all of the fields!");
+				RouterModelServiceImplementation rm = new RouterModelServiceImplementation();
+				rm.save(tempRouter);
+				routerTable.setItems(FXCollections.observableList(rm.getAll()));
+			} catch (Exception ex) {
+				logger.error("User trying to save a new router without selecting filling the fields");
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.initOwner(mainApp.getPrimaryStage());
+				alert.setTitle("Invalid Arguments");
+				alert.setHeaderText("There are empty fields");
+				alert.setContentText("Please fill all of the fields!");
 
-			alert.showAndWait();
-
+				alert.showAndWait();
+			}
 		}
 	}
 
@@ -161,8 +158,7 @@ public class RouterView {
 
 			alert.showAndWait();
 
-		}
-		catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			logger.error("User trying to edit router with invalid input(s)");
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(mainApp.getPrimaryStage());
@@ -171,12 +167,11 @@ public class RouterView {
 			alert.setContentText("Please fill all of the following fields:Name, Manangement IP,Platoform");
 
 			alert.showAndWait();
-		}
-		finally {
+		} finally {
 			routerTable.setItems(FXCollections.observableList(rm.getAll()));
 
 		}
-}
+	}
 
 	@FXML
 	private void handleSearchRouter() {

@@ -34,9 +34,10 @@ import javafx.beans.property.StringProperty;
 
 public class RouterModel {
 	@javax.persistence.Id
+	@SequenceGenerator(name="router_seq_gen", sequenceName="router_SEQ")
+
 	@GeneratedValue
 	(strategy=GenerationType.AUTO, generator="router_seq_gen") 
-	@SequenceGenerator(name="router_seq_gen", sequenceName="router_SEQ")
 	
 	private Integer id;
 	private String  Name;
@@ -47,7 +48,7 @@ public class RouterModel {
 	private String  Config_register;
 	private String  IOS;
 	private String  man_IP;
-	private String  Bootstrap_version;
+	private String  Features;
 	
 	public RouterModel() {
 
@@ -73,7 +74,7 @@ public class RouterModel {
 		Config_register = config_register;
 		IOS = iOS;
 		this.man_IP = man_IP;
-		Bootstrap_version = bootstrap_version;
+		Features = bootstrap_version;
 	}
 
 
@@ -82,7 +83,7 @@ public class RouterModel {
 		return "RouterModel [id=" + id + ", Name=" + Name + ", Platform=" + Platform + ", Serial_number="
 				+ Serial_number + ", When_configured=" + When_configured + ", Who_configured=" + Who_configured
 				+ ", Config_register=" + Config_register + ", IOS=" + IOS + ", man_IP=" + man_IP
-				+ ", Bootstrap_version=" + Bootstrap_version + "]";
+				+ ", Features=" + Features + "]";
 	}
 
 
@@ -216,21 +217,20 @@ public class RouterModel {
 	}
 
 
-	@Column(name="BOOTSTRAP_VERSION")
+	@Column(name="Features")
 	@Basic
 
-	public String getBootstrap_version() {
-		return Bootstrap_version;
+	public String getFeatures() {
+		return Features;
 	}
 
-	public void setBootstrap(String bootstrap) {
-		this.Bootstrap_version = bootstrap;
+	public void setFeatures(String Features) {
+		this.Features = Features;
 	}
+	
 	
 	public StringProperty getRouterNameProperty(){
 		return new SimpleStringProperty(this.Name);
-		
-		
 		
 	}
 

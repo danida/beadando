@@ -81,10 +81,24 @@ public class LoginModelDAO implements DAOInterface<LoginModel> {
 		return ret;	
 	}
 
-	public Object getUserById(int id) {
+	public List<LoginModel> getUserById(int id) {
 		entityManager =emf.createEntityManager();
 		List<LoginModel> ret =entityManager.createNamedQuery("LoginModel.getbyid").setParameter("id", id).getResultList();
 		entityManager.close();
-		return ret;		}
+		return ret;		
+		}
+	public List<LoginModel> getAllAdmins(){
+		entityManager =emf.createEntityManager();
+		List<LoginModel> ret =entityManager.createNamedQuery("LoginModel.getAllIsAdmins").setParameter("isadmin", 1).getResultList();
+		entityManager.close();
+		return ret;	
+
+	}
+	public List<LoginModel> getAllUsers(){
+		entityManager =emf.createEntityManager();
+		List<LoginModel> ret =entityManager.createNamedQuery("LoginModel.getAllIsAdmins").setParameter("isadmin", 0).getResultList();
+		entityManager.close();
+		return ret;	
+	}
 
 }

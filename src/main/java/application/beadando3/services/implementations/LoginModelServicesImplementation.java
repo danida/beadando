@@ -21,7 +21,7 @@ public class LoginModelServicesImplementation  implements ServicesInterface<Logi
 	public void save(LoginModel e) {
 		if (validateLoginModel(e)){
 			logger.info("Saving loginmodel");
-
+			e.setPassword(encryptPassword(e.getPassword()));
 			dao.create(e);
 			
 		}
@@ -69,6 +69,14 @@ public class LoginModelServicesImplementation  implements ServicesInterface<Logi
 
 		return dao.count();
 	}
+	
+	public List<LoginModel> listAdmins(){
+		return dao.getAllAdmins();
+	}
+	public List<LoginModel> listUsers(){
+		return dao.getAllUsers();
+	}
+	
 	public LoginModel tryToAuthenticate (LoginModel lm){
 		logger.info("One user is trying to authenticate");
 
@@ -108,5 +116,10 @@ public class LoginModelServicesImplementation  implements ServicesInterface<Logi
 		}
 		
 		return valid;
+	}
+	public String encryptPassword (String pass){
+		byte[] byteArray =((Base64.encodeBase64(pass.getBytes())));
+	  String encodedString = new String(byteArray);
+	  return encodedString;
 	}
 }

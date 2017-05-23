@@ -62,8 +62,6 @@
                         <Label fx:id="IOS" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <Label text="Management IP address:" GridPane.rowIndex="1" />
                         <Label fx:id="man_IP" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Bootstrap:" GridPane.rowIndex="8" />
-                        <Label fx:id="bootstrap" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                      </children>
                   </GridPane>
                   <Button layoutX="14.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleDeleteRouter" text="Delete" />

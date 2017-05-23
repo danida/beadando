@@ -5,22 +5,36 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.beadando3.view.AdminsView">
    <children>
-      <ListView layoutX="15.0" layoutY="52.0" prefHeight="200.0" prefWidth="370.0" />
-      <Label layoutX="169.0" layoutY="24.0" prefHeight="21.0" prefWidth="61.0" text="Admins:" />
-      <ListView layoutX="412.0" layoutY="52.0" prefHeight="200.0" prefWidth="370.0" />
-      <Label layoutX="573.0" layoutY="24.0" text="Userek:" />
-      <Button layoutX="98.0" layoutY="285.0" mnemonicParsing="false" text="New" />
-      <Button layoutX="198.0" layoutY="285.0" mnemonicParsing="false" text="Delete" />
-      <TextField layoutX="136.0" layoutY="369.0" />
-      <Label layoutX="38.0" layoutY="374.0" text="User:" />
-      <PasswordField layoutX="137.0" layoutY="428.0" />
-      <Label layoutX="38.0" layoutY="433.0" text="Password:" />
-      <CheckBox layoutX="412.0" layoutY="374.0" mnemonicParsing="false" text="Admin" />
-      <Button layoutX="412.0" layoutY="428.0" mnemonicParsing="false" text="OK" />
+      <SplitPane dividerPositions="0.6020066889632107" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="328.0" prefWidth="798.0">
+               <children>
+                  <ListView fx:id="admins" layoutX="15.0" layoutY="56.0" prefHeight="200.0" prefWidth="370.0" />
+                  <Label layoutX="170.0" layoutY="28.0" prefHeight="21.0" prefWidth="61.0" text="Admins:" />
+                  <ListView fx:id="users" layoutX="414.0" layoutY="56.0" prefHeight="200.0" prefWidth="370.0" />
+                  <Label layoutX="575.0" layoutY="28.0" text="Userek:" />
+                  <Button layoutX="78.0" layoutY="287.0" mnemonicParsing="false" onAction="#handleNew" text="New" />
+                  <Button layoutX="200.0" layoutY="287.0" mnemonicParsing="false" onAction="#handleDeleting" text="Delete" />
+               </children>
+            </AnchorPane>
+          <AnchorPane fx:id="Anchornew" minHeight="0.0" minWidth="0.0" prefHeight="251.0" prefWidth="798.0">
+               <children>
+                  <Button layoutX="399.0" layoutY="132.0" mnemonicParsing="false" onAction="#handleSav" text="OK" />
+                  <TextField fx:id="username" layoutX="135.0" layoutY="68.0" />
+                  <Label layoutX="45.0" layoutY="73.0" text="User:" />
+                  <PasswordField fx:id="password" layoutX="135.0" layoutY="126.0" />
+                  <Label layoutX="29.0" layoutY="131.0" text="Password:" />
+                  <CheckBox fx:id="admin" layoutX="399.0" layoutY="63.0" mnemonicParsing="false" text="Admin" />
+                  <Button layoutX="471.0" layoutY="132.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
    </children>
 </AnchorPane>

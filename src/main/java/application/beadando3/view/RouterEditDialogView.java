@@ -3,16 +3,18 @@ package application.beadando3.view;
 import java.time.LocalDateTime;
 
 import application.beadando3.model.RouterModel;
+import application.beadando3.services.implementations.FeaturesModelServiceImplementation;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class RouterEditDialogView {
 
 	@FXML
-	private TextField routerName;
-	@FXML
-	private TextField routerPlatform;
+	private TextField routerName;	
 	@FXML
 	private TextField routerSerial;
 	@FXML
@@ -26,11 +28,32 @@ public class RouterEditDialogView {
 	@FXML
 	private TextField man_IP;
 	@FXML
-	private TextField bootstrap;
-
+	private ChoiceBox<String> features;
+	@FXML
+	private ChoiceBox<String> platforms;
+	@FXML
+	private CheckBox EIGRP;
+	@FXML
+	private CheckBox OSPF;
+	@FXML
+	private CheckBox RIP;
+	@FXML
+	private CheckBox BGP;
+	@FXML
+	private CheckBox MPLS;
+	@FXML
+	private CheckBox NETFLOW;
+	@FXML
+	private CheckBox QOS;
+	@FXML
+	private CheckBox NAT;
+	
+	
+	
 	private Stage dialogStage;
 	private RouterModel router;
 	private boolean okClicked = false;
+	private static FeaturesModelServiceImplementation fms = new FeaturesModelServiceImplementation();
 
 	/**
 	 * Initializes the controller class. This method is automatically called
@@ -56,8 +79,8 @@ public class RouterEditDialogView {
 	 */
 	public void setRouter(RouterModel router) {
 		this.router = router;
-
-		routerPlatform.setText(router.getPlatform());
+	//	features.getItems().addAll(FXCollections.observableArrayList("EIGRP","OSPF","RIP","BGP","NETFLOW","NAT","MPLS","QOS"));
+		platforms.getItems().addAll(FXCollections.observableArrayList(fms.listAllPlatforms()));
 		routerSerial.setText(router.getSerial_number());
 		configuredBy.setText(router.getWho_Configured());
 		configured.setText(router.getWhen_configured().toString());
@@ -65,13 +88,13 @@ public class RouterEditDialogView {
 		IOS.setText(router.getIOS());
 		man_IP.setText(router.getMan_IP());
 		routerName.setText(router.getName());
-		bootstrap.setText(router.getBootstrap_version());
 	}
 
 	public void setNewRouter(RouterModel router) {
 		this.router = router;
+		platforms.getItems().addAll(FXCollections.observableArrayList(fms.listAllPlatforms()));
 
-		routerPlatform.setText("");
+//		features.getItems().addAll(FXCollections.observableArrayList("EIGRP","OSPF","RIP","BGP","NETFLOW","NAT","MPLS","QOS"));
 		routerSerial.setText("");
 		configuredBy.setText("");
 		configured.setText("");
@@ -79,7 +102,6 @@ public class RouterEditDialogView {
 		IOS.setText("");
 		man_IP.setText("");
 		routerName.setText("");
-		bootstrap.setText("");
 	}
 
 	/**
@@ -95,15 +117,14 @@ public class RouterEditDialogView {
 	@FXML
 	private void handleOk() {
 		
+			router.setPlatform(platforms.getSelectionModel().getSelectedItem());
 			router.setName(routerName.getText());
 			router.setConfigured(configured.getText());
-			router.setPlatform(routerPlatform.getText());
 			router.setSerial_number(routerSerial.getText());
 			router.setConfReg(confReg.getText());
 			router.setConfigured(configuredBy.getText());
 			router.setIOS(IOS.getText());
 			router.setMan_IP(man_IP.getText());
-			router.setBootstrap(bootstrap.getText());
 			router.setWhen_configured(LocalDateTime.now());
 			okClicked = true;
 			dialogStage.close();
@@ -115,6 +136,7 @@ public class RouterEditDialogView {
 	 */
 	@FXML
 	private void handleCancel() {
+		okClicked = false;
 		dialogStage.close();
 	}
 
