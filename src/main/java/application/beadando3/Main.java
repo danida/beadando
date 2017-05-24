@@ -172,6 +172,7 @@ import org.slf4j.LoggerFactory;
 	            RouterEditDialogView controller = loader.getController();
 	            controller.setDialogStage(dialogStage);
 	            controller.setRouter(router);
+	            RouterEditDialogView.setMainApp(this);
 	            dialogStage.showAndWait();
 
 	            return controller.isOkClicked();

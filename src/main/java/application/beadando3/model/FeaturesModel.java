@@ -11,11 +11,11 @@ import javax.persistence.Table;
 @Table(name = "Features")
 
 @NamedQueries({
-	@NamedQuery (name  = "FeaturesModel.getbyPlatformName", query="select t from FeaturesModel t where platform_name = :platform" ),
-	@NamedQuery (name  = "FeaturesModel.findAll", query="select t from FeaturesModel t" ),
-	@NamedQuery (name  ="FeaturesModel.count", query="select count(t.id) from FeaturesModel t" ),
+	@NamedQuery (name  = "FeaturesModel.getbyPlatformName", query="select f from FeaturesModel f where platform_name = :platform" ),
+	@NamedQuery (name  = "FeaturesModel.findAll", query="select f from FeaturesModel f" ),
+	@NamedQuery (name  ="FeaturesModel.count", query="select count(f.id) from FeaturesModel f" ),
 	@NamedQuery (name  ="FeaturesModel.findPlatforms", query="select distinct(f.platform_name) from FeaturesModel f" ),
-
+	@NamedQuery (name ="FeaturesModel.findMaxByPlatform", query = "select f.MAXI from FeaturesModel f where platform_name = :platform")
 
 })
 public class FeaturesModel {
@@ -50,6 +50,9 @@ public class FeaturesModel {
 	Integer MAXI;
 	
 	
+	public FeaturesModel() {
+		super();
+	}
 	public FeaturesModel(String platform_name, Integer eIGRP, Integer oSPF, Integer rIP, Integer bGP, Integer nAT,
 			Integer mPLS, Integer qOS, Integer nETFLOW, Integer mAXI) {
 		super();
@@ -123,6 +126,12 @@ public class FeaturesModel {
 	}
 	public void setMAXI(Integer mAXI) {
 		MAXI = mAXI;
+	}
+	@Override
+	public String toString() {
+		return "FeaturesModel [platform_name=" + platform_name + ", EIGRP=" + EIGRP + ", OSPF=" + OSPF + ", RIP=" + RIP
+				+ ", BGP=" + BGP + ", NAT=" + NAT + ", MPLS=" + MPLS + ", QOS=" + QOS + ", NETFLOW=" + NETFLOW
+				+ ", MAXI=" + MAXI + "]";
 	}
 	
 	

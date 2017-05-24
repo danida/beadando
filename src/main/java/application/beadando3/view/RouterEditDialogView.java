@@ -1,20 +1,40 @@
 package application.beadando3.view;
 
+import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import application.beadando3.Main;
+import application.beadando3.model.FeaturesModel;
 import application.beadando3.model.RouterModel;
 import application.beadando3.services.implementations.FeaturesModelServiceImplementation;
+import eu.hansolo.medusa.Gauge;
+import eu.hansolo.medusa.Gauge.SkinType;
+import eu.hansolo.medusa.GaugeBuilder;
+import eu.hansolo.medusa.Section;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class RouterEditDialogView {
 
 	@FXML
-	private TextField routerName;	
+	private TextField routerName;
 	@FXML
 	private TextField routerSerial;
 	@FXML
@@ -27,33 +47,39 @@ public class RouterEditDialogView {
 	private TextField IOS;
 	@FXML
 	private TextField man_IP;
-	@FXML
-	private ChoiceBox<String> features;
+
+	private String features;
 	@FXML
 	private ChoiceBox<String> platforms;
 	@FXML
-	private CheckBox EIGRP;
+	private CheckBox EIGRP = new CheckBox();
 	@FXML
-	private CheckBox OSPF;
+	private CheckBox OSPF = new CheckBox();
 	@FXML
-	private CheckBox RIP;
+	private CheckBox RIP = new CheckBox();
 	@FXML
-	private CheckBox BGP;
+	private CheckBox BGP = new CheckBox();
 	@FXML
-	private CheckBox MPLS;
+	private CheckBox MPLS = new CheckBox();
 	@FXML
-	private CheckBox NETFLOW;
+	private CheckBox NETFLOW = new CheckBox();
 	@FXML
-	private CheckBox QOS;
+	private CheckBox QOS = new CheckBox();
 	@FXML
-	private CheckBox NAT;
-	
-	
-	
+	private CheckBox NAT = new CheckBox();
+	@FXML
+	private Gauge CheckPerformance = new Gauge();
+	@FXML
+	private TextField bandwidth;
+
+	private List<CheckBox> boxes;
+
 	private Stage dialogStage;
 	private RouterModel router;
 	private boolean okClicked = false;
 	private static FeaturesModelServiceImplementation fms = new FeaturesModelServiceImplementation();
+	private final static Logger logger = LoggerFactory.getLogger(RouterEditDialogView.class);
+	public static Main mainApp;
 
 	/**
 	 * Initializes the controller class. This method is automatically called
@@ -61,6 +87,36 @@ public class RouterEditDialogView {
 	 */
 	@FXML
 	private void initialize() {
+		boxes =  new ArrayList<>(Arrays.asList(EIGRP,OSPF,RIP,BGP,MPLS,NETFLOW,QOS,NAT));
+	for (CheckBox i: boxes){
+		i.setOnAction((event) -> {
+			CheckPerformance.setValue(calculatePerforfmance());
+		});
+		}
+	
+	platforms.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+	      @Override
+	      public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+	    	  router.setPlatform((platforms.getItems().get((Integer) number2)));
+	    		FeaturesModel f = fms.getFeatureModelList(router.getPlatform());
+	    	  	for (CheckBox i: boxes){
+	    	  		i.setSelected(false);
+	    	  		i.setDisable(true);
+	    	  	}	
+	    				if (f.getBGP()==1){BGP.setDisable(false);}
+	    				if(f.getEIGRP()==1){EIGRP.setDisable(false);}
+	    				if(f.getMPLS()==1){MPLS.setDisable(false);}
+	    				if(f.getNAT()==1){NAT.setDisable(false);}
+	    				if(f.getNETFLOW()==1){NETFLOW.setDisable(false);}
+	    				if(f.getOSPF()==1){OSPF.setDisable(false);}
+	    				if(f.getQOS()==1){QOS.setDisable(false);}
+	    				if(f.getRIP()==1){RIP.setDisable(false);}
+	    				
+	    				CheckPerformance.setValue(calculatePerforfmance());
+	    		}
+	      
+	    });
+
 	}
 
 	/**
@@ -79,7 +135,6 @@ public class RouterEditDialogView {
 	 */
 	public void setRouter(RouterModel router) {
 		this.router = router;
-	//	features.getItems().addAll(FXCollections.observableArrayList("EIGRP","OSPF","RIP","BGP","NETFLOW","NAT","MPLS","QOS"));
 		platforms.getItems().addAll(FXCollections.observableArrayList(fms.listAllPlatforms()));
 		routerSerial.setText(router.getSerial_number());
 		configuredBy.setText(router.getWho_Configured());
@@ -88,13 +143,33 @@ public class RouterEditDialogView {
 		IOS.setText(router.getIOS());
 		man_IP.setText(router.getMan_IP());
 		routerName.setText(router.getName());
+		if (router.getFeatures().contains("EIGRP")) {
+			EIGRP.setSelected(true);
+		}
+		if (router.getFeatures().contains("OSPF")) {
+			OSPF.setSelected(true);
+		}
+		if (router.getFeatures().contains("RIP")) {
+			RIP.setSelected(true);
+		}
+		if (router.getFeatures().contains("MPLS")) {
+			MPLS.setSelected(true);
+		}
+		if (router.getFeatures().contains("NETFLOW")) {
+			NETFLOW.setSelected(true);
+		}
+		if (router.getFeatures().contains("BGP")) {
+			BGP.setSelected(true);
+		}
+		if (router.getFeatures().contains("NAT")) {
+			NAT.setSelected(true);
+		}
 	}
 
 	public void setNewRouter(RouterModel router) {
 		this.router = router;
 		platforms.getItems().addAll(FXCollections.observableArrayList(fms.listAllPlatforms()));
 
-//		features.getItems().addAll(FXCollections.observableArrayList("EIGRP","OSPF","RIP","BGP","NETFLOW","NAT","MPLS","QOS"));
 		routerSerial.setText("");
 		configuredBy.setText("");
 		configured.setText("");
@@ -113,22 +188,31 @@ public class RouterEditDialogView {
 		return okClicked;
 	}
 
-	
 	@FXML
 	private void handleOk() {
-		
-			router.setPlatform(platforms.getSelectionModel().getSelectedItem());
-			router.setName(routerName.getText());
-			router.setConfigured(configured.getText());
-			router.setSerial_number(routerSerial.getText());
-			router.setConfReg(confReg.getText());
-			router.setConfigured(configuredBy.getText());
-			router.setIOS(IOS.getText());
-			router.setMan_IP(man_IP.getText());
-			router.setWhen_configured(LocalDateTime.now());
-			okClicked = true;
-			dialogStage.close();
-	
+
+		router.setPlatform(platforms.getSelectionModel().getSelectedItem());
+		router.setName(routerName.getText());
+		router.setConfigured(configured.getText());
+		router.setSerial_number(routerSerial.getText());
+		router.setConfReg(confReg.getText());
+		router.setConfigured(configuredBy.getText());
+		router.setIOS(IOS.getText());
+		router.setMan_IP(man_IP.getText());
+		router.setWhen_configured(LocalDateTime.now());
+		okClicked = true;
+		features = EIGRP.isSelected() ? "EIGRP" : "";
+		features += OSPF.isSelected() ? ":OSPF" : "";
+		features += RIP.isSelected() ? ":RIP" : "";
+		features += BGP.isSelected() ? ":BGP" : "";
+		features += MPLS.isSelected() ? ":MPLS" : "";
+		features += NETFLOW.isSelected() ? ":NETFLOW" : "";
+		features += QOS.isSelected() ? ":QOS" : "";
+		features += NAT.isSelected() ? ":NAT" : "";
+		router.setFeatures(features);
+
+		dialogStage.close();
+
 	}
 
 	/**
@@ -140,11 +224,52 @@ public class RouterEditDialogView {
 		dialogStage.close();
 	}
 
+	public double calculatePerforfmance() {
+		try{
+		return fms.calculatePerforfmance(boxes, bandwidth.getText(), router.getPlatform());
+		}
+		catch (InvalidParameterException ex){
+			logger.error("User trying to save a new router with insufficient performance");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.initOwner(mainApp.getPrimaryStage());
+			alert.setTitle("Invalid Arguments");
+			alert.setHeaderText("Your adjusted fields can cause insufficent performance");
+			alert.setContentText("Please note this can cause outage!");
+			alert.showAndWait();
+			return 0;
+		}
+		catch(IllegalArgumentException ex){
+			logger.error("User trying to save a new router with insufficient performance");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.initOwner(mainApp.getPrimaryStage());
+			alert.setTitle("Invalid Arguments");
+			alert.setHeaderText("You have to set the following arguments:Routername,Management IP,Platform,Bandwidth,Features(Checkboxes)");
+			alert.setContentText("Please note this can cause outage!");
+			alert.showAndWait();
+			return 0;
+
+		}
+		finally {
+			return fms.calculatePerforfmance(boxes, bandwidth.getText(), router.getPlatform());
+
+		}
+	}
+
+	public static Main getMainApp() {
+		return mainApp;
+	}
+
+	public static void setMainApp(Main mainApp) {
+		RouterEditDialogView.mainApp = mainApp;
+	}
+
+	
+	
+
 	/**
 	 * Validates the user input in the text fields.
 	 * 
 	 * @return true if the input is valid
 	 */
-	
-	
+
 }

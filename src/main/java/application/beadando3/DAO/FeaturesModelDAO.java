@@ -79,4 +79,14 @@ public class FeaturesModelDAO implements DAOInterface<FeaturesModel>{
 
 		return ret;
 	}
+	public int getMaxibyPlatform(String platform) {
+		entityManager =emf.createEntityManager();
+
+		 int ret = (Integer) entityManager.createNamedQuery("FeaturesModel.findMaxByPlatform").setParameter("platform", platform).getResultList().get(0);
+		entityManager.close();
+
+		return ret;
+	}
+	
+	
 }

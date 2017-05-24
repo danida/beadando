@@ -155,7 +155,7 @@ public class RouterView {
 			alert.setTitle("No Selection");
 			alert.setHeaderText("No router record Selected");
 			alert.setContentText("Please select a router result from the table.");
-
+			ex.printStackTrace();
 			alert.showAndWait();
 
 		} catch (IllegalArgumentException e) {

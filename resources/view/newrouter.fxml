@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import eu.hansolo.medusa.Gauge?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -12,7 +13,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.beadando3.view.RouterEditDialogView">
    <children>
-      <GridPane layoutX="10.0" layoutY="10.0" prefHeight="367.0" prefWidth="800.0" AnchorPane.bottomAnchor="233.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane layoutX="10.0" layoutY="10.0" prefHeight="305.0" prefWidth="800.0" AnchorPane.bottomAnchor="295.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -46,18 +47,21 @@
             <ChoiceBox fx:id="platforms" prefHeight="31.0" prefWidth="401.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
       </GridPane>
-      <Button layoutX="515.0" layoutY="530.0" mnemonicParsing="false" onAction="#handleOk" text="OK" />
-      <Button layoutX="648.0" layoutY="530.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
-      <Label layoutX="6.0" layoutY="384.0" text="Features:" />
-      <CheckBox layoutX="161.0" layoutY="384.0" mnemonicParsing="false" text="EIGRP" />
-      <CheckBox layoutX="254.0" layoutY="384.0" mnemonicParsing="false" text="OSPF" />
-      <CheckBox layoutX="347.0" layoutY="384.0" mnemonicParsing="false" text="RIP" />
-      <CheckBox layoutX="440.0" layoutY="384.0" mnemonicParsing="false" text="BGP" />
-      <CheckBox layoutX="536.0" layoutY="384.0" mnemonicParsing="false" text="NAT" />
-      <CheckBox layoutX="629.0" layoutY="384.0" mnemonicParsing="false" text="MPLS" />
-      <CheckBox layoutX="161.0" layoutY="432.0" mnemonicParsing="false" text="QOS" />
-      <CheckBox layoutX="254.0" layoutY="432.0" mnemonicParsing="false" text="NETFLOW" />
-      <TextField layoutX="515.0" layoutY="427.0" />
-      <Label layoutX="397.0" layoutY="432.0" text="Data throughput:" />
+      <Button layoutX="516.0" layoutY="430.0" mnemonicParsing="false" onAction="#handleOk" text="OK" />
+      <Button layoutX="638.0" layoutY="430.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+      <Label layoutY="324.0" text="Features:" />
+      <CheckBox fx:id="EIGRP" layoutX="161.0" layoutY="324.0" mnemonicParsing="false" text="EIGRP" />
+      <CheckBox fx:id="OSPF" layoutX="254.0" layoutY="324.0" mnemonicParsing="false" text="OSPF" />
+      <CheckBox fx:id="RIP" layoutX="347.0" layoutY="324.0" mnemonicParsing="false" text="RIP" />
+      <CheckBox fx:id="BGP" layoutX="440.0" layoutY="324.0" mnemonicParsing="false" text="BGP" />
+      <CheckBox fx:id="NAT" layoutX="536.0" layoutY="324.0" mnemonicParsing="false" text="NAT" />
+      <CheckBox fx:id="MPLS" layoutX="629.0" layoutY="324.0" mnemonicParsing="false" text="MPLS" />
+      <CheckBox fx:id="QOS" layoutX="161.0" layoutY="372.0" mnemonicParsing="false" text="QOS" />
+      <CheckBox fx:id="NETFLOW" layoutX="254.0" layoutY="372.0" mnemonicParsing="false" text="NETFLOW" />
+      <TextField fx:id="bandwidth" layoutX="515.0" layoutY="367.0" prefHeight="31.0" prefWidth="199.0" />
+      <Label layoutX="397.0" layoutY="372.0" text="Data throughput:" />
+      <Gauge fx:id="CheckPerformance" layoutX="-23.0" layoutY="398.0" prefHeight="196.0" prefWidth="252.0" />
+      <Label layoutX="717.0" layoutY="372.0" text="Kbit/s" />
    </children>
+  
 </AnchorPane>
