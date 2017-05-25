@@ -12,7 +12,9 @@ import application.beadando3.model.TracerouteModel;
 public class TracerouteModelDAO implements DAOInterface<TracerouteModel> {
 	private EntityManager entityManager = DatabaseConnection.getEm();
 	private EntityManagerFactory emf = DatabaseConnection.getInstance();
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void create(TracerouteModel e) {
 
@@ -24,7 +26,9 @@ public class TracerouteModelDAO implements DAOInterface<TracerouteModel> {
 
 		entityManager.close();
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void edit(TracerouteModel e) {
 		entityManager = emf.createEntityManager();
@@ -36,7 +40,9 @@ public class TracerouteModelDAO implements DAOInterface<TracerouteModel> {
 		entityManager.close();
 
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void remove(TracerouteModel e) {
 		entityManager = emf.createEntityManager();
@@ -48,27 +54,36 @@ public class TracerouteModelDAO implements DAOInterface<TracerouteModel> {
 		entityManager.close();
 
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
-	public <T> List<T> findAll() {
+	public  List<TracerouteModel> findAll() {
 
 		entityManager = emf.createEntityManager();
 
-		List<T> ret = entityManager.createNamedQuery("TracerouteModel.findAll").getResultList();
+		List<TracerouteModel> ret = entityManager.createNamedQuery("TracerouteModel.findAll").getResultList();
 		entityManager.close();
 		return ret;
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public String count() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<TracerouteModel> getTracerouteModelbyId(int id) {
+	/**
+	 * Get the traceroute result by its Id
+	 * @param Id - Id of the tracerouteModel
+	 * @return Returns the traceroutemodel by Id
+	 */
+	public List<TracerouteModel> getTracerouteModelbyId(int Id) {
 		entityManager = emf.createEntityManager();
 
-		List<TracerouteModel> ret = entityManager.createNamedQuery("TracerouteModel.getbyId").setParameter("id",id).getResultList();
+		List<TracerouteModel> ret = entityManager.createNamedQuery("TracerouteModel.getbyId").setParameter("id",Id).getResultList();
 		entityManager.close();
 		return ret;
 	}

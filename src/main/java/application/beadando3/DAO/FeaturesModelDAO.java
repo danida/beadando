@@ -10,11 +10,24 @@ import application.beadando3.model.FeaturesModel;
 import application.beadando3.model.InterfacesModel;
 import Interfaces.DAOInterface;
 
+/**
+ * @author danida
+ *
+ */
 public class FeaturesModelDAO implements DAOInterface<FeaturesModel>{
 
+	/**
+	 * Set the EntityManager for the instance
+	 */
 	private  EntityManager entityManager = DatabaseConnection.getEm();
+	/**
+	 * Set the EntityManagerFactory for the instance
+	 */
 	private EntityManagerFactory emf = DatabaseConnection.getInstance();
 	
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void create(FeaturesModel e) {
 		entityManager =emf.createEntityManager();
@@ -24,7 +37,9 @@ public class FeaturesModelDAO implements DAOInterface<FeaturesModel>{
 		entityManager.close();
 		
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void edit(FeaturesModel e) {
 		entityManager =emf.createEntityManager();
@@ -33,7 +48,9 @@ public class FeaturesModelDAO implements DAOInterface<FeaturesModel>{
 		entityManager.getTransaction().commit();
 		entityManager.close();		
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void remove(FeaturesModel e) {
 
@@ -44,7 +61,9 @@ public class FeaturesModelDAO implements DAOInterface<FeaturesModel>{
 		entityManager.getTransaction().commit();
 		entityManager.close();		
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public List<FeaturesModel> findAll() {
 		entityManager =emf.createEntityManager();
@@ -53,7 +72,9 @@ public class FeaturesModelDAO implements DAOInterface<FeaturesModel>{
 
 		return ret;		
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public String count() {
 		entityManager =emf.createEntityManager();
@@ -63,6 +84,9 @@ public class FeaturesModelDAO implements DAOInterface<FeaturesModel>{
 
 		return ret;
 	}
+	/**List all of the platforms
+	 * @return Returns all of the platforms which are in the features table
+	 */
 	public List<String> findPlatforms(){
 		entityManager =emf.createEntityManager();
 
@@ -71,6 +95,10 @@ public class FeaturesModelDAO implements DAOInterface<FeaturesModel>{
 
 	}
 	
+	/**List features for a platform
+	 * @param platform Platform of the router
+	 * @return Returns all of the features for a platform
+	 */
 	public List<FeaturesModel> getFeaturesModelByFeatures_name(String platform) {
 		entityManager =emf.createEntityManager();
 
@@ -79,6 +107,10 @@ public class FeaturesModelDAO implements DAOInterface<FeaturesModel>{
 
 		return ret;
 	}
+	/** Returns the maximum available performance for a router platform
+	 * @param platform Platform of the router
+	 * @return Returns the maxi value  for a platorm
+	 */
 	public int getMaxibyPlatform(String platform) {
 		entityManager =emf.createEntityManager();
 

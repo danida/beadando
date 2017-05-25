@@ -37,7 +37,6 @@ public class InterfacesView {
 
 	private Stage dialogStage;
 	private RouterModel router;
-	private boolean okClicked = false;
 
 	@FXML
 	private void initialize() {
@@ -135,13 +134,7 @@ public class InterfacesView {
 		this.router = router;
 	}
 
-	public boolean isOkClicked() {
-		return okClicked;
-	}
-
-	public void setOkClicked(boolean okClicked) {
-		this.okClicked = okClicked;
-	}
+	
 
 	public Stage getDialogStage() {
 		return dialogStage;

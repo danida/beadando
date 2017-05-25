@@ -1,12 +1,15 @@
 package application.beadando3;
 
 
+
 import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import application.beadando3.model.DatabaseConnection;
 import application.beadando3.model.LoginModel;
 import application.beadando3.model.RouterModel;
-import application.beadando3.view.AdminsView;
 import application.beadando3.view.DashboardView;
 import application.beadando3.view.InterfacesView;
 import application.beadando3.view.LoginView;
@@ -14,38 +17,59 @@ import application.beadando3.view.PingView;
 import application.beadando3.view.RootView;
 import application.beadando3.view.RouterEditDialogView;
 import application.beadando3.view.RouterView;
+import application.beadando3.view.SearchResultView;
 import application.beadando3.view.TracerouteView;
 import helper.DatabaseDummyData;
-import application.beadando3.view.SearchResultView;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 
+	/**
+	 * @author danida
+	 *
+	 */
 	public class Main extends Application {
+		
 
+	    /**
+	     * Set the primary stage
+	     */
 	    private Stage primaryStage;
+	    
+	    /**
+	     * Set rootPane
+	     */
 	    private BorderPane rootLayout;
+	    /**
+	     * Set the loginPane
+	     */
 	    private AnchorPane loginLayout;
-	    private ObservableList<RouterModel> routerData = FXCollections.observableArrayList();
+	    /**
+	     * One instance of the logger
+	     */
 	    private final static Logger logger = LoggerFactory.getLogger(Main.class);
+	    /**
+	     * Login user
+	     */
 	    private static LoginModel user; 
 	    
+	    /**
+	     * Constructor of the Main class
+	     */
 	    public Main() {
 	    	
 		}
 
+		
+		
 		@Override
 	    public void start(Stage primaryStage) {
 			logger.info("Starting application");
@@ -62,8 +86,10 @@ import org.slf4j.LoggerFactory;
 			dc.closeConnection();
 		}
 
+	   
+	   
 	    /**
-	     * Initializes the root layout.
+	     * Initialize rootLayout
 	     */
 	    public void initRootLayout() {
 	        try {
@@ -87,6 +113,11 @@ import org.slf4j.LoggerFactory;
 	        }
 	    }
 
+	    /**
+	     * Initialize loginLayout
+	     * 
+	     * @return Returns if the authentication was successful or not
+	     */
 	    public Boolean initLoginLayout() {
 	    	
 	        try {
@@ -116,14 +147,20 @@ import org.slf4j.LoggerFactory;
 	        return false;
 	    }
 
-	    /**
-	     * Returns the main stage.
-	     * @return
+	    /*
+	     *Returns the primaryStage 
+	     * @return Returns the main stage.
 	     */
+	    
 	    public Stage getPrimaryStage() {
 	        return primaryStage;
 	    }
 	    
+	    /**
+	     * Pops up when the customer wants to edit a router
+	     * @param One instance of RouterModel
+	     * @return Returns if the user clicked OK or not
+	     */
 	    public boolean showRouterEditDialog(RouterModel router) {
 	        try {
 				logger.info("Showing router edit dialog");
@@ -153,6 +190,11 @@ import org.slf4j.LoggerFactory;
 	        }
 	    }
 	   
+	    /**
+	     * Pops up when the customer wants to add a new router
+	     * @param One instance of RouterModel
+	     * @return Returns if the user clicked OK or not
+	     */
 	    public boolean showRouterNewDialog(RouterModel router) {
 	        try {
 				logger.info("Showing new router dialog");
@@ -182,6 +224,9 @@ import org.slf4j.LoggerFactory;
 	        }
 	    }
 	
+	    /**Pops up when the customer wants to search for a router
+	     * @return Returns if the Search button clicked or not
+	     */
 	    public boolean showRouterSearchDialog() {
 	        try {
 				logger.info("Showing search router dialog");
@@ -210,7 +255,12 @@ import org.slf4j.LoggerFactory;
 	            return false;
 	        }
 	    }
-	    public boolean showInterfacesSearchDialog(RouterModel selectedRouter) {
+	   
+	    /**
+	     * Pops up a dialog where the user can change the interfaces for a router
+	     * @param One router which is selected from the tableview
+	     */
+	    public void showInterfacesDialog(RouterModel selectedRouter) {
 	    	try{
 				logger.info("Showing the interfaces of router dialog");
 
@@ -232,28 +282,29 @@ import org.slf4j.LoggerFactory;
 
 	            dialogStage.showAndWait();
 
-	            return controller.isOkClicked();
 	        } catch (IOException e) {
 	            e.printStackTrace();
-	            return false;
 		}
 	}
-	public ObservableList<RouterModel> getRouterData() {
-			return routerData;
-		}
 
-		public void setRouterData(ObservableList<RouterModel> routerData) {
-			this.routerData = routerData;
-		}
 
+	/**Application start point
+	 * @param Application parameters
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+	/**Returns an instance of LoginModel
+	 * @return Returns a LoginModel of a user
+	 */
 	public static LoginModel getUser() {
 		return user;
 	}
 
+	/**Set the LoginModel of the Main
+	 * @param One instance of the LoginModel
+	 */
 	public static void setUser(LoginModel user) {
 		Main.user = user;
 	}

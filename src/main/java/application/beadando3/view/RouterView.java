@@ -187,11 +187,9 @@ public class RouterView {
 	private void handleShowInterfaces() {
 		RouterModel selectedRouter = routerTable.getSelectionModel().getSelectedItem();
 		try {
-			boolean okClicked = mainApp.showInterfacesSearchDialog(selectedRouter);
-			if (okClicked) {
-				RouterModelDAO rm = new RouterModelDAO();
-				routerTable.setItems(FXCollections.observableList(rm.findAll()));
-			}
+			mainApp.showInterfacesDialog(selectedRouter);
+			RouterModelDAO rm = new RouterModelDAO();
+			routerTable.setItems(FXCollections.observableList(rm.findAll()));
 
 		} catch (Exception ex) {
 			// Nothing selected.

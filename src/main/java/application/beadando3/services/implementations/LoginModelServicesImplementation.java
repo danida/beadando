@@ -58,7 +58,7 @@ public class LoginModelServicesImplementation  implements ServicesInterface<Logi
 	}
 
 	@Override
-	public <T> List<T> getAll() {
+	public List<LoginModel> getAll() {
 		logger.info("Finding all loginmodels");
 		return  dao.findAll();
 	}

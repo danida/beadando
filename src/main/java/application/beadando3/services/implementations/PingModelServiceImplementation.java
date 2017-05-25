@@ -61,7 +61,7 @@ public class PingModelServiceImplementation implements ServicesInterface<PingMod
 	}
 
 	@Override
-	public <T> List<T> getAll() {
+	public List<PingModel> getAll() {
 		logger.info("List all pingmodel");
 
 		return dao.findAll();

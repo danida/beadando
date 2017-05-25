@@ -20,7 +20,10 @@ public class PingModelDAO implements DAOInterface<PingModel> {
 	private  EntityManager entityManager = DatabaseConnection.getEm();
 	private EntityManagerFactory emf = DatabaseConnection.getInstance();
 	
-
+	/**
+	 *{@inheritDoc}
+	 */
+	@Override
 	public void create(PingModel e) {
 
 		entityManager =emf.createEntityManager();
@@ -31,7 +34,9 @@ public class PingModelDAO implements DAOInterface<PingModel> {
 
 		entityManager.close();
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void edit(PingModel e) {
 
@@ -46,7 +51,9 @@ public class PingModelDAO implements DAOInterface<PingModel> {
 		entityManager.close();
 
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void remove(PingModel e) {
 
@@ -61,16 +68,20 @@ public class PingModelDAO implements DAOInterface<PingModel> {
 	}
 
 
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
-	public <T> List<T> findAll() {
+	public  List<PingModel> findAll() {
 
 		entityManager =emf.createEntityManager();
-		List<T>ret =entityManager.createNamedQuery("PingModel.findAll").getResultList();
+		List<PingModel>ret =entityManager.createNamedQuery("PingModel.findAll").getResultList();
 		entityManager.close();
 		return ret;
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public String count() {
 		entityManager =emf.createEntityManager();
@@ -78,10 +89,15 @@ public class PingModelDAO implements DAOInterface<PingModel> {
 		entityManager.close();
 		return ret;
 	}
-	public List<PingModel> getPingModelbyId(int id){
+	/**
+	 * Get the ping by Id
+	 * @param Id - Id of the ping request
+	 * @return Returns a list of  instances of the PingModel
+	 */
+	public List<PingModel> getPingModelbyId(int Id){
 
 		entityManager =emf.createEntityManager();
-		List<PingModel >ret =  entityManager.createNamedQuery("PingModel.getbyid").setParameter("id", id).getResultList();
+		List<PingModel >ret =  entityManager.createNamedQuery("PingModel.getbyid").setParameter("id", Id).getResultList();
 		entityManager.close();
 
 		return ret;

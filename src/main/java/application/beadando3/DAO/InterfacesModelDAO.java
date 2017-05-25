@@ -13,15 +13,31 @@ import application.beadando3.Main;
 import application.beadando3.model.DatabaseConnection;
 import application.beadando3.model.InterfacesModel;
 
+/**
+ * @author danida
+ *
+ */
 public class InterfacesModelDAO implements DAOInterface<InterfacesModel> {
 
+	/**
+	 * Set the EntityManager for the instance
+	 */
 	private  EntityManager entityManager = DatabaseConnection.getEm();
+	/**
+	 * Set the EntityManagerFactory for the instance
+	 */
 	private EntityManagerFactory emf = DatabaseConnection.getInstance();
 
+	/**
+	 * Default constructor of the DAO
+	 */
 	public InterfacesModelDAO() {
 
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
+	@Override
 	public void create(InterfacesModel e) {
 		entityManager =emf.createEntityManager();
 		entityManager.getTransaction().begin();
@@ -29,7 +45,9 @@ public class InterfacesModelDAO implements DAOInterface<InterfacesModel> {
 		entityManager.getTransaction().commit();
 		entityManager.close();
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void edit(InterfacesModel e) {
 		entityManager =emf.createEntityManager();
@@ -39,7 +57,9 @@ public class InterfacesModelDAO implements DAOInterface<InterfacesModel> {
 		entityManager.close();
 
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void remove(InterfacesModel e) {
 
@@ -51,7 +71,9 @@ public class InterfacesModelDAO implements DAOInterface<InterfacesModel> {
 		entityManager.close();
 
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public List<InterfacesModel> findAll() {
 
@@ -62,7 +84,9 @@ public class InterfacesModelDAO implements DAOInterface<InterfacesModel> {
 		return ret;
 
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public String count() {
 
@@ -74,21 +98,29 @@ public class InterfacesModelDAO implements DAOInterface<InterfacesModel> {
 		return ret;
 	}
 
-	public List<InterfacesModel> getInterfacesByRouterId(int id) {
+	/**
+	 * Lists all of the interfaces which the router has
+	 * @param Id of the interface
+	 * @return Returns list of Interfacesmodel
+	 */
+	public List<InterfacesModel> getInterfacesByRouterId(int Id) {
 		entityManager =emf.createEntityManager();
 		List<InterfacesModel> ret = entityManager.createNamedQuery("InterfacesModel.getByRouterId")
-				.setParameter("router_id", id).getResultList();
+				.setParameter("router_id", Id).getResultList();
 		entityManager.close();
-
 		return ret;
 
 	}
 
-	public InterfacesModel getInterfacesbyId(int id) {
+	/**
+	 * List an interface with the provided id
+	 * @param Id of the interface
+	 * @return Returns the list of the Interfacesmodel by Id
+	 */
+	public InterfacesModel getInterfacesbyId(int Id) {
 		entityManager =emf.createEntityManager();
-
 		InterfacesModel ret = (InterfacesModel) entityManager.createNamedQuery("InterfacesModel.getInterfacesbyId")
-				.setParameter("interfaces_id", id).getResultList().get(0);
+				.setParameter("interfaces_id", Id).getResultList().get(0);
 		entityManager.close();
 
 		return ret;
