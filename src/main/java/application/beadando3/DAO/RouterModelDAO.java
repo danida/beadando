@@ -10,22 +10,37 @@ import Interfaces.DAOInterface;
 import application.beadando3.model.DatabaseConnection;
 import application.beadando3.model.RouterModel;
 
+/**
+ * @author danida
+ *
+ */
 public class RouterModelDAO implements DAOInterface<RouterModel> {
 
 	private  EntityManager entityManager = DatabaseConnection.getEm();
 	private EntityManagerFactory emf = DatabaseConnection.getInstance();
+	/**
+	 * Constructor of the class.
+	 */
+	public RouterModelDAO() {
 
+	}
+	/**
+	 * Getter of the entity manager factory.
+	 * @return Returns an entitymanagerfactory
+	 */
 	public EntityManagerFactory getEmf() {
 		return emf;
 	}
 
+	/**
+	 * Setter of the emf.
+	 * @param emf - Enitity manager factory of the persistence unit
+	 */
 	public void setEmf(EntityManagerFactory emf) {
 		this.emf = emf;
 	}
 
-	public RouterModelDAO() {
-
-	}
+	
 
 
 	/**
@@ -96,7 +111,7 @@ public class RouterModelDAO implements DAOInterface<RouterModel> {
 	}
 
 	/**
-	 * List all of the platforms which are in the table
+	 * List all of the platforms which are in the table.
 	 * @return Returns the used platforms
 	 */
 	public List<String> getPlatforms() {
@@ -107,7 +122,7 @@ public class RouterModelDAO implements DAOInterface<RouterModel> {
 	}
 
 	/**
-	 * Get the numbers of router for different platforms
+	 * Get the numbers of router for different platforms.
 	 * @param platform - Platform of the router
 	 * @return Returns the number as a String by number
 	 */
@@ -122,7 +137,7 @@ public class RouterModelDAO implements DAOInterface<RouterModel> {
 	}
 
 	/**
-	 * List the routers by their Id
+	 * List the routers by their Id.
 	 * @param Id - Id of the RouterModel
 	 * @return Returns the RouterModel by Id
 	 */
@@ -138,7 +153,7 @@ public class RouterModelDAO implements DAOInterface<RouterModel> {
 	}
 
 	/**
-	 * List the routers by its platform
+	 * List the routers by its platform.
 	 * @param parameter - Platform of the router
 	 * @return Returns a list of RouterModel where the platform is the same
 	 */
@@ -153,7 +168,7 @@ public class RouterModelDAO implements DAOInterface<RouterModel> {
 	}
 
 	/**
-	 * List routers by their IOS
+	 * List routers by their IOS.
 	 * @param parameter - IOS name
 	 * @return Returns the router with the same IOS
 	 */
@@ -170,7 +185,7 @@ public class RouterModelDAO implements DAOInterface<RouterModel> {
 	}
 
 	/**
-	 * Get the router by the name of its
+	 * Get the router by the name of its.
 	 * @param parameter - Name of the Router
 	 * @return Returns the router by its name
 	 */

@@ -9,10 +9,16 @@ import Interfaces.ServicesInterface;
 import application.beadando3.DAO.PingModelDAO;
 import application.beadando3.model.PingModel;
 
+/**
+ * @author danida
+ *
+ */
 public class PingModelServiceImplementation implements ServicesInterface<PingModel> {
 	PingModelDAO dao = new PingModelDAO();
     private final static Logger logger = LoggerFactory.getLogger(PingModelServiceImplementation.class);
-
+    /**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void save(PingModel e) {
 		
@@ -29,7 +35,9 @@ public class PingModelServiceImplementation implements ServicesInterface<PingMod
 		
 				
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void update(PingModel e) {
 
@@ -46,7 +54,9 @@ public class PingModelServiceImplementation implements ServicesInterface<PingMod
 		}
 				
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void delete(PingModel e) {
 		if (!checkDuplicatesPingModel(e)){
@@ -59,18 +69,28 @@ public class PingModelServiceImplementation implements ServicesInterface<PingMod
 			
 		}		
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public List<PingModel> getAll() {
 		logger.info("List all pingmodel");
 
 		return dao.findAll();
 	}
-
+	/**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public String count() {
 		return dao.count();
 	}
+	
+	/**
+	 * Validates the ping if it is valid or not.
+	 * @param PingModel - One instance of pingmodel
+	 * @return Returns true if the pingmodel is savable
+	 */
 	public boolean validatePingModel(PingModel PingModel){
 		boolean valid = true;
 		if ( PingModel.getDestination()== null || PingModel.getOutput() == null) {
@@ -78,6 +98,11 @@ public class PingModelServiceImplementation implements ServicesInterface<PingMod
         }
 		return valid;
 	}
+	/**
+	 * Checks if the ping record already is in the table.
+	 * @param PingModel - Model of ping what should be saved
+	 * @return Returns true or false depends on it the pingmodel already there or not
+	 */
 	public boolean checkDuplicatesPingModel(PingModel PingModel){
 		boolean valid = false;
 		

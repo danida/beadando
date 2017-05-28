@@ -27,13 +27,14 @@ public class TestRouterModel {
 	private RouterModelDAO dao;
 
 	private RouterModelServiceImplementation service;
+	 
 
 	private RouterModel router1;
 	private RouterModel router2;
 
 	@Before
 	public void setUp() {
-		service = new RouterModelServiceImplementation();
+		service= new RouterModelServiceImplementation(dao);
 		router1 = new RouterModel(1, "R10", "1841", "FCZ123456", LocalDateTime.now(), "danida", "0x2142",
 				"blabla.bin", "10.10.10.1", "12.2.32.");
 		router2 = new RouterModel(null, "R20", "1941", "FCZ123453", LocalDateTime.now(), "danida", "0x2142",

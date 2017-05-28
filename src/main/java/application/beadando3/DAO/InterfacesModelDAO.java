@@ -20,16 +20,16 @@ import application.beadando3.model.InterfacesModel;
 public class InterfacesModelDAO implements DAOInterface<InterfacesModel> {
 
 	/**
-	 * Set the EntityManager for the instance
+	 * Set the EntityManager for the instance.
 	 */
 	private  EntityManager entityManager = DatabaseConnection.getEm();
 	/**
-	 * Set the EntityManagerFactory for the instance
+	 * Set the EntityManagerFactory for the instance.
 	 */
 	private EntityManagerFactory emf = DatabaseConnection.getInstance();
 
 	/**
-	 * Default constructor of the DAO
+	 * Default constructor of the DAO.
 	 */
 	public InterfacesModelDAO() {
 
@@ -99,7 +99,7 @@ public class InterfacesModelDAO implements DAOInterface<InterfacesModel> {
 	}
 
 	/**
-	 * Lists all of the interfaces which the router has
+	 * Lists all of the interfaces which the router has.
 	 * @param Id of the interface
 	 * @return Returns list of Interfacesmodel
 	 */
@@ -113,7 +113,7 @@ public class InterfacesModelDAO implements DAOInterface<InterfacesModel> {
 	}
 
 	/**
-	 * List an interface with the provided id
+	 * List an interface with the provided id.
 	 * @param Id of the interface
 	 * @return Returns the list of the Interfacesmodel by Id
 	 */

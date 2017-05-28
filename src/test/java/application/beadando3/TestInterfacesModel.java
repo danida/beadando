@@ -32,10 +32,9 @@ public class TestInterfacesModel {
 	
 	@Before
 	public void setUp(){
-		service = new InterfacesModelServiceImplementation();
+		service = new InterfacesModelServiceImplementation(dao);
 		interface1 = new InterfacesModel(1, 1, "GigabitEthernet0/0", "23:32:BA:12:32:EF", "10.10.10.1");
 		interface2 = new InterfacesModel(2, 1, "GigabitEthernet0/1", "32:11:EF:44:22:EE", "192.168.1.2");
-		service.setDao(dao);
 	}
 	
 	

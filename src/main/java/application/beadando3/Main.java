@@ -40,29 +40,29 @@ import javafx.stage.Stage;
 		
 
 	    /**
-	     * Set the primary stage
+	     * Set the primary stage.
 	     */
 	    private Stage primaryStage;
 	    
 	    /**
-	     * Set rootPane
+	     * Set rootPane.
 	     */
 	    private BorderPane rootLayout;
 	    /**
-	     * Set the loginPane
+	     * Set the loginPane.
 	     */
 	    private AnchorPane loginLayout;
 	    /**
-	     * One instance of the logger
+	     * One instance of the logger.
 	     */
 	    private final static Logger logger = LoggerFactory.getLogger(Main.class);
 	    /**
-	     * Login user
+	     * Login user.
 	     */
 	    private static LoginModel user; 
 	    
 	    /**
-	     * Constructor of the Main class
+	     * Constructor of the Main class.
 	     */
 	    public Main() {
 	    	
@@ -89,7 +89,7 @@ import javafx.stage.Stage;
 	   
 	   
 	    /**
-	     * Initialize rootLayout
+	     * Initialize rootLayout.
 	     */
 	    public void initRootLayout() {
 	        try {
@@ -114,7 +114,7 @@ import javafx.stage.Stage;
 	    }
 
 	    /**
-	     * Initialize loginLayout
+	     * Initialize loginLayout.
 	     * 
 	     * @return Returns if the authentication was successful or not
 	     */
@@ -147,18 +147,17 @@ import javafx.stage.Stage;
 	        return false;
 	    }
 
-	    /*
-	     *Returns the primaryStage 
+	    /**
+	     * Returns the primaryStage .
 	     * @return Returns the main stage.
 	     */
-	    
 	    public Stage getPrimaryStage() {
 	        return primaryStage;
 	    }
 	    
 	    /**
-	     * Pops up when the customer wants to edit a router
-	     * @param One instance of RouterModel
+	     * Pops up when the customer wants to edit a router.
+	     * @param router - One instance of RouterModel
 	     * @return Returns if the user clicked OK or not
 	     */
 	    public boolean showRouterEditDialog(RouterModel router) {
@@ -191,8 +190,8 @@ import javafx.stage.Stage;
 	    }
 	   
 	    /**
-	     * Pops up when the customer wants to add a new router
-	     * @param One instance of RouterModel
+	     * Pops up when the customer wants to add a new router.
+	     * @param router -  One instance of RouterModel
 	     * @return Returns if the user clicked OK or not
 	     */
 	    public boolean showRouterNewDialog(RouterModel router) {
@@ -224,7 +223,7 @@ import javafx.stage.Stage;
 	        }
 	    }
 	
-	    /**Pops up when the customer wants to search for a router
+	    /**Pops up when the customer wants to search for a router.
 	     * @return Returns if the Search button clicked or not
 	     */
 	    public boolean showRouterSearchDialog() {
@@ -257,8 +256,8 @@ import javafx.stage.Stage;
 	    }
 	   
 	    /**
-	     * Pops up a dialog where the user can change the interfaces for a router
-	     * @param One router which is selected from the tableview
+	     * Pops up a dialog where the user can change the interfaces for a router.
+	     * @param selectedRouter -  One router which is selected from the tableview
 	     */
 	    public void showInterfacesDialog(RouterModel selectedRouter) {
 	    	try{
@@ -288,22 +287,22 @@ import javafx.stage.Stage;
 	}
 
 
-	/**Application start point
-	 * @param Application parameters
+	/**Application start point.
+	 * @param args -  Application parameters
 	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
 
-	/**Returns an instance of LoginModel
+	/**Returns an instance of LoginModel.
 	 * @return Returns a LoginModel of a user
 	 */
 	public static LoginModel getUser() {
 		return user;
 	}
 
-	/**Set the LoginModel of the Main
-	 * @param One instance of the LoginModel
+	/**Set the LoginModel of the Main.
+	 * @param user -  One instance of the LoginModel
 	 */
 	public static void setUser(LoginModel user) {
 		Main.user = user;

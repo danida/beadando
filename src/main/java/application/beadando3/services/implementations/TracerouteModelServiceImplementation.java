@@ -11,10 +11,16 @@ import Interfaces.ServicesInterface;
 import application.beadando3.DAO.TracerouteModelDAO;
 import application.beadando3.model.TracerouteModel;
 
+/**
+ * @author danida
+ *
+ */
 public class TracerouteModelServiceImplementation implements ServicesInterface<TracerouteModel> {
 	TracerouteModelDAO dao = new TracerouteModelDAO();
     private final static Logger logger = LoggerFactory.getLogger(TracerouteModelServiceImplementation.class);
-
+    /**
+	 *{@inheritDoc}
+	 */
 	@Override
 		public void save(TracerouteModel e) {
 		
@@ -28,7 +34,9 @@ public class TracerouteModelServiceImplementation implements ServicesInterface<T
 			
 		
 	}
-
+	 /**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void update(TracerouteModel e) {
 
@@ -44,7 +52,9 @@ public class TracerouteModelServiceImplementation implements ServicesInterface<T
 			dao.edit(e);
 		}		
 	}
-
+	 /**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void delete(TracerouteModel e) {
 		if (!checkDuplicatesTracerouteModel(e)){
@@ -56,18 +66,27 @@ public class TracerouteModelServiceImplementation implements ServicesInterface<T
 			
 		}				
 	}
-
+	 /**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public List getAll() {
 		return dao.findAll();
 
 	}
-
+	 /**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public String count() {
 		return dao.count();
 
 	}
+	/**
+	 * Checks if the traceroute is savable.
+	 * @param TracerouteModel - One instance of traceroute
+	 * @return Returns true if it is savables
+	 */
 	public boolean validateTracerouteModel(TracerouteModel TracerouteModel){
 		boolean valid = true;
 		if ( TracerouteModel.getDestination()== null || TracerouteModel.getOutput() == null) {
@@ -75,6 +94,11 @@ public class TracerouteModelServiceImplementation implements ServicesInterface<T
         }
 		return valid;
 	}
+	/**
+	 * Checks if the traceroute already exists in the table.
+	 * @param TracerouteModel - traceroute
+	 * @return Returns true if it is already exists
+	 */
 	public boolean checkDuplicatesTracerouteModel(TracerouteModel TracerouteModel){
 		boolean valid = false;
 		

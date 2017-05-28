@@ -19,6 +19,10 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.fxml.FXML;
 
+/**
+ * @author danida
+ *
+ */
 public class DashboardView {
 	@FXML
 	private Label sumOfRouters;
@@ -32,49 +36,71 @@ public class DashboardView {
 	@FXML
     private BarChart<String,Integer> bc;
 	
+    /**
+     * all of the router platforms.
+     */
     private ObservableList<String> platforms = FXCollections.observableArrayList();
+	/**
+	 * Static variable for the main.
+	 */
+	public static Main mainApp;
 
 	
 	
+    /**
+     * List all of the platforms.
+     * @return Returns the platforms 
+     */
     public ObservableList<String> getPlatforms() {
 		return platforms;
 	}
 
 
 
-	public void setPlatforms(ObservableList<String> monthNames) {
-		this.platforms = monthNames;
+	/**
+	 * Set the platforms.
+	 * @param platforms - platform list
+	 */
+	public void setPlatforms(ObservableList<String> platforms) {
+		this.platforms = platforms;
 	}
 
 
 
+	/**
+	 * Returns the platform Axis.
+	 * @return Returns the x Axis of the chart
+	 */
 	public CategoryAxis getxAxis() {
 		return xAxis;
 	}
-	public static Main mainApp;
 
-
-
-	
-	
+	/**Getter of the Main.
+	 * @return Returns the Main
+	 */
 	public static Main getMainApp() {
 		return mainApp;
 	}
 
-
-
+	/**Setter of the Main.
+	 * @param mainApp - Mainapp instance
+	 */
 	public static void setMainApp(Main mainApp) {
 		DashboardView.mainApp = mainApp;
 	}
 
-
-
+	/**
+	 * Default constructor.
+	 */
 	public DashboardView() {
 		super();
 		}
 
 
 
+	/**
+	 * Initialize the dashboard controller.
+	 */
 	@FXML
 	public void initialize(){
 		RouterModelServiceImplementation dm = new RouterModelServiceImplementation();
@@ -94,7 +120,11 @@ public class DashboardView {
 	      
 	        
 	}
-	 public void setRouterData(ObservableList<String> platforms) {
+	 /**
+	  * Counts the number of the different platforms.
+	 * @param platforms - platforms list
+	 */
+	public void setRouterData(ObservableList<String> platforms) {
 	        String[] platformCounter = new String[platforms.size()];
 			RouterModelServiceImplementation dm = new RouterModelServiceImplementation();
 			int i = 0;

@@ -12,6 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * @author danida
+ *
+ */
 public class AdminsView {
 
 	@FXML 
@@ -27,9 +31,15 @@ public class AdminsView {
 	@FXML
 	private CheckBox admin;
 	
+	/**
+	 * Ok button clicked or not.
+	 */
 	private boolean OkClicked;
 
 	
+	/**
+	 * Initializing the controller.
+	 */
 	@FXML
 	public void initialize(){
 		LoginModelServicesImplementation lms = new LoginModelServicesImplementation();
@@ -38,6 +48,9 @@ public class AdminsView {
 		Anchornew.setVisible(false);
 	}
 	
+	/**
+	 * Handle, if delete button clicked.
+	 */
 	@FXML
 	public void handleDeleting(){
 		LoginModelServicesImplementation lms = new LoginModelServicesImplementation();
@@ -51,12 +64,18 @@ public class AdminsView {
 		}
 		
 	}
+	/**
+	 * Handle, if the new button clicked.
+	 */
 	@FXML
 	public void handleNew(){
 		username.setText("");
 		password.setText("");
 		Anchornew.setVisible(true);
 	}
+	/**
+	 * Saves the loginmodel.
+	 */
 	@FXML
 	public void handleSav(){
 		LoginModel um = new LoginModel();
@@ -79,6 +98,9 @@ public class AdminsView {
 		users.refresh();
 		
 	}
+	/**
+	 * Cances the current operation.
+	 */
 	@FXML
 	public void handleCancel(){
 		username.setText("");
@@ -88,56 +110,31 @@ public class AdminsView {
 	}
 	
 	
-	public void setDialogStage(Stage dialogStage) {
-		// TODO Auto-generated method stub
-		
-	}
 
-
-	public void setUser(LoginModel user) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
+	/**
+	 * @return Returns if the ok clicked or not.
+	 */
 	public boolean isOkClicked() {
 		return OkClicked;
 	}
 
 
+	/**
+	 * @return Returns the admins.
+	 */
 	public ListView<LoginModel> getAdmins() {
 		return admins;
 	}
 
 
-	public void setAdmins(ListView<LoginModel> admins) {
-		this.admins = admins;
-	}
 
-
+	/**
+	 * @return Returns the normal users.
+	 */
 	public ListView<LoginModel> getUsers() {
 		return users;
 	}
 
-
-	public void setUsers(ListView<LoginModel> users) {
-		this.users = users;
-	}
-
-
-	public AnchorPane getAnchornew() {
-		return Anchornew;
-	}
-
-
-	public void setAnchornew(AnchorPane anchornew) {
-		this.Anchornew = anchornew;
-	}
-
-
-	public void setOkClicked(boolean okClicked) {
-		OkClicked = okClicked;
-	}
 	
 
 }

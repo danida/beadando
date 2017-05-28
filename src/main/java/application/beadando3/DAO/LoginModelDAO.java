@@ -15,11 +15,11 @@ import application.beadando3.model.LoginModel;
  */
 public class LoginModelDAO implements DAOInterface<LoginModel> {
 	/**
-	 * Set the EntityManager for the instance
+	 * Set the EntityManager for the instance.
 	 */
 	private  EntityManager entityManager = DatabaseConnection.getEm();
 	/**
-	 * Set the EntityManagerFactory for the instance
+	 * Set the EntityManagerFactory for the instance.
 	 */
 	private EntityManagerFactory emf = DatabaseConnection.getInstance();
 	/**
@@ -84,7 +84,7 @@ public class LoginModelDAO implements DAOInterface<LoginModel> {
 		return ret;		
 	}
 	/**
-	 * Get UserModel by username
+	 * Get UserModel by username.
 	 * @param username - username of the user
 	 * @return Returns the Usermodel by username
 	 */
@@ -96,7 +96,7 @@ public class LoginModelDAO implements DAOInterface<LoginModel> {
 	}
 
 	/**
-	 * Get the password for the user
+	 * Get the password for the user.
 	 * @param username - username of the user
 	 * @return Returns the hash of the password
 	 */
@@ -108,7 +108,7 @@ public class LoginModelDAO implements DAOInterface<LoginModel> {
 	}
 
 	/**
-	 * Get Usermodel by User ID
+	 * Get Usermodel by User ID.
 	 * @param Id - Id of the User 
 	 * @return Returns the usermodel by its userId
 	 */
@@ -119,7 +119,7 @@ public class LoginModelDAO implements DAOInterface<LoginModel> {
 		return ret;		
 		}
 	/**
-	 * List the admin users
+	 * List the admin users.
 	 * @return Returns all of the admin users
 	 */
 	public List<LoginModel> getAllAdmins(){
@@ -130,7 +130,7 @@ public class LoginModelDAO implements DAOInterface<LoginModel> {
 
 	}
 	/**
-	 * List all of the users which are not admins
+	 * List all of the users which are not admins.
 	 * @return Returns all of the normal users
 	 */
 	public List<LoginModel> getAllUsers(){

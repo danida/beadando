@@ -15,6 +15,10 @@ import application.beadando3.Main;
 import application.beadando3.model.DatabaseConnection;
 import application.beadando3.model.PingModel;
 
+/**
+ * @author danida
+ *
+ */
 public class PingModelDAO implements DAOInterface<PingModel> {
 
 	private  EntityManager entityManager = DatabaseConnection.getEm();
@@ -90,7 +94,7 @@ public class PingModelDAO implements DAOInterface<PingModel> {
 		return ret;
 	}
 	/**
-	 * Get the ping by Id
+	 * Get the ping by Id.
 	 * @param Id - Id of the ping request
 	 * @return Returns a list of  instances of the PingModel
 	 */

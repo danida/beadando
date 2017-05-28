@@ -17,11 +17,11 @@ import Interfaces.DAOInterface;
 public class FeaturesModelDAO implements DAOInterface<FeaturesModel>{
 
 	/**
-	 * Set the EntityManager for the instance
+	 * Set the EntityManager for the instance.
 	 */
 	private  EntityManager entityManager = DatabaseConnection.getEm();
 	/**
-	 * Set the EntityManagerFactory for the instance
+	 * Set the EntityManagerFactory for the instance.
 	 */
 	private EntityManagerFactory emf = DatabaseConnection.getInstance();
 	
@@ -84,7 +84,7 @@ public class FeaturesModelDAO implements DAOInterface<FeaturesModel>{
 
 		return ret;
 	}
-	/**List all of the platforms
+	/**List all of the platforms.
 	 * @return Returns all of the platforms which are in the features table
 	 */
 	public List<String> findPlatforms(){
@@ -95,7 +95,7 @@ public class FeaturesModelDAO implements DAOInterface<FeaturesModel>{
 
 	}
 	
-	/**List features for a platform
+	/**List features for a platform.
 	 * @param platform Platform of the router
 	 * @return Returns all of the features for a platform
 	 */
@@ -107,7 +107,7 @@ public class FeaturesModelDAO implements DAOInterface<FeaturesModel>{
 
 		return ret;
 	}
-	/** Returns the maximum available performance for a router platform
+	/** Returns the maximum available performance for a router platform.
 	 * @param platform Platform of the router
 	 * @return Returns the maxi value  for a platorm
 	 */

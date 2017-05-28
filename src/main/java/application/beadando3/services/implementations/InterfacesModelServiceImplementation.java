@@ -12,11 +12,38 @@ import application.beadando3.DAO.RouterModelDAO;
 import application.beadando3.model.*;
 import javafx.collections.FXCollections;
 
+/**
+ * @author danida
+ *
+ */
 public class InterfacesModelServiceImplementation implements ServicesInterface<InterfacesModel> {
 	
-	private InterfacesModelDAO dao = new InterfacesModelDAO();
-    private final static Logger logger = LoggerFactory.getLogger(InterfacesModelServiceImplementation.class);
+	
+	
+	
+	
 
+	private InterfacesModelDAO dao;
+    private final static Logger logger = LoggerFactory.getLogger(InterfacesModelServiceImplementation.class);
+    
+    
+    /**
+     * Default contructor.
+     */
+    public InterfacesModelServiceImplementation() {
+    	dao = new InterfacesModelDAO();
+    }
+	/**
+	 * Non-default constructor.
+	 * @param dao - DAO for InterfacesModelDAO
+	 */
+	public InterfacesModelServiceImplementation(InterfacesModelDAO dao) {
+		super();
+		this.dao = dao;
+	}
+    /**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void save(InterfacesModel e) {
 		if (validateInterfacesModel(e)){
@@ -31,7 +58,9 @@ public class InterfacesModelServiceImplementation implements ServicesInterface<I
 		
 		
 	}
-
+	 /**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void update(InterfacesModel e) {
 		if (!validateInterfacesModel(e)){
@@ -45,7 +74,9 @@ public class InterfacesModelServiceImplementation implements ServicesInterface<I
 		}
 		
 	}
-
+	 /**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public void delete(InterfacesModel e) {
 		if (!checkDuplicatesInterfacesModel(e)){
@@ -58,13 +89,17 @@ public class InterfacesModelServiceImplementation implements ServicesInterface<I
 		}
 		
 	}
-
+	 /**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public  List<InterfacesModel> getAll() {
 		logger.info("Finding all interfacemodels");
 		return  dao.findAll();
 	}
-
+	 /**
+	 *{@inheritDoc}
+	 */
 	@Override
 	public String count() {
 		logger.info("Counting interfaces in the database");
@@ -72,12 +107,22 @@ public class InterfacesModelServiceImplementation implements ServicesInterface<I
 		return dao.count();
 	}
 	
-	public List<InterfacesModel> getInterfacebyRouterModel(int id){
+	/**
+	 * List the interfaces for a router.
+	 * @param Id - Id of the routermodel
+	 * @return Returns a list of  interfaces for a router
+	 */
+	public List<InterfacesModel> getInterfacebyRouterModel(int Id){
 		logger.info("Find all interfaces for a router");
 
-		return dao.getInterfacesByRouterId(id);
+		return dao.getInterfacesByRouterId(Id);
 	}
 	
+	/**
+	 * Checks if the interface is savable or not.
+	 * @param interfacesModel - Interfacemodel 
+	 * @return Returns 
+	 */
 	public boolean validateInterfacesModel(InterfacesModel interfacesModel){
 		boolean valid = true;
 		if ( interfacesModel.getInterface_name()== null || interfacesModel.getIP() == null || interfacesModel.getMAC() == null) {
@@ -85,6 +130,11 @@ public class InterfacesModelServiceImplementation implements ServicesInterface<I
         }
 		return valid;
 	}
+	/**
+	 * Checks if the interface already exists or not.
+	 * @param interfacesModel - 
+	 * @return Returns true if the interface is not exist
+	 */
 	public boolean checkDuplicatesInterfacesModel(InterfacesModel interfacesModel){
 		boolean valid = false;
 		
@@ -95,10 +145,18 @@ public class InterfacesModelServiceImplementation implements ServicesInterface<I
 		return valid;
 	}
 
+	/**
+	 * Get the dao.
+	 * @return Returns InterfacesModelDAO
+	 */
 	public InterfacesModelDAO getDao() {
 		return dao;
 	}
 
+	/**
+	 * Set the dao.
+	 * @param dao - InterfacesModelDAO
+	 */
 	public void setDao(InterfacesModelDAO dao) {
 		this.dao = dao;
 	}

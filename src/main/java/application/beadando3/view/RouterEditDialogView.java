@@ -31,6 +31,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * @author danida
+ *
+ */
 public class RouterEditDialogView {
 
 	@FXML
@@ -75,14 +79,20 @@ public class RouterEditDialogView {
 	private List<CheckBox> boxes;
 
 	private Stage dialogStage;
+	/**
+	 * One instance of the routermodel.
+	 */
 	private RouterModel router;
 	private boolean okClicked = false;
 	private static FeaturesModelServiceImplementation fms = new FeaturesModelServiceImplementation();
 	private final static Logger logger = LoggerFactory.getLogger(RouterEditDialogView.class);
+	/**
+	 * Main variable.
+	 */
 	public static Main mainApp;
 
 	/**
-	 * Initializes the controller class. This method is automatically called
+	 * Initializes the controller class. This method is automatically called.
 	 * after the fxml file has been loaded.
 	 */
 	@FXML
@@ -122,7 +132,7 @@ public class RouterEditDialogView {
 	/**
 	 * Sets the stage of this dialog.
 	 * 
-	 * @param dialogStage
+	 * @param dialogStage - Dialogstage of the main
 	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
@@ -131,7 +141,7 @@ public class RouterEditDialogView {
 	/**
 	 * Sets the person to be edited in the dialog.
 	 * 
-	 * @param person
+	 * @param router - One instance of the routermodel
 	 */
 	public void setRouter(RouterModel router) {
 		this.router = router;
@@ -166,6 +176,10 @@ public class RouterEditDialogView {
 		}
 	}
 
+	/**
+	 * Initialize the routermodel instance for the new router.
+	 * @param router - Routermodel for new router
+	 */
 	public void setNewRouter(RouterModel router) {
 		this.router = router;
 		platforms.getItems().addAll(FXCollections.observableArrayList(fms.listAllPlatforms()));
@@ -182,7 +196,7 @@ public class RouterEditDialogView {
 	/**
 	 * Returns true if the user clicked OK, false otherwise.
 	 * 
-	 * @return
+	 * @return Returns if the okclicked
 	 */
 	public boolean isOkClicked() {
 		return okClicked;
@@ -224,6 +238,10 @@ public class RouterEditDialogView {
 		dialogStage.close();
 	}
 
+	/**
+	 * Calculates the maximum performance of the router.
+	 * @return Returns a number for the gauge
+	 */
 	public double calculatePerforfmance() {
 		try{
 		return fms.calculatePerforfmance(boxes, bandwidth.getText(), router.getPlatform());
@@ -255,10 +273,18 @@ public class RouterEditDialogView {
 		}
 	}
 
+	/**
+	 * Getter of the mainApp.
+	 * @return Returns the mainApp of the RouterEditDialogView
+	 */
 	public static Main getMainApp() {
 		return mainApp;
 	}
 
+	/**
+	 * Setter of the mainApp.
+	 * @param mainApp - Main.class isntance
+	 */
 	public static void setMainApp(Main mainApp) {
 		RouterEditDialogView.mainApp = mainApp;
 	}
@@ -266,10 +292,5 @@ public class RouterEditDialogView {
 	
 	
 
-	/**
-	 * Validates the user input in the text fields.
-	 * 
-	 * @return true if the input is valid
-	 */
 
 }

@@ -9,6 +9,10 @@ import Interfaces.DAOInterface;
 import application.beadando3.model.DatabaseConnection;
 import application.beadando3.model.TracerouteModel;
 
+/**
+ * @author danida
+ *
+ */
 public class TracerouteModelDAO implements DAOInterface<TracerouteModel> {
 	private EntityManager entityManager = DatabaseConnection.getEm();
 	private EntityManagerFactory emf = DatabaseConnection.getInstance();
@@ -76,7 +80,7 @@ public class TracerouteModelDAO implements DAOInterface<TracerouteModel> {
 	}
 
 	/**
-	 * Get the traceroute result by its Id
+	 * Get the traceroute result by its Id.
 	 * @param Id - Id of the tracerouteModel
 	 * @return Returns the traceroutemodel by Id
 	 */

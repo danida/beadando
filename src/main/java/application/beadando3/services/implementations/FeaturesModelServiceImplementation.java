@@ -14,11 +14,18 @@ import application.beadando3.model.InterfacesModel;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 
+/**
+ * @author danida
+ *
+ */
 public class FeaturesModelServiceImplementation implements ServicesInterface<FeaturesModel> {
 
 	private FeaturesModelDAO dao = new FeaturesModelDAO();
 	private final static Logger logger = LoggerFactory.getLogger(FeaturesModelServiceImplementation.class);
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void save(FeaturesModel e) {
 		if (validateFeaturesModel(e)) {
@@ -31,6 +38,9 @@ public class FeaturesModelServiceImplementation implements ServicesInterface<Fea
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update(FeaturesModel e) {
 		if (!validateFeaturesModel(e)) {
@@ -43,6 +53,9 @@ public class FeaturesModelServiceImplementation implements ServicesInterface<Fea
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(FeaturesModel e) {
 		if (!checkDuplicatesFeaturesModel(e)) {
@@ -54,22 +67,41 @@ public class FeaturesModelServiceImplementation implements ServicesInterface<Fea
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+
 	@Override
 	public List<FeaturesModel> getAll() {
 		logger.info("Finding all features");
 		return dao.findAll();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String count() {
 		logger.info("Counting features in the database");
 		return dao.count();
 	}
 
+	/**
+	 * List all of the available platforms from the database.
+	 * 
+	 * @return Returns all of the platoforms
+	 */
 	public List<String> listAllPlatforms() {
 		return dao.findPlatforms();
 	}
 
+	/**
+	 * Checks if the feature is savable or not.
+	 * 
+	 * @param featuresModel
+	 *            - One instance of the featuresmodel
+	 * @return Returns true if the feature is savable
+	 */
 	public boolean validateFeaturesModel(FeaturesModel featuresModel) {
 		boolean valid = true;
 		if (featuresModel.getBGP() == null || featuresModel.getEIGRP() == null || featuresModel.getMAXI() == null
@@ -82,6 +114,13 @@ public class FeaturesModelServiceImplementation implements ServicesInterface<Fea
 		return valid;
 	}
 
+	/**
+	 * Checks if the feature already exists or not.
+	 * 
+	 * @param featuresModel
+	 *            - instance of the featuremodel
+	 * @return Returns if the featuresmode already exists or not
+	 */
 	public boolean checkDuplicatesFeaturesModel(FeaturesModel featuresModel) {
 		boolean valid = false;
 
@@ -92,26 +131,46 @@ public class FeaturesModelServiceImplementation implements ServicesInterface<Fea
 		return valid;
 	}
 
+	/**
+	 * Calculates the maximum performance of the router.
+	 * 
+	 * @param boxes
+	 *            - Available features
+	 * @param bandwidth
+	 *            - The maximum data thougput
+	 * @param platform
+	 *            - Platform of the router
+	 * @return Returns the performance value
+	 */
 	public double calculatePerforfmance(List<CheckBox> boxes, String bandwidth, String platform) {
 		if (boxes == null || bandwidth == null || platform == null) {
 			new IllegalArgumentException("One of the fields is missing");
 		}
 		int b = new Integer(bandwidth);
 		double ret = 1;
-		for (CheckBox box : boxes){
-			if (box.isSelected()){
+		for (CheckBox box : boxes) {
+			if (box.isSelected()) {
 				ret += 1;
 			}
 		}
-		if ((ret*b)/dao.getMaxibyPlatform(platform) > 100){
-			throw new InvalidParameterException("With these values it is not guaranteed the router can handle this performance");
+		if ((ret * b) / dao.getMaxibyPlatform(platform) > 100) {
+			throw new InvalidParameterException(
+					"With these values it is not guaranteed the router can handle this performance");
 		}
-		
-		return (ret*b)/dao.getMaxibyPlatform(platform); 
-		
+
+		return (ret * b) / dao.getMaxibyPlatform(platform);
+
 	}
-	public FeaturesModel getFeatureModelList(String platform){
-		
-		return  dao.getFeaturesModelByFeatures_name(platform).get(0);
+
+	/**
+	 * List the available features.
+	 * 
+	 * @param platform
+	 *            - Chosen platform
+	 * @return Returns the list of the features
+	 */
+	public FeaturesModel getFeatureModelList(String platform) {
+
+		return dao.getFeaturesModelByFeatures_name(platform).get(0);
 	}
 }
