@@ -9,6 +9,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * @author danida
+ *
+ */
 public class LoginView {
 
 	@FXML
@@ -24,6 +28,9 @@ public class LoginView {
 
 	private static Main  mainApp; 
 	
+	/**
+	 * Initialize the loginview.
+	 */
 	@FXML 
 	public void initialize(){
 		message.setVisible(false);
@@ -31,6 +38,9 @@ public class LoginView {
 		
 	}
 	
+	/**
+	 * Calls the authentication for the user.
+	 */
 	public void authenticate(){
 		LoginModel lm = new LoginModel(username.getText(),password.getText());
 		LoginModelServicesImplementation lms = new LoginModelServicesImplementation();
@@ -49,26 +59,49 @@ public class LoginView {
 	}
 
 
+	/**
+	 * Getter of the main.
+	 * @return Returns the mainApp
+	 */
 	public static Main getMainApp() {
 		return mainApp;
 	}
 
 
+	/**
+	 * Setter of the main.
+	 * @param mainApp - One instance of the Main
+	 */
 	public static void setMainApp(Main mainApp) {
 		LoginView.mainApp = mainApp;
 	}
+	/**Getter of the dialogstage.
+	 * @return Returns the dialogstage
+	 */
 	public Stage getDialogStage() {
 		return dialogStage;
 	}
 
+	/**
+	 * Setter of the dialogstage.
+	 * @param dialogStage - One instance of dialogstagee
+	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
 
+	/**
+	 * Getter of the OkClicked.
+	 * @return Returns true if the Ok was clicked
+	 */
 	public boolean isOkClicked() {
 		return okClicked;
 	}
 
+	/**
+	 * Setter of the okClicked.
+	 * @param okClicked - Boolean value that's tell if the okClicked or not
+	 */
 	public void setOkClicked(boolean okClicked) {
 		this.okClicked = okClicked;
 	}

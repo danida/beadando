@@ -13,6 +13,10 @@ import javax.persistence.Table;
 
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * @author danida
+ *
+ */
 @javax.persistence.Entity
 @Table(name = "ping")
 @NamedQueries({ @NamedQuery(name = "PingModel.getbyid", query = "select p from PingModel p where id = :id"),

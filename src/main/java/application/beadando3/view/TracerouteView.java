@@ -19,6 +19,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * @author danida
+ *
+ */
 public class TracerouteView {
 	@FXML
 	private TextField destinationIP;
@@ -28,6 +32,9 @@ public class TracerouteView {
 
 	private Stage dialogStage;
 	private Traceroute tr;
+	/**
+	 * List of the executed traceroutes.
+	 */
 	@FXML
 	public TableView<TracerouteModel> tracerouteTable;
 	@FXML
@@ -36,7 +43,15 @@ public class TracerouteView {
 	private TableColumn<TracerouteModel, String> executiondate;
 	@FXML
 	private TextArea dboutput;
+	/**
+	 * Reference to the main application.
+	 */
+	public static Main mainApp;
+	private final static Logger logger = LoggerFactory.getLogger(TracerouteView.class);
 
+	/**
+	 * Initalize the tracerouteview.
+	 */
 	@FXML
 	public void initialize() {
 
@@ -56,33 +71,43 @@ public class TracerouteView {
 
 	}
 
-	public static Main mainApp;
-	private final static Logger logger = LoggerFactory.getLogger(TracerouteView.class);
-
+	
+	/**
+	 * Getter of the destinationIP.
+	 * @return Returns the value of the destinationIP textfield
+	 */
 	public TextField getDestinationIP() {
 		return destinationIP;
 	}
 
+	/**
+	 * Setter of the destinationIP.
+	 * @param destinationIP - Sets the destinationip to its parameter.
+	 */
 	public void setDestinationIP(TextField destinationIP) {
 		this.destinationIP = destinationIP;
 	}
 
+	/**
+	 * Getter of the output textfield.
+	 * @return Returns the value of the outputfield.
+	 */
 	public TextArea getOutput() {
 		return output;
 	}
 
+	/**
+	 * Setter of the output textfield.
+	 * @param output - The value that has to be set
+	 */
 	public void setOutput(TextArea output) {
 		this.output = output;
 	}
 
-	public Traceroute getTr() {
-		return tr;
-	}
 
-	public void setTr(Traceroute tr) {
-		this.tr = tr;
-	}
-
+	/**
+	 * Calls when the user wants to run a traceroute test.
+	 */
 	@FXML
 	public void dotheTraceroute() {
 		tr.setDestinationIP(destinationIP.getText());
@@ -92,6 +117,9 @@ public class TracerouteView {
 
 	}
 
+	/**
+	 * Calls when the user wants to save a result to the database.
+	 */
 	@FXML
 	public void handleSaving() {
 		TracerouteModelServiceImplementation trd = new TracerouteModelServiceImplementation();
@@ -105,6 +133,9 @@ public class TracerouteView {
 
 	}
 
+	/**
+	 * Calls when the user wants to delete a test from the database.
+	 */
 	@FXML
 	public void handleDeleting() {
 		try {
@@ -126,10 +157,18 @@ public class TracerouteView {
 
 	}
 
+	/**
+	 * Setter of the dialogstage.
+	 * @param dialogStage - dialogstage from the Main.class
+	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
 
+	/**
+	 * Setter of the Output.
+	 * @param o - The value that has to be set
+	 */
 	public void setOutput(String o) {
 		output.setText(o);
 

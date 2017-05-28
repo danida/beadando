@@ -17,7 +17,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+/**
+ * @author danida
+ *
+ */
 public class RouterView {
+	/**
+	 * List of the available routers in the database.
+	 */
 	@FXML
 	public TableView<RouterModel> routerTable;
 	@FXML
@@ -41,13 +48,18 @@ public class RouterView {
 	@FXML
 	private Label man_IP;
 
-	// Reference to the main application.
+	/**
+	 * Reference to the main application.
+	 */
 	public static Main mainApp;
 	private final static Logger logger = LoggerFactory.getLogger(RouterView.class);
 
-	public RouterView() {
-	}
+	
 
+	/**
+	 * Show the router details in the labels.
+	 * @param router - Router that has been selected by the user
+	 */
 	private void showRouterDetails(RouterModel router) {
 		if (router != null) {
 			// Fill the labels with info from the person object.
@@ -89,6 +101,9 @@ public class RouterView {
 				.addListener((observable, oldValue, newValue) -> showRouterDetails(newValue));
 	}
 
+	/**
+	 * Deletes the selected router.
+	 */
 	@FXML
 	private void handleDeleteRouter() {
 		try {
@@ -109,6 +124,9 @@ public class RouterView {
 		}
 	}
 
+	/**
+	 * Add a new router to the databse if it is possible.
+	 */
 	@FXML
 	private void handleNewRouter() {
 		RouterModel tempRouter = new RouterModel(null, "routerName", "routerPlatform", "routerSerial",
@@ -135,7 +153,7 @@ public class RouterView {
 
 	/**
 	 * Called when the user clicks the edit button. Opens a dialog to edit
-	 * details for the selected person.
+	 * details for the selected router.
 	 */
 	@FXML
 	private void handleEditRouter() {
@@ -173,6 +191,9 @@ public class RouterView {
 		}
 	}
 
+	/**
+	 * Calls when the user want to search for a specific router type.
+	 */
 	@FXML
 	private void handleSearchRouter() {
 		boolean okClicked = mainApp.showRouterSearchDialog();
@@ -183,6 +204,9 @@ public class RouterView {
 
 	}
 
+	/**
+	 * Callse when the user wants to check the interfaces of the router.
+	 */
 	@FXML
 	private void handleShowInterfaces() {
 		RouterModel selectedRouter = routerTable.getSelectionModel().getSelectedItem();

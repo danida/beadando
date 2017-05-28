@@ -11,6 +11,10 @@ import application.beadando3.services.implementations.InterfacesModelServiceImpl
 import application.beadando3.services.implementations.LoginModelServicesImplementation;
 import application.beadando3.services.implementations.RouterModelServiceImplementation;
 
+/**
+ * @author danida
+ *
+ */
 public class DatabaseDummyData {
 	
 	private static List<RouterModel> routerlist = new ArrayList<>();
@@ -18,6 +22,9 @@ public class DatabaseDummyData {
 	private static List<LoginModel> userlist = new ArrayList<>();
 	private static List<FeaturesModel> featureslist = new ArrayList<>();
 	
+	/**
+	 * Initalize the database with dummy data.
+	 */
 	public static void init(){
 	
 	

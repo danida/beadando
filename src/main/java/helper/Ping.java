@@ -7,6 +7,10 @@ import java.io.InputStreamReader;
 import application.beadando3.view.PingView;
 import javafx.scene.control.TextField;
 
+/**
+ * @author danida
+ *
+ */
 public class Ping implements Runnable {
 
 	private String OSname = System.getProperty("os.name").toLowerCase();
@@ -15,40 +19,52 @@ public class Ping implements Runnable {
 	private String destinationIP;
 	private PingView pingView;
 
+	/**
+	 * Getter of the PingView.
+	 * @return Returns the current instance of the PingView
+	 */
 	public PingView getPingView() {
 		return pingView;
 	}
 
+	/**
+	 * Setter of the PingView.
+	 * @param pingView - Sets the pingview in this instance
+	 */
 	public void setPingView(PingView pingView) {
 		this.pingView = pingView;
 	}
 
-	public String getDestinationIP() {
-		return destinationIP;
-	}
 
+	/**
+	 * Setter of the destinationIP.
+	 * @param destinationIP - Destination that the user wants to test
+	 */
 	public void setDestinationIP(String destinationIP) {
 		this.destinationIP = destinationIP;
 	}
 
-	public String getO() {
-		return o;
-	}
 
-	public void setO(String o) {
-		this.o = o;
-	}
-
+	/**
+	 * Non-default constructor.
+	 * @param destinationIP - destination that the user want to check
+	 * @param pingview - Reference to the pingview where the request come from
+	 */
 	public Ping(String destinationIP, PingView pingview) {
 		super();
 		this.destinationIP = destinationIP;
 		this.pingView = pingview;
 	}
 
+	/**
+	 * Default constructor.
+	 */
 	public Ping() {
-		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run() {
 

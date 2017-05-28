@@ -9,6 +9,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * @author danida
+ *
+ */
 public class SearchResultView {
 
 	@FXML
@@ -17,6 +21,9 @@ public class SearchResultView {
 	private TextField IOS;
 	@FXML
 	private TextField platform;
+	/**
+	 * List of the routers which match for the searching pattern.
+	 */
 	@FXML
     public  TableView<RouterModel> routerTable;
     @FXML
@@ -29,26 +36,45 @@ public class SearchResultView {
     private boolean searchClicked = false;
 	
 	
+	/**
+	 * Getter of the searchCicked.
+	 * @return Returns true if the user clicked on search
+	 */
 	public boolean isSearchClicked() {
 		return searchClicked;
 	}
 
 
+	/**
+	 * Setter of the searchClicked.
+	 * @param searchClicked - It is setted to true when the user clicks on search
+	 */
 	public void setSearchClicked(boolean searchClicked) {
 		this.searchClicked = searchClicked;
 	}
 
 
+	/**
+	 * Getter of the dialogstage.
+	 * @return Returns the dialogstage
+	 */
 	public Stage getDialogStage() {
 		return dialogStage;
 	}
 
 
+	/**
+	 * Setter of the dialogstage.
+	 * @param dialogStage - dialogstage from the main
+	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
 
 
+	/**
+	 * Calls when the customer wants to search for a specific router.
+	 */
 	@FXML
     private void handleSearch() {
       	RouterModelServiceImplementation rm = new RouterModelServiceImplementation();

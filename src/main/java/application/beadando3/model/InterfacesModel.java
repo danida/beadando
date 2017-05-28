@@ -12,6 +12,10 @@ import javax.persistence.Table;
 
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * @author danida
+ *
+ */
 @javax.persistence.Entity
 @Table(name = "Interfaces")
 

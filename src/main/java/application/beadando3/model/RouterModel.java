@@ -17,6 +17,10 @@ import javax.persistence.Table;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * @author danida
+ *
+ */
 @javax.persistence.Entity
 @Table(name="router")
 @NamedQueries({
