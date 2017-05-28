@@ -6,6 +6,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
@@ -32,10 +33,18 @@ public class TracerouteModel {
 	(strategy=GenerationType.AUTO, generator="traceroute_seq_gen") 
 
 	
-	
+	@Column
+	@Basic
 	private Integer id;
+	@Column
+	@Basic
 	private LocalDateTime execution_date;
+
+	@Column(length = 1000)
+	@Basic
 	private String output;
+	@Column(length=20)
+	@Basic
 	private String destination;
 	
 	
@@ -48,8 +57,7 @@ public class TracerouteModel {
 	}
 
 
-	@Column
-	@Basic
+	
 	
 	public Integer getId() {
 		return id;
@@ -60,8 +68,7 @@ public class TracerouteModel {
 		this.id = id;
 	}
 
-	@Column
-	@Basic
+	
 	public LocalDateTime getExecution_date() {
 		return execution_date;
 	}
@@ -74,8 +81,7 @@ public class TracerouteModel {
 			} 
 		
 
-	@Column
-	@Basic
+	
 	public String getOutput() {
 		return output;
 	}
@@ -84,8 +90,7 @@ public class TracerouteModel {
 	public void setOutput(String output) {
 		this.output = output;
 	}
-	@Column
-	@Basic
+
 
 	public String getDestination() {
 		return destination;

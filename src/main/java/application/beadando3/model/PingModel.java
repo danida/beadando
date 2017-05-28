@@ -27,14 +27,20 @@ public class PingModel {
 	@SequenceGenerator(name = "ping_seq_gen", sequenceName = "ping_SEQ")
 
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "ping_seq_gen")
-
-	private Integer id;
-	private LocalDateTime execution_date;
-	private String output;
-	private String destination;
-
 	@Column
 	@Basic
+	private Integer id;
+	@Column
+	@Basic
+	private LocalDateTime execution_date;
+	@Column(length=1000)
+	@Basic
+	private String output;
+	@Column(length=20)
+	@Basic
+	private String destination;
+
+	
 	public Integer getId() {
 		return id;
 	}
@@ -43,8 +49,7 @@ public class PingModel {
 		this.id = id;
 	}
 
-	@Column
-	@Basic
+
 	public LocalDateTime getExecution_date() {
 		return execution_date;
 	}
@@ -55,8 +60,6 @@ public class PingModel {
 
 	}
 
-	@Column
-	@Basic
 
 	public String getDestination() {
 		return destination;
@@ -66,8 +69,7 @@ public class PingModel {
 		this.destination = destination;
 	}
 
-	@Column
-	@Basic
+
 	public String getOutput() {
 		return output;
 	}
