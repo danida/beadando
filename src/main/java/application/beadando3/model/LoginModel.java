@@ -45,10 +45,18 @@ public class LoginModel {
 	@Basic
 	Integer isAdmin;
 
+	/**
+	 * Default constructor.
+	 */
 	public LoginModel() {
 		super();
 	}
 
+	/**
+	 * Non-default constructor.
+	 * @param user - username
+	 * @param password - password for the user
+	 */
 	public LoginModel(String user, String password) {
 		super();
 		this.user = user;
@@ -56,6 +64,13 @@ public class LoginModel {
 
 	}
 
+	/**
+	 * Non-default constructor for all of the values.
+	 * @param id - Id of the user
+	 * @param user - username of the user
+	 * @param password - password of the user
+	 * @param isAdmin - 
+	 */
 	public LoginModel(Integer id, String user, String password, Integer isAdmin) {
 		this.id = id;
 		this.user = user;
@@ -63,38 +78,66 @@ public class LoginModel {
 		this.isAdmin = isAdmin;
 	}
 
+	/**
+	 * Getter of the username.
+	 * @return Returns the name of the user
+	 */
 	public String getUser() {
 		return user;
 	}
 
+	/**
+	 * Setter of the username.
+	 * @param user - username of the user
+	 */
 	public void setUser(String user) {
 		this.user = user;
 	}
-
+	/**
+	 * Getter of the password.
+	 * @return Returns the name of the user
+	 */
 	public String getPassword() {
 		return password;
 	}
-
+	/**
+	 * Setter of the password.
+	 * @param password - password of the user
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	/**
+	 * Getter of the id.
+	 * @return Returns the id of the user
+	 */
 	public Integer getId() {
 		return id;
 	}
-
+	/**
+	 * Setter of the id.
+	 * @param id - id of the user
+	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	/**
+	 * Getter of the Admin.
+	 * @return Returns if the user is admin or not
+	 */
 	public Integer getIsAdmin() {
 		return isAdmin;
 	}
-
+	/**
+	 * Setter of the Admin.
+	 * @param isAdmin - Admin of the user
+	 */
 	public void setIsAdmin(Integer isAdmin) {
 		this.isAdmin = isAdmin;
 	}
-
+	  /**
+		 *{@inheritDoc}
+		 */
 	@Override
 	public String toString() {
 		return "user: " + user + ", isAdmin=" + isAdmin;

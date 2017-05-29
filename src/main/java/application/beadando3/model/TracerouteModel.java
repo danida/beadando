@@ -47,8 +47,19 @@ public class TracerouteModel {
 	@Basic
 	private String destination;
 	
+	/**
+	 * Default constructor.
+	 */
+	public TracerouteModel() {
+		
+	}
 	
-	
+	/**
+	 * Non-default constructor of traceroutemodel.
+	 * @param execution_date - Date when the test was executed
+	 * @param output - Output of the test
+	 * @param destination - Destination of the test
+	 */
 	public TracerouteModel(LocalDateTime execution_date, String output, String destination) {
 		super();
 		this.execution_date = execution_date;
@@ -59,21 +70,37 @@ public class TracerouteModel {
 
 	
 	
+	/**
+	 * Getter of the id.
+	 * @return Returns the id of the traceroute test
+	 */
 	public Integer getId() {
 		return id;
 	}
 
 
+	/**
+	 * Setter of the id.
+	 * @param id - id of the traceroute
+	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	
+	/**
+	 * Getter of the execution_date.
+	 * @return Returns the date when the traceroute was executed
+	 */
 	public LocalDateTime getExecution_date() {
 		return execution_date;
 	}
 
 
+	/**
+	 * Setter of the execution_date.
+	 * @param execution_date - The time when the traceroute was executed
+	 */
 	public void setExecution_date(LocalDateTime execution_date) {
 		
 			this.execution_date = execution_date;
@@ -82,34 +109,54 @@ public class TracerouteModel {
 		
 
 	
+	/**
+	 * Getter of the output.
+	 * @return Returns the output of the test.
+	 */
 	public String getOutput() {
 		return output;
 	}
 
 
+	/**
+	 * Setter of the output.
+	 * @param output - output of the traceroute
+	 */
 	public void setOutput(String output) {
 		this.output = output;
 	}
 
 
+	/**
+	 * Getter of the destination.
+	 * @return Returns the destination of the tracerotue test
+	 */
 	public String getDestination() {
 		return destination;
 	}
 
 
+	/**
+	 * Setter of the destination.
+	 * @param destination - The destination of the traceroutetest.
+	 */
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
 
 
-	public TracerouteModel() {
 	
-	}
+	/**
+	 * @return Returns the destination as a simplestringproperty.
+	 */
 	public SimpleStringProperty getDestinationProperty(){
 		return new SimpleStringProperty(this.destination);
 }
 
-	
+
+	/**
+	 * @return Returns the execution_date as a simplestringproperty.
+	 */
 	public SimpleStringProperty getExecution_DateProperty(){
 		return new SimpleStringProperty(execution_date.toString());
 }
