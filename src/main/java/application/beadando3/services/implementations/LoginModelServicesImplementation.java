@@ -18,10 +18,28 @@ import static org.apache.commons.codec.digest.DigestUtils.*;
  */
 public class LoginModelServicesImplementation  implements ServicesInterface<LoginModel> {
 
-	private LoginModelDAO dao = new LoginModelDAO();
+	private LoginModelDAO dao;
     private final static Logger logger = LoggerFactory.getLogger(LoginModelServicesImplementation.class);
 
+    
     /**
+     * Default constructor.
+     */
+    public LoginModelServicesImplementation() {
+		super();
+		dao = new LoginModelDAO();
+	}
+    
+	/**
+	 * Non-default constructor.
+	 * @param dao - dao for the model
+	 */
+	public LoginModelServicesImplementation(LoginModelDAO dao) {
+		super();
+		this.dao = dao;
+	}
+
+	/**
 	 *{@inheritDoc}
 	 */
 	@Override
@@ -45,8 +63,9 @@ public class LoginModelServicesImplementation  implements ServicesInterface<Logi
 		if (!validateLoginModel(e)){
 			throw new IllegalArgumentException("Valamelyik mező üres!");			
 		}
-		
-		
+		else if (!checkDuplicatesLoginModel(e)){
+			throw new IllegalArgumentException("Ez a user nem létezik!");
+		}
 		else {		
 			logger.info("Editing loginmodel");
 			dao.edit(e);
@@ -166,4 +185,11 @@ public class LoginModelServicesImplementation  implements ServicesInterface<Logi
 	  String encodedString = new String(byteArray);
 	  return encodedString;
 	}
+	public LoginModelDAO getDao() {
+		return dao;
+	}
+	public void setDao(LoginModelDAO dao) {
+		this.dao = dao;
+	}
+	
 }

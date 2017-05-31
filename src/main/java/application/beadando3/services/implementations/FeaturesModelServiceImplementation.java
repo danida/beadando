@@ -20,8 +20,21 @@ import javafx.scene.control.CheckBox;
  */
 public class FeaturesModelServiceImplementation implements ServicesInterface<FeaturesModel> {
 
-	private FeaturesModelDAO dao = new FeaturesModelDAO();
+
+	private FeaturesModelDAO dao;
 	private final static Logger logger = LoggerFactory.getLogger(FeaturesModelServiceImplementation.class);
+
+
+	/**
+	 * Default constructor.
+	 */
+	public FeaturesModelServiceImplementation() {
+		dao = new FeaturesModelDAO();
+	}
+	
+	public FeaturesModelServiceImplementation(FeaturesModelDAO dao) {
+		this.dao = dao;
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -46,9 +59,12 @@ public class FeaturesModelServiceImplementation implements ServicesInterface<Fea
 		if (!validateFeaturesModel(e)) {
 			throw new IllegalArgumentException("Valamelyik mező üres!");
 		}
+		else if (!checkDuplicatesFeaturesModel(e)){
+			throw new IllegalArgumentException("Ez a feature nem létezik!");
+		}
 
 		else {
-			logger.info("Editing interfacemodel");
+			logger.info("Editing featuresmodel");
 			dao.edit(e);
 		}
 	}
@@ -157,7 +173,6 @@ public class FeaturesModelServiceImplementation implements ServicesInterface<Fea
 			throw new InvalidParameterException(
 					"With these values it is not guaranteed the router can handle this performance");
 		}
-
 		return (ret * b) / dao.getMaxibyPlatform(platform);
 
 	}
@@ -165,12 +180,28 @@ public class FeaturesModelServiceImplementation implements ServicesInterface<Fea
 	/**
 	 * List the available features.
 	 * 
-	 * @param platform
-	 *            - Chosen platform
+	 * @param platform - Chosen platform
 	 * @return Returns the list of the features
 	 */
 	public FeaturesModel getFeatureModelList(String platform) {
 
 		return dao.getFeaturesModelByFeatures_name(platform).get(0);
 	}
+
+	/**
+	 * Setter of the DAO.
+	 * @return Returns the dao of the service
+	 */
+	public FeaturesModelDAO getDao() {
+		return dao;
+	}
+
+	/**
+	 * Getter of the DAO. 
+	 * @param dao - dao of the service
+	 */
+	public void setDao(FeaturesModelDAO dao) {
+		this.dao = dao;
+	}
+	
 }

@@ -14,21 +14,46 @@ import application.beadando3.model.PingModel;
  *
  */
 public class PingModelServiceImplementation implements ServicesInterface<PingModel> {
-	PingModelDAO dao = new PingModelDAO();
+	PingModelDAO dao;
     private final static Logger logger = LoggerFactory.getLogger(PingModelServiceImplementation.class);
+   
+
+	/**
+     * Default constructor.
+     */
+    public PingModelServiceImplementation() {
+		super();
+		PingModelDAO dao = new PingModelDAO();
+
+	}
+
+
+	/**
+     * Non defualt constructor.
+     * @param dao - dao for pingmodel
+     */
+    public  PingModelServiceImplementation(PingModelDAO dao){
+    	this.dao=dao;    	
+    }
+    
+    
+    
     /**
 	 *{@inheritDoc}
 	 */
 	@Override
 	public void save(PingModel e) {
 		
-
+		if (checkDuplicatesPingModel(e)){
+			throw new IllegalArgumentException("Ez a ping már létezik!");
+		}
 		
-		if (validatePingModel(e)){
+		else if (validatePingModel(e)){
 			logger.info("Saving pingmodel");
 
 			dao.create(e);
 		}
+		
 		else {
 			throw new IllegalArgumentException("Valamelyik mező üres!");
 		}
@@ -44,9 +69,7 @@ public class PingModelServiceImplementation implements ServicesInterface<PingMod
 		if (!validatePingModel(e)){
 			throw new IllegalArgumentException("Valamelyik mező üres!");			
 		}
-		else if (checkDuplicatesPingModel(e)){
-			throw new IllegalArgumentException("Ez az interface már létezik!");
-		}
+		
 		else {
 			logger.info("Editing pingmodel");
 
@@ -112,4 +135,22 @@ public class PingModelServiceImplementation implements ServicesInterface<PingMod
 		
 		return valid;
 	}
-}
+	                                                 
+    /**
+     * Getter of the dao.
+     * @return Returns the dao of the pingmodel
+     */
+    public PingModelDAO getDao() {                 
+    	return dao;                                
+    }                                              
+                                                     
+                                                     
+    /**
+     * Setter of the dao.
+     * @param dao - dao of the pingmodel
+     */
+    public void setDao(PingModelDAO dao) {         
+    	this.dao = dao;                            
+    }                                              
+}                                                  
+                                                     

@@ -171,7 +171,6 @@ public class RouterModelServiceImplementation implements ServicesInterface<Route
 		logger.info("Getting router by name");
 
 		return dao.getRouterbyName(routername);
-		
 	}
 	/**
 	 * Lists routers with the same IOS.

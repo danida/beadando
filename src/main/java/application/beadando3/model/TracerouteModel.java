@@ -60,8 +60,9 @@ public class TracerouteModel {
 	 * @param output - Output of the test
 	 * @param destination - Destination of the test
 	 */
-	public TracerouteModel(LocalDateTime execution_date, String output, String destination) {
+	public TracerouteModel(Integer id,LocalDateTime execution_date, String output, String destination) {
 		super();
+		this.id = id;
 		this.execution_date = execution_date;
 		this.output = output;
 		this.destination = destination;

@@ -14,21 +14,15 @@ import application.beadando3.model.FeaturesModel;
 import application.beadando3.model.RouterModel;
 import application.beadando3.services.implementations.FeaturesModelServiceImplementation;
 import eu.hansolo.medusa.Gauge;
-import eu.hansolo.medusa.Gauge.SkinType;
-import eu.hansolo.medusa.GaugeBuilder;
-import eu.hansolo.medusa.Section;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**

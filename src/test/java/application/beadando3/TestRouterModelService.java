@@ -21,7 +21,7 @@ import application.beadando3.services.implementations.RouterModelServiceImplemen
 
 @RunWith(MockitoJUnitRunner.class)
 
-public class TestRouterModel {
+public class TestRouterModelService {
 
 	@Mock
 	private RouterModelDAO dao;
@@ -92,5 +92,32 @@ public class TestRouterModel {
 		List<String> list= service.getPlatforms();
 		assertEquals(list,Arrays.asList("1841","1941"));
 	}
+	@Test
+	public void testgetNumberbyPlatform(){
+		when(dao.getnumberByPlatform("1841")).thenReturn("2");
+		String number = service.getNumberbyPlatform("1841");
+		assertEquals(number,"2");
+	}
+	@Test
+	public void testValidateRouterModel(){
+		assertEquals(service.validateRouterModel(router1),true);
+	}
+	@Test
+	public void testcheckDuplicatesRouterModel(){
+		when(dao.getRouterModelbyId(1)).thenReturn(Arrays.asList(router2));
+		assertEquals(service.checkDuplicatesRouterModel(router1), true);
+	}
+	@Test
+	public void testgetRouterModelbyName(){
+		when(dao.getRouterbyName("R10")).thenReturn(Arrays.asList(router1));
+		assertEquals(router1,service.getRouterModelbyName("R10").get(0));
+	}
+	@Test
+	public void testgetRouterModelbyIOS(){
+		when(dao.getRouterbyIOS("blabla.bin")).thenReturn(Arrays.asList(router1,router2));
+		List<RouterModel> routers = service.getRouterModelbyIOS("blabla.bin");
+		assertEquals(Arrays.asList(router1,router2),routers );
+	}
+	
 
 }

@@ -16,9 +16,25 @@ import application.beadando3.model.TracerouteModel;
  *
  */
 public class TracerouteModelServiceImplementation implements ServicesInterface<TracerouteModel> {
-	TracerouteModelDAO dao = new TracerouteModelDAO();
+	TracerouteModelDAO dao;
     private final static Logger logger = LoggerFactory.getLogger(TracerouteModelServiceImplementation.class);
+    
     /**
+     * Default constructor.
+     */
+    public TracerouteModelServiceImplementation() {
+		super();
+		 dao = new TracerouteModelDAO();
+    }
+	/**
+	 * Non default constructor.
+	 * @param dao - dao of traceroutemodel
+	 */
+	public TracerouteModelServiceImplementation(TracerouteModelDAO dao) {
+		super();
+		this.dao = dao;
+	}
+	/**
 	 *{@inheritDoc}
 	 */
 	@Override
@@ -108,4 +124,19 @@ public class TracerouteModelServiceImplementation implements ServicesInterface<T
 		
 		return valid;
 	}
+	/**
+	 * Getter of the dao.
+	 * @return Returns the dao for the traceroutemodelservice.
+	 */
+	public TracerouteModelDAO getDao() {
+		return dao;
+	}
+	/**
+	 * Setter of the dao.
+	 * @param dao - dao of traceroutemodeldao
+	 */
+	public void setDao(TracerouteModelDAO dao) {
+		this.dao = dao;
+	}
+	
 }

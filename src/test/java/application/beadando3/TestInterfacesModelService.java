@@ -20,7 +20,7 @@ import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
 
-public class TestInterfacesModel {
+public class TestInterfacesModelService {
 
 	@Mock
 	private InterfacesModelDAO dao;
@@ -75,6 +75,17 @@ public class TestInterfacesModel {
 		List<InterfacesModel> list = dao.getInterfacesByRouterId(1);
 		assertEquals(list, service.getInterfacebyRouterModel(1));
 		
+	}
+	@Test
+	public void testvalidateInterfacesModel(){
+		boolean value = service.validateInterfacesModel(interface1);
+		assertEquals(true,value);
+		
+	}
+	@Test
+	public void testcheckDuplicatesInterfacesModel(){
+		when(dao.getInterfacesbyId(interface1.getId())).thenReturn(interface1);
+		assertEquals(service.checkDuplicatesInterfacesModel(interface1), true);
 	}
 	
 }
