@@ -35,6 +35,8 @@ public class TestInterfacesModelService {
 		service = new InterfacesModelServiceImplementation(dao);
 		interface1 = new InterfacesModel(1, 1, "GigabitEthernet0/0", "23:32:BA:12:32:EF", "10.10.10.1");
 		interface2 = new InterfacesModel(2, 1, "GigabitEthernet0/1", "32:11:EF:44:22:EE", "192.168.1.2");
+		dao = service.getDao();
+
 	}
 	
 	
@@ -51,6 +53,11 @@ public class TestInterfacesModelService {
 		service.save(interface1);
 		verify(dao,times(1)).create(interface1);
 	}
+	@Test(expected=IllegalArgumentException.class)
+	public void testSave2(){
+		service.save(new InterfacesModel(2, 1, "Giga0/0", "32:11:EF:44:22:EE", null));
+		verify(dao,times(1)).create(interface1);
+	}
 	@Test
 	public void testUpdate(){
 		when(dao.getInterfacesbyId(interface1.getId())).thenReturn(interface1);
@@ -58,9 +65,22 @@ public class TestInterfacesModelService {
 		verify(dao, times(1)).edit(interface1);
 		
 	}
+	@Test(expected=IllegalArgumentException.class)
+	public void testUpdate2(){
+		when(dao.getInterfacesbyId(interface1.getId())).thenReturn(interface1);
+		service.update(new InterfacesModel(2, 1, "Giga0/1", null, "192.168.1.2"));
+		verify(dao, times(1)).edit(interface1);
+		
+	}
 	@Test
 	public void testDelete(){
 		when(dao.getInterfacesbyId(interface1.getId())).thenReturn(interface1);
+		service.delete(interface1);
+		verify(dao, times(1)).remove(interface1);
+	}
+	@Test(expected=IllegalArgumentException.class)
+	public void testDelete2(){
+		when(dao.getInterfacesbyId(interface1.getId())).thenReturn(null);
 		service.delete(interface1);
 		verify(dao, times(1)).remove(interface1);
 	}
@@ -83,9 +103,24 @@ public class TestInterfacesModelService {
 		
 	}
 	@Test
-	public void testcheckDuplicatesInterfacesModel(){
-		when(dao.getInterfacesbyId(interface1.getId())).thenReturn(interface1);
-		assertEquals(service.checkDuplicatesInterfacesModel(interface1), true);
+	public void testvalidateInterfacesModel2(){
+		boolean value = service.validateInterfacesModel(new InterfacesModel(2, 1, null, "32:11:EF:44:22:EE", "192.168.1.2"));
+		assertEquals(false,value);
+		
 	}
+	@Test
+	public void testcheckDuplicatesInterfacesModel(){
+		service = new InterfacesModelServiceImplementation();
+		service.setDao(dao);
+
+		when(dao.getInterfacesbyId(interface1.getId())).thenReturn(interface1);
+		assertEquals( true,service.checkDuplicatesInterfacesModel(interface1));
+	}
+	@Test
+	public void testcheckDuplicatesInterfacesModel2(){
+		when(dao.getInterfacesbyId(interface1.getId())).thenReturn(null);
+		assertEquals(false, service.checkDuplicatesInterfacesModel(interface1));
+	}
+	
 	
 }

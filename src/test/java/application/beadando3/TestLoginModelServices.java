@@ -65,16 +65,41 @@ public class TestLoginModelServices {
 		verify(dao, times(1)).edit(user1);
 	}
 	@Test
-	public void testlistAdmins(){}
+	public void testlistAdmins(){
+		when(dao.getAllAdmins()).thenReturn(Arrays.asList(user1));
+		List<LoginModel> admins = service.listAdmins();
+		assertEquals(admins,Arrays.asList(user1));
+	}
 	@Test
-	public void testlistUsers(){}
+	public void testlistUsers(){
+		when(dao.getAllUsers()).thenReturn(Arrays.asList(user2));
+		List<LoginModel> admins = service.listUsers();
+		assertEquals(admins,Arrays.asList(user2));
+	}
 	@Test
-	public void testtryToAuthenticate(){}
+	public void testtryToAuthenticate(){
+		when(dao.getUserByUsername(user1.getUser())).thenReturn(Arrays.asList(user1));
+		when(dao.getPasswordForUser(user1.getUser())).thenReturn("YWRtaW4xMjM0NQ==");
+		assertEquals(service.tryToAuthenticate(user1),user1);
+
+		
+	}
 	@Test
-	public void testvalidateLoginModel(){}
+	public void testvalidateLoginModel(){
+		
+		assertEquals(true,service.validateLoginModel(user1));
+		
+	}
 	@Test
-	public void testcheckDuplicatesLoginModel(){}
+	public void testcheckDuplicatesLoginModel(){
+		when(dao.getUserById(user1.getId())).thenReturn(Arrays.asList(user1));
+		assertEquals(service.checkDuplicatesLoginModel(user1),true);
+		
+	}
 	@Test
-	public void testencryptPassword(){}
+	public void testencryptPassword(){
+		assertEquals("YWRtaW4xMjM0NQ==",service.encryptPassword("admin12345"));
+		
+	}
 	
 }

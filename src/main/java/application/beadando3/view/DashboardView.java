@@ -4,6 +4,8 @@ package application.beadando3.view;
 import java.awt.List;
 
 import application.beadando3.Main;
+import application.beadando3.DAO.LoginModelDAO;
+import application.beadando3.DAO.RouterModelDAO;
 import application.beadando3.services.implementations.LoginModelServicesImplementation;
 import application.beadando3.services.implementations.RouterModelServiceImplementation;
 import application.beadando3.model.RouterModel;
@@ -35,7 +37,9 @@ public class DashboardView {
 	private CategoryAxis xAxis = new CategoryAxis();
 	@FXML
     private BarChart<String,Integer> bc;
-	
+	private LoginModelDAO lmdao= new LoginModelDAO();
+	private RouterModelDAO rmdao= new RouterModelDAO();
+
     /**
      * all of the router platforms.
      */
@@ -103,8 +107,8 @@ public class DashboardView {
 	 */
 	@FXML
 	public void initialize(){
-		RouterModelServiceImplementation dm = new RouterModelServiceImplementation();
-		LoginModelServicesImplementation lm = new LoginModelServicesImplementation();
+		RouterModelServiceImplementation dm = new RouterModelServiceImplementation(rmdao);
+		LoginModelServicesImplementation lm = new LoginModelServicesImplementation(lmdao);
 		sumOfRouters.setText(dm.count());
 		sumOfUsers.setText(lm.count());
 		platforms.addAll(dm.getPlatforms());
@@ -126,7 +130,7 @@ public class DashboardView {
 	 */
 	public void setRouterData(ObservableList<String> platforms) {
 	        String[] platformCounter = new String[platforms.size()];
-			RouterModelServiceImplementation dm = new RouterModelServiceImplementation();
+			RouterModelServiceImplementation dm = new RouterModelServiceImplementation(rmdao);
 			int i = 0;
 	        for (String s:platforms){
 	        	platformCounter[i++] =dm.getNumberbyPlatform(s);

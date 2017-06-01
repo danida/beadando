@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import application.beadando3.Main;
+import application.beadando3.DAO.FeaturesModelDAO;
 import application.beadando3.model.FeaturesModel;
 import application.beadando3.model.RouterModel;
 import application.beadando3.services.implementations.FeaturesModelServiceImplementation;
@@ -78,8 +79,9 @@ public class RouterEditDialogView {
 	 */
 	private RouterModel router;
 	private boolean okClicked = false;
-	private static FeaturesModelServiceImplementation fms = new FeaturesModelServiceImplementation();
+	private static FeaturesModelServiceImplementation fms;
 	private final static Logger logger = LoggerFactory.getLogger(RouterEditDialogView.class);
+	private FeaturesModelDAO featuresdao;
 	/**
 	 * Main variable.
 	 */
@@ -91,6 +93,8 @@ public class RouterEditDialogView {
 	 */
 	@FXML
 	private void initialize() {
+		featuresdao= new FeaturesModelDAO();
+		fms = new FeaturesModelServiceImplementation(featuresdao);
 		boxes =  new ArrayList<>(Arrays.asList(EIGRP,OSPF,RIP,BGP,MPLS,NETFLOW,QOS,NAT));
 	for (CheckBox i: boxes){
 		i.setOnAction((event) -> {
@@ -116,7 +120,6 @@ public class RouterEditDialogView {
 	    				if(f.getQOS()==1){QOS.setDisable(false);}
 	    				if(f.getRIP()==1){RIP.setDisable(false);}
 	    				
-	    				CheckPerformance.setValue(calculatePerforfmance());
 	    		}
 	      
 	    });
@@ -255,16 +258,13 @@ public class RouterEditDialogView {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(mainApp.getPrimaryStage());
 			alert.setTitle("Invalid Arguments");
-			alert.setHeaderText("You have to set the following arguments:Routername,Management IP,Platform,Bandwidth,Features(Checkboxes)");
+			alert.setHeaderText("You have to set the following arguments:Routername, Management IP, Platform, Bandwidth, Features(Checkboxes)");
 			alert.setContentText("Please note this can cause outage!");
 			alert.showAndWait();
 			return 0;
 
 		}
-		finally {
-			return fms.calculatePerforfmance(boxes, bandwidth.getText(), router.getPlatform());
-
-		}
+	
 	}
 
 	/**

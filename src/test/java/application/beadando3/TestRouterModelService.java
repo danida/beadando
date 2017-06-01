@@ -118,6 +118,13 @@ public class TestRouterModelService {
 		List<RouterModel> routers = service.getRouterModelbyIOS("blabla.bin");
 		assertEquals(Arrays.asList(router1,router2),routers );
 	}
+	@Test
+	public void testgetRouterModelbyPlatform(){
+		when(dao.getRouterbyPlatform("1841")).thenReturn(Arrays.asList(router1));
+		List<RouterModel> routers = service.getRouterModelbyPlatform("1841");
+		assertEquals(Arrays.asList(router1),routers );
+
+	}
 	
 
 }

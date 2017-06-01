@@ -18,14 +18,7 @@ public class PingModelServiceImplementation implements ServicesInterface<PingMod
     private final static Logger logger = LoggerFactory.getLogger(PingModelServiceImplementation.class);
    
 
-	/**
-     * Default constructor.
-     */
-    public PingModelServiceImplementation() {
-		super();
-		PingModelDAO dao = new PingModelDAO();
-
-	}
+	
 
 
 	/**
@@ -128,8 +121,8 @@ public class PingModelServiceImplementation implements ServicesInterface<PingMod
 	 */
 	public boolean checkDuplicatesPingModel(PingModel PingModel){
 		boolean valid = false;
-		
-		if (dao.getPingModelbyId(PingModel.getId()) != null){
+	
+		if (!dao.getPingModelbyId(PingModel.getId()).isEmpty()){
 			valid = true;
 		}
 		

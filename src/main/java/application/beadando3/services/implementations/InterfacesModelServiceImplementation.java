@@ -31,7 +31,6 @@ public class InterfacesModelServiceImplementation implements ServicesInterface<I
      * Default contructor.
      */
     public InterfacesModelServiceImplementation() {
-    	dao = new InterfacesModelDAO();
     }
 	/**
 	 * Non-default constructor.
@@ -114,7 +113,6 @@ public class InterfacesModelServiceImplementation implements ServicesInterface<I
 	 */
 	public List<InterfacesModel> getInterfacebyRouterModel(int Id){
 		logger.info("Find all interfaces for a router");
-
 		return dao.getInterfacesByRouterId(Id);
 	}
 	

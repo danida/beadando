@@ -4,13 +4,16 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -37,14 +40,12 @@ public class RouterModel {
 	@SequenceGenerator(name = "router_seq_gen", sequenceName = "router_SEQ")
 
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "router_seq_gen")
-	@Column
-	@Basic
-	@OneToMany
-	@JoinTable(name = "Interfaces")
+	
+	
 	private Integer id;
+	
 	@Column
 	@Basic
-
 	private String Name;
 	@Column
 	@Basic
@@ -130,6 +131,8 @@ public class RouterModel {
 	 * Getter of the id of the router.
 	 * @return Returns 
 	 */
+	@OneToMany(mappedBy="router_id")
+
 	public Integer getId() {
 		return id;
 	}

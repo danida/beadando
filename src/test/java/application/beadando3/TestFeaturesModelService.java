@@ -5,6 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,11 +40,18 @@ public class TestFeaturesModelService {
 		feature1 = new FeaturesModel("7200",1,1,1,1,1,0,1,1,215);
 		feature2 = new FeaturesModel("1941",1,1,1,0,0,0,1,0,153);
 		service.setDao(dao);
+		dao = service.getDao();
 
 	}
 	@Test
-	public void testSave() {
+	public void testSave1() {
 		service.save(feature1);
+		verify(dao, times(1)).create(feature1);
+	}
+	@Test(expected=IllegalArgumentException.class)
+	public void testSave2() {
+		FeaturesModel featuresave = new FeaturesModel("7200",null,1,1,1,1,0,1,1,215);
+		service.save(featuresave);
 		verify(dao, times(1)).create(feature1);
 	}
 	@Test
@@ -103,6 +111,17 @@ public class TestFeaturesModelService {
 		when(dao.getMaxibyPlatform("1841")).thenReturn(38); 
 		double check = service.calculatePerforfmance(list, "1000", "1841");
 		assertEquals(26.31, check,0.1);
+	}
+	@Test(expected=IllegalArgumentException.class)
+	public void testCalculatePerformance2(){
+		when(dao.getMaxibyPlatform("1841")).thenReturn(38); 
+		double check = service.calculatePerforfmance(null, "1000", "1841");
+	}
+	
+	@Test(expected=InvalidParameterException.class)
+	public void testCalculatePerformance3(){
+		when(dao.getMaxibyPlatform("1841")).thenReturn(38); 
+		double check = service.calculatePerforfmance(list, "1000000000", "1841");
 	}
 	@Test
 	public void getFeatureModelList(){

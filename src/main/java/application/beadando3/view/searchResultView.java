@@ -1,5 +1,6 @@
 package application.beadando3.view;
 
+import application.beadando3.DAO.RouterModelDAO;
 import application.beadando3.model.RouterModel;
 import application.beadando3.services.implementations.RouterModelServiceImplementation;
 import javafx.collections.FXCollections;
@@ -34,7 +35,8 @@ public class SearchResultView {
     private Stage dialogStage;
 	
     private boolean searchClicked = false;
-	
+	private RouterModelDAO rmdao= new RouterModelDAO();
+
 	
 	/**
 	 * Getter of the searchCicked.
@@ -77,7 +79,7 @@ public class SearchResultView {
 	 */
 	@FXML
     private void handleSearch() {
-      	RouterModelServiceImplementation rm = new RouterModelServiceImplementation();
+      	RouterModelServiceImplementation rm = new RouterModelServiceImplementation(rmdao);
 
       if (!name.getText().equals("")) {
           	 routerTable.setItems(FXCollections.observableList(rm.getRouterModelbyName(name.getText())));

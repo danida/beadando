@@ -16,23 +16,23 @@ import static org.apache.commons.codec.digest.DigestUtils.*;
  * @author danida
  *
  */
-public class LoginModelServicesImplementation  implements ServicesInterface<LoginModel> {
+public class LoginModelServicesImplementation implements ServicesInterface<LoginModel> {
 
 	private LoginModelDAO dao;
-    private final static Logger logger = LoggerFactory.getLogger(LoginModelServicesImplementation.class);
+	private final static Logger logger = LoggerFactory.getLogger(LoginModelServicesImplementation.class);
 
-    
-    /**
-     * Default constructor.
-     */
-    public LoginModelServicesImplementation() {
+	/**
+	 * Default constructor.
+	 */
+	public LoginModelServicesImplementation() {
 		super();
-		dao = new LoginModelDAO();
 	}
-    
+
 	/**
 	 * Non-default constructor.
-	 * @param dao - dao for the model
+	 * 
+	 * @param dao
+	 *            - dao for the model
 	 */
 	public LoginModelServicesImplementation(LoginModelDAO dao) {
 		super();
@@ -40,62 +40,62 @@ public class LoginModelServicesImplementation  implements ServicesInterface<Logi
 	}
 
 	/**
-	 *{@inheritDoc}
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void save(LoginModel e) {
-		if (validateLoginModel(e)){
+		if (validateLoginModel(e)) {
 			logger.info("Saving loginmodel");
 			e.setPassword(encryptPassword(e.getPassword()));
 			dao.create(e);
-			
-		}
-		else {
+
+		} else {
 			throw new IllegalArgumentException("Valamelyik mező üres!");
 		}
-				
+
 	}
+
 	/**
-	 *{@inheritDoc}
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void update(LoginModel e) {
-		if (!validateLoginModel(e)){
-			throw new IllegalArgumentException("Valamelyik mező üres!");			
-		}
-		else if (!checkDuplicatesLoginModel(e)){
+		if (!validateLoginModel(e)) {
+			throw new IllegalArgumentException("Valamelyik mező üres!");
+		} else if (!checkDuplicatesLoginModel(e)) {
 			throw new IllegalArgumentException("Ez a user nem létezik!");
-		}
-		else {		
+		} else {
 			logger.info("Editing loginmodel");
 			dao.edit(e);
-		}		
+		}
 	}
+
 	/**
-	 *{@inheritDoc}
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void delete(LoginModel e) {
-		if (!checkDuplicatesLoginModel(e)){
+		if (!checkDuplicatesLoginModel(e)) {
 			throw new IllegalArgumentException("This user already exists");
-		}
-		else{
+		} else {
 			logger.info("Deleting interfacemodel");
 			dao.remove(e);
-			
+
 		}
-				
+
 	}
+
 	/**
-	 *{@inheritDoc}
+	 * {@inheritDoc}
 	 */
 	@Override
 	public List<LoginModel> getAll() {
 		logger.info("Finding all loginmodels");
-		return  dao.findAll();
+		return dao.findAll();
 	}
+
 	/**
-	 *{@inheritDoc}
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String count() {
@@ -103,93 +103,110 @@ public class LoginModelServicesImplementation  implements ServicesInterface<Logi
 
 		return dao.count();
 	}
-	
+
 	/**
 	 * Returns the list of admins.
+	 * 
 	 * @return List of admin users
 	 */
-	public List<LoginModel> listAdmins(){
+	public List<LoginModel> listAdmins() {
 		return dao.getAllAdmins();
 	}
+
 	/**
 	 * Returns the list of normal users.
+	 * 
 	 * @return List the not admin users
 	 */
-	public List<LoginModel> listUsers(){
+	public List<LoginModel> listUsers() {
 		return dao.getAllUsers();
 	}
-	
+
 	/**
 	 * Checks if the password for the user is valid or not.
-	 * @param lm - LoginModel
+	 * 
+	 * @param lm
+	 *            - LoginModel
 	 * @return Returns true if the authentication is successful
 	 */
-	public LoginModel tryToAuthenticate (LoginModel lm){
+	public LoginModel tryToAuthenticate(LoginModel lm) {
 		logger.info("One user is trying to authenticate");
 
 		String username = lm.getUser();
 		String password = lm.getPassword();
-		
-		if (!dao.getUserByUsername(lm.getUser()).isEmpty()){
+
+		if (!dao.getUserByUsername(lm.getUser()).isEmpty()) {
 			String passwordfromdb = dao.getPasswordForUser(lm.getUser());
-			 byte[] byteArray =((Base64.encodeBase64(password.getBytes())));
-			  String encodedString = new String(byteArray);
-				if (encodedString.equals(passwordfromdb)){
-					return dao.getUserByUsername(lm.getUser()).get(0);
-				}
-			
-				
-			
+			byte[] byteArray = ((Base64.encodeBase64(password.getBytes())));
+			String encodedString = new String(byteArray);
+			if (encodedString.equals(passwordfromdb)) {
+				return dao.getUserByUsername(lm.getUser()).get(0);
+			}
+
 		}
 		return null;
-		
+
 	}
-	
-	
-	
-	
+
 	/**
 	 * Validates if it is a real loginmodel.
-	 * @param loginModel - Logimodel that has to be validated
+	 * 
+	 * @param loginModel
+	 *            - Logimodel that has to be validated
 	 * @return Returns true if the user is valid
 	 */
-	public boolean validateLoginModel(LoginModel loginModel){
+	public boolean validateLoginModel(LoginModel loginModel) {
 		boolean valid = true;
-		if ( loginModel.getPassword()== null || loginModel.getUser() == null ) {
-        	valid = false;
-        }
+		if (loginModel.getPassword() == null || loginModel.getUser() == null) {
+			valid = false;
+		}
 		return valid;
 	}
 
 	/**
 	 * Checks if the loginModel already exists in the table or not.
-	 * @param loginModel - Loginmodel that has to checked
+	 * 
+	 * @param loginModel
+	 *            - Loginmodel that has to checked
 	 * @return Returns true if the user already exists in the database
 	 */
-	public boolean checkDuplicatesLoginModel(LoginModel loginModel){
+	public boolean checkDuplicatesLoginModel(LoginModel loginModel) {
 		boolean valid = false;
-		
-		if (dao.getUserById(loginModel.getId()) != null){
+
+		if (dao.getUserById(loginModel.getId()) != null) {
 			valid = true;
 		}
-		
+
 		return valid;
 	}
+
 	/**
 	 * Encrypts the password with base64.
-	 * @param pass - password of the user in plain text
-	 * @return Returns the password of the user 
+	 * 
+	 * @param pass
+	 *            - password of the user in plain text
+	 * @return Returns the password of the user
 	 */
-	public String encryptPassword (String pass){
-		byte[] byteArray =((Base64.encodeBase64(pass.getBytes())));
-	  String encodedString = new String(byteArray);
-	  return encodedString;
+	public String encryptPassword(String pass) {
+		byte[] byteArray = ((Base64.encodeBase64(pass.getBytes())));
+		String encodedString = new String(byteArray);
+		return encodedString;
 	}
+
+	/**
+	 * Getter of the dao.
+	 * @return Returns the dao of the loginmodel
+	 */
 	public LoginModelDAO getDao() {
 		return dao;
 	}
+
+	/**
+	 * Setter of the dao.
+	 * @param dao - dao of the logimodel
+	 */
 	public void setDao(LoginModelDAO dao) {
 		this.dao = dao;
 	}
-	
+
 }

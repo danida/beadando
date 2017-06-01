@@ -1,5 +1,6 @@
 package application.beadando3.view;
 
+import application.beadando3.DAO.InterfacesModelDAO;
 import application.beadando3.model.InterfacesModel;
 import application.beadando3.model.RouterModel;
 import application.beadando3.services.implementations.InterfacesModelServiceImplementation;
@@ -41,7 +42,8 @@ public class InterfacesView {
 	@FXML
 	private TextField macfield = new TextField();
 	boolean newinterface;
-
+	
+	private InterfacesModelDAO imdao = new InterfacesModelDAO();
 	private Stage dialogStage;
 	private RouterModel router;
 
@@ -59,7 +61,7 @@ public class InterfacesView {
 	 * Sets the data in the interfacestable.
 	 */
 	public void setData() {
-		InterfacesModelServiceImplementation rm = new InterfacesModelServiceImplementation();
+		InterfacesModelServiceImplementation rm = new InterfacesModelServiceImplementation(imdao);
 
 		if (rm.getInterfacebyRouterModel(router.getId()) != null) {
 
@@ -98,7 +100,7 @@ public class InterfacesView {
 	 */
 	@FXML
 	public void handleOK() {
-		InterfacesModelServiceImplementation rm = new InterfacesModelServiceImplementation();
+		InterfacesModelServiceImplementation rm = new InterfacesModelServiceImplementation(imdao);
 		if (this.newinterface == true) {
 			InterfacesModel im = new InterfacesModel(null, router.getId(), namef.getText(), macfield.getText(),
 					ipfield.getText());
@@ -130,7 +132,7 @@ public class InterfacesView {
 	 */
 	@FXML
 	public void deleteInterface() {
-		InterfacesModelServiceImplementation rm = new InterfacesModelServiceImplementation();
+		InterfacesModelServiceImplementation rm = new InterfacesModelServiceImplementation(imdao);
 		rm.delete(InterfacesTable.getSelectionModel().getSelectedItem());
 		setData();
 

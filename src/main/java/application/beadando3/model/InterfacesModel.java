@@ -2,11 +2,15 @@ package application.beadando3.model;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -32,10 +36,9 @@ public class InterfacesModel {
 	@Column
 	@Basic
 	private Integer id;
-	@Column
-	@Basic
-	@OneToMany(mappedBy = "router")
-	private Integer router_id;
+
+	 private Integer router_id;
+	
 	@Column
 	@Basic
 	private String interface_name;
@@ -74,6 +77,8 @@ public class InterfacesModel {
 	 * Getter of the id.
 	 * @return Returns the id of the interface
 	 */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id", nullable = false)
 	public Integer getId() {
 		return id;
 	}

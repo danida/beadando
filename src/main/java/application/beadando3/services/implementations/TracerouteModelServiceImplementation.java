@@ -19,13 +19,7 @@ public class TracerouteModelServiceImplementation implements ServicesInterface<T
 	TracerouteModelDAO dao;
     private final static Logger logger = LoggerFactory.getLogger(TracerouteModelServiceImplementation.class);
     
-    /**
-     * Default constructor.
-     */
-    public TracerouteModelServiceImplementation() {
-		super();
-		 dao = new TracerouteModelDAO();
-    }
+   
 	/**
 	 * Non default constructor.
 	 * @param dao - dao of traceroutemodel
@@ -34,6 +28,7 @@ public class TracerouteModelServiceImplementation implements ServicesInterface<T
 		super();
 		this.dao = dao;
 	}
+
 	/**
 	 *{@inheritDoc}
 	 */
@@ -59,9 +54,7 @@ public class TracerouteModelServiceImplementation implements ServicesInterface<T
 		if (!validateTracerouteModel(e)){
 			throw new IllegalArgumentException("Valamelyik mező üres!");			
 		}
-		else if (checkDuplicatesTracerouteModel(e)){
-			throw new IllegalArgumentException("Ez az interface már létezik!");
-		}
+		
 		else {
 			logger.info("Editing traceroutemodel");
 

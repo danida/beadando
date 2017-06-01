@@ -33,7 +33,6 @@ public class TestTracerouteModelService {
 		service = new TracerouteModelServiceImplementation(dao);
 		traceroute1 = new TracerouteModel(1,LocalDateTime.now(),"output","destination");
 		traceroute2 = new TracerouteModel(2,LocalDateTime.now(),"output2","destination2");
-		service.setDao(dao);
 
 	}
 	@Test 
@@ -65,5 +64,15 @@ public class TestTracerouteModelService {
 	public void testCount(){
 		when(dao.count()).thenReturn("2");
 		assertEquals("2", service.count());
+	}
+	@Test
+	public void testvalidateTracerouteModel() {
+		assertEquals(service.validateTracerouteModel(traceroute1),true);
+	}
+
+	@Test
+	public void testcheckDuplicatesTracerouteModel() {
+		when(dao.getTracerouteModelbyId(traceroute1.getId())).thenReturn(Arrays.asList(traceroute1));
+		assertEquals(service.checkDuplicatesTracerouteModel(traceroute1),true);
 	}
 }

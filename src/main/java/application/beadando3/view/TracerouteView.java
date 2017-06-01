@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import application.beadando3.Main;
+import application.beadando3.DAO.TracerouteModelDAO;
 import application.beadando3.model.TracerouteModel;
 import application.beadando3.services.implementations.TracerouteModelServiceImplementation;
 import helper.Traceroute;
@@ -29,7 +30,6 @@ public class TracerouteView {
 	@FXML
 	private TextArea output;
 
-
 	private Stage dialogStage;
 	private Traceroute tr;
 	/**
@@ -48,19 +48,19 @@ public class TracerouteView {
 	 */
 	public static Main mainApp;
 	private final static Logger logger = LoggerFactory.getLogger(TracerouteView.class);
+	private TracerouteModelDAO dao;
 
 	/**
 	 * Initalize the tracerouteview.
 	 */
 	@FXML
 	public void initialize() {
-
-		tr = new Traceroute();
-		TracerouteModelServiceImplementation pm = new TracerouteModelServiceImplementation();
+		dao = new TracerouteModelDAO();
+		tr = new Traceroute();		
+		TracerouteModelServiceImplementation pm = new TracerouteModelServiceImplementation(dao);
 		tracerouteTable.setItems(FXCollections.observableList(pm.getAll()));
 		destination.setCellValueFactory(cellData -> cellData.getValue().getDestinationProperty());
 		executiondate.setCellValueFactory(cellData -> cellData.getValue().getExecution_DateProperty());
-
 		tracerouteTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
 				dboutput.setText(newValue.getOutput());
@@ -71,9 +71,9 @@ public class TracerouteView {
 
 	}
 
-	
 	/**
 	 * Getter of the destinationIP.
+	 * 
 	 * @return Returns the value of the destinationIP textfield
 	 */
 	public TextField getDestinationIP() {
@@ -82,7 +82,9 @@ public class TracerouteView {
 
 	/**
 	 * Setter of the destinationIP.
-	 * @param destinationIP - Sets the destinationip to its parameter.
+	 * 
+	 * @param destinationIP
+	 *            - Sets the destinationip to its parameter.
 	 */
 	public void setDestinationIP(TextField destinationIP) {
 		this.destinationIP = destinationIP;
@@ -90,6 +92,7 @@ public class TracerouteView {
 
 	/**
 	 * Getter of the output textfield.
+	 * 
 	 * @return Returns the value of the outputfield.
 	 */
 	public TextArea getOutput() {
@@ -98,12 +101,13 @@ public class TracerouteView {
 
 	/**
 	 * Setter of the output textfield.
-	 * @param output - The value that has to be set
+	 * 
+	 * @param output
+	 *            - The value that has to be set
 	 */
 	public void setOutput(TextArea output) {
 		this.output = output;
 	}
-
 
 	/**
 	 * Calls when the user wants to run a traceroute test.
@@ -122,7 +126,8 @@ public class TracerouteView {
 	 */
 	@FXML
 	public void handleSaving() {
-		TracerouteModelServiceImplementation trd = new TracerouteModelServiceImplementation();
+
+		TracerouteModelServiceImplementation trd = new TracerouteModelServiceImplementation(dao);
 		TracerouteModel trm = new TracerouteModel();
 		LocalDateTime now = LocalDateTime.now();
 		trm.setExecution_date(now);
@@ -139,7 +144,7 @@ public class TracerouteView {
 	@FXML
 	public void handleDeleting() {
 		try {
-			TracerouteModelServiceImplementation rm = new TracerouteModelServiceImplementation();
+			TracerouteModelServiceImplementation rm = new TracerouteModelServiceImplementation(dao);
 			int selectedIndex = tracerouteTable.getSelectionModel().getSelectedIndex();
 			TracerouteModel traceroutemodel = tracerouteTable.getItems().get(selectedIndex);
 			rm.delete(traceroutemodel);
@@ -159,7 +164,9 @@ public class TracerouteView {
 
 	/**
 	 * Setter of the dialogstage.
-	 * @param dialogStage - dialogstage from the Main.class
+	 * 
+	 * @param dialogStage
+	 *            - dialogstage from the Main.class
 	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
@@ -167,10 +174,15 @@ public class TracerouteView {
 
 	/**
 	 * Setter of the Output.
-	 * @param o - The value that has to be set
+	 * 
+	 * @param o
+	 *            - The value that has to be set
 	 */
 	public void setOutput(String o) {
 		output.setText(o);
 
 	}
+
+
+
 }

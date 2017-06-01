@@ -53,6 +53,7 @@ public class RouterView {
 	 */
 	public static Main mainApp;
 	private final static Logger logger = LoggerFactory.getLogger(RouterView.class);
+	private RouterModelDAO rmdao = new RouterModelDAO();
 
 	
 
@@ -91,7 +92,7 @@ public class RouterView {
 	 */
 	@FXML
 	private void initialize() {
-		RouterModelServiceImplementation rm = new RouterModelServiceImplementation();
+		RouterModelServiceImplementation rm = new RouterModelServiceImplementation(rmdao);
 		routerTable.setItems(FXCollections.observableList(rm.getAll()));
 		name.setCellValueFactory(cellData -> cellData.getValue().getRouterNameProperty());
 		man_ip.setCellValueFactory(cellData -> cellData.getValue().getMan_IPProperty());
@@ -107,7 +108,7 @@ public class RouterView {
 	@FXML
 	private void handleDeleteRouter() {
 		try {
-			RouterModelServiceImplementation rm = new RouterModelServiceImplementation();
+			RouterModelServiceImplementation rm = new RouterModelServiceImplementation(rmdao);
 			int selectedIndex = routerTable.getSelectionModel().getSelectedIndex();
 			RouterModel routermodel = routerTable.getItems().get(selectedIndex);
 			rm.delete(routermodel);
@@ -135,7 +136,7 @@ public class RouterView {
 		if (okClicked) {
 			try {
 
-				RouterModelServiceImplementation rm = new RouterModelServiceImplementation();
+				RouterModelServiceImplementation rm = new RouterModelServiceImplementation(rmdao);
 				rm.save(tempRouter);
 				routerTable.setItems(FXCollections.observableList(rm.getAll()));
 			} catch (Exception ex) {
@@ -157,7 +158,7 @@ public class RouterView {
 	 */
 	@FXML
 	private void handleEditRouter() {
-		RouterModelServiceImplementation rm = new RouterModelServiceImplementation();
+		RouterModelServiceImplementation rm = new RouterModelServiceImplementation(rmdao);
 
 		RouterModel selectedRouter = routerTable.getSelectionModel().getSelectedItem();
 		try {
@@ -212,8 +213,8 @@ public class RouterView {
 		RouterModel selectedRouter = routerTable.getSelectionModel().getSelectedItem();
 		try {
 			mainApp.showInterfacesDialog(selectedRouter);
-			RouterModelDAO rm = new RouterModelDAO();
-			routerTable.setItems(FXCollections.observableList(rm.findAll()));
+			RouterModelServiceImplementation rm = new RouterModelServiceImplementation(rmdao);
+			routerTable.setItems(FXCollections.observableList(rm.getAll()));
 
 		} catch (Exception ex) {
 			// Nothing selected.

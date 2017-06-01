@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import application.beadando3.Main;
+import application.beadando3.DAO.PingModelDAO;
 import application.beadando3.model.PingModel;
 import helper.Ping;
 import javafx.collections.FXCollections;
@@ -41,7 +42,7 @@ public class PingView  {
     private TableColumn<PingModel, String> destination;
     @FXML
     private TableColumn<PingModel, String> executiondate;
-
+    private PingModelDAO pmdao = new PingModelDAO();
 
 	private Ping ping;
     private final static Logger logger = LoggerFactory.getLogger(PingView.class);
@@ -57,7 +58,7 @@ public class PingView  {
 	@FXML
 	void initialize() {
 		ping = new Ping();
-		PingModelServiceImplementation pm = new PingModelServiceImplementation();
+		PingModelServiceImplementation pm = new PingModelServiceImplementation(pmdao);
 		pingTable.setItems(FXCollections.observableList(pm.getAll()));
         destination.setCellValueFactory(cellData -> cellData.getValue().getDestinationProperty());
         executiondate.setCellValueFactory(cellData -> cellData.getValue().getExecution_DateProperty());
@@ -124,7 +125,7 @@ public class PingView  {
 	 */
 	@FXML
 	public void handleSaving(){
-		PingModelServiceImplementation pd = new PingModelServiceImplementation();
+		PingModelServiceImplementation pd = new PingModelServiceImplementation(pmdao);
 		PingModel pm = new PingModel();
 		pm.setDestination(destinationIP.getText());
 		pm.setOutput(output.getText());
@@ -140,7 +141,7 @@ public class PingView  {
 	 */
 	@FXML
 	public void handleDeleting(){
-		PingModelServiceImplementation rm = new PingModelServiceImplementation();
+		PingModelServiceImplementation rm = new PingModelServiceImplementation(pmdao);
         int selectedIndex = pingTable.getSelectionModel().getSelectedIndex();
         try{
         PingModel pingmodel= pingTable.getItems().get(selectedIndex);

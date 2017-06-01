@@ -56,6 +56,7 @@ public class TracerouteModel {
 	
 	/**
 	 * Non-default constructor of traceroutemodel.
+	 * @param id - Id of the traceroutetest
 	 * @param execution_date - Date when the test was executed
 	 * @param output - Output of the test
 	 * @param destination - Destination of the test

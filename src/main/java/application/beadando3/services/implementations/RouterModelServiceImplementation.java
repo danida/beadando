@@ -24,7 +24,6 @@ public class RouterModelServiceImplementation implements ServicesInterface<Route
      * Default constructor.
      */
     public RouterModelServiceImplementation() {
-    	dao  = new RouterModelDAO();
     }
     
     

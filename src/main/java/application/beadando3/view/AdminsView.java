@@ -1,6 +1,7 @@
 package application.beadando3.view;
 
 import application.beadando3.Main;
+import application.beadando3.DAO.LoginModelDAO;
 import application.beadando3.model.LoginModel;
 import application.beadando3.services.implementations.LoginModelServicesImplementation;
 import javafx.collections.FXCollections;
@@ -31,6 +32,12 @@ public class AdminsView {
 	@FXML
 	private CheckBox admin;
 	
+	private LoginModelDAO lmdao= new LoginModelDAO();
+	
+	
+
+
+
 	/**
 	 * Ok button clicked or not.
 	 */
@@ -42,7 +49,7 @@ public class AdminsView {
 	 */
 	@FXML
 	public void initialize(){
-		LoginModelServicesImplementation lms = new LoginModelServicesImplementation();
+		LoginModelServicesImplementation lms = new LoginModelServicesImplementation(lmdao);
 		admins.setItems(FXCollections.observableList(lms.listAdmins()));
 		users.setItems(FXCollections.observableList(lms.listUsers()));
 		Anchornew.setVisible(false);
@@ -53,7 +60,7 @@ public class AdminsView {
 	 */
 	@FXML
 	public void handleDeleting(){
-		LoginModelServicesImplementation lms = new LoginModelServicesImplementation();
+		LoginModelServicesImplementation lms = new LoginModelServicesImplementation(lmdao);
 		if (admins.getSelectionModel().getSelectedItem()!=null){
 			lms.delete(admins.getSelectionModel().getSelectedItem());
 			admins.setItems(FXCollections.observableList(lms.listAdmins()));
@@ -87,7 +94,7 @@ public class AdminsView {
 		else {
 			um.setIsAdmin(0);
 		}
-		LoginModelServicesImplementation lms = new LoginModelServicesImplementation();
+		LoginModelServicesImplementation lms = new LoginModelServicesImplementation(lmdao);
 		lms.save(um);
 		username.setText("");
 		password.setText("");

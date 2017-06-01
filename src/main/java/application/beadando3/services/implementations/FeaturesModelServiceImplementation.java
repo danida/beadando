@@ -25,13 +25,12 @@ public class FeaturesModelServiceImplementation implements ServicesInterface<Fea
 	private final static Logger logger = LoggerFactory.getLogger(FeaturesModelServiceImplementation.class);
 
 
-	/**
-	 * Default constructor.
-	 */
-	public FeaturesModelServiceImplementation() {
-		dao = new FeaturesModelDAO();
-	}
+
 	
+	/**
+	 * Non default constructor.
+	 * @param dao - dao of the featuresmodel
+	 */
 	public FeaturesModelServiceImplementation(FeaturesModelDAO dao) {
 		this.dao = dao;
 	}
@@ -160,7 +159,7 @@ public class FeaturesModelServiceImplementation implements ServicesInterface<Fea
 	 */
 	public double calculatePerforfmance(List<CheckBox> boxes, String bandwidth, String platform) {
 		if (boxes == null || bandwidth == null || platform == null) {
-			new IllegalArgumentException("One of the fields is missing");
+			throw new IllegalArgumentException("One of the fields is missing");
 		}
 		int b = new Integer(bandwidth);
 		double ret = 1;

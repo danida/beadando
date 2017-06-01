@@ -1,6 +1,7 @@
 package application.beadando3.view;
 
 import application.beadando3.Main;
+import application.beadando3.DAO.LoginModelDAO;
 import application.beadando3.model.LoginModel;
 import application.beadando3.services.implementations.LoginModelServicesImplementation;
 import javafx.fxml.FXML;
@@ -25,6 +26,7 @@ public class LoginView {
 	private Stage dialogStage;
 	private boolean okClicked = false;
 	
+	private LoginModelDAO lmdao= new LoginModelDAO();
 
 	private static Main  mainApp; 
 	
@@ -43,7 +45,7 @@ public class LoginView {
 	 */
 	public void authenticate(){
 		LoginModel lm = new LoginModel(username.getText(),password.getText());
-		LoginModelServicesImplementation lms = new LoginModelServicesImplementation();
+		LoginModelServicesImplementation lms = new LoginModelServicesImplementation(lmdao);
 		LoginModel ret;
 	    if ((ret =lms.tryToAuthenticate(lm))==null){
 	    message.setVisible(true);
