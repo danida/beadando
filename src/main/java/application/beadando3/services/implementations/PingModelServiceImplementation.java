@@ -14,7 +14,7 @@ import application.beadando3.model.PingModel;
  *
  */
 public class PingModelServiceImplementation implements ServicesInterface<PingModel> {
-	PingModelDAO dao;
+	PingModelDAO dao = new PingModelDAO();
     private final static Logger logger = LoggerFactory.getLogger(PingModelServiceImplementation.class);
    
 
@@ -37,11 +37,9 @@ public class PingModelServiceImplementation implements ServicesInterface<PingMod
 	@Override
 	public void save(PingModel e) {
 		
-		if (checkDuplicatesPingModel(e)){
-			throw new IllegalArgumentException("Ez a ping már létezik!");
-		}
 		
-		else if (validatePingModel(e)){
+		
+		 if (validatePingModel(e)){
 			logger.info("Saving pingmodel");
 
 			dao.create(e);
@@ -121,7 +119,6 @@ public class PingModelServiceImplementation implements ServicesInterface<PingMod
 	 */
 	public boolean checkDuplicatesPingModel(PingModel PingModel){
 		boolean valid = false;
-	
 		if (!dao.getPingModelbyId(PingModel.getId()).isEmpty()){
 			valid = true;
 		}

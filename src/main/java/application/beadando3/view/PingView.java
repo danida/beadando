@@ -42,7 +42,7 @@ public class PingView  {
     private TableColumn<PingModel, String> destination;
     @FXML
     private TableColumn<PingModel, String> executiondate;
-    private PingModelDAO pmdao = new PingModelDAO();
+    private PingModelDAO pmdao;
 
 	private Ping ping;
     private final static Logger logger = LoggerFactory.getLogger(PingView.class);
@@ -57,6 +57,7 @@ public class PingView  {
 	 */
 	@FXML
 	void initialize() {
+		pmdao = new PingModelDAO();
 		ping = new Ping();
 		PingModelServiceImplementation pm = new PingModelServiceImplementation(pmdao);
 		pingTable.setItems(FXCollections.observableList(pm.getAll()));
