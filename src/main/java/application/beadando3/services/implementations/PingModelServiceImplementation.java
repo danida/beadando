@@ -14,7 +14,7 @@ import application.beadando3.model.PingModel;
  *
  */
 public class PingModelServiceImplementation implements ServicesInterface<PingModel> {
-	PingModelDAO dao = new PingModelDAO();
+	PingModelDAO dao;
     private final static Logger logger = LoggerFactory.getLogger(PingModelServiceImplementation.class);
    
 
