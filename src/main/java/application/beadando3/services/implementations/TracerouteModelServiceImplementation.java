@@ -117,19 +117,6 @@ public class TracerouteModelServiceImplementation implements ServicesInterface<T
 		
 		return valid;
 	}
-	/**
-	 * Getter of the dao.
-	 * @return Returns the dao for the traceroutemodelservice.
-	 */
-	public TracerouteModelDAO getDao() {
-		return dao;
-	}
-	/**
-	 * Setter of the dao.
-	 * @param dao - dao of traceroutemodeldao
-	 */
-	public void setDao(TracerouteModelDAO dao) {
-		this.dao = dao;
-	}
+
 	
 }
